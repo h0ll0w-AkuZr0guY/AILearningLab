@@ -445,5 +445,5 @@ curated 变化：0 / 132 → 5 / 132
 05：节点执行契约：Runnable、同步/异步、返回更新与副作用
 源码基线：langchain-ai/langgraph 1.2.9 / 30c4d58db86455128e42ddec96b1ba53c553ba22
 下一 pending：状态快照与执行元数据：values、tasks、next 与 config
-PR：待本批构建与浏览器验收完成后填写
+PR：https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/1
 ```
