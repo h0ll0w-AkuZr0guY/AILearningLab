@@ -10,6 +10,21 @@ const rememberKey = ref(false)
 const testing = ref(false)
 const connectionState = ref<'idle' | 'ok' | 'error'>('idle')
 const connectionMessage = ref('')
+const courseMenu = ref<HTMLDetailsElement | null>(null)
+const route = useRoute()
+
+const closeCourseMenu = () => {
+  if (courseMenu.value) courseMenu.value.open = false
+}
+
+const dismissCourseMenu = (event: PointerEvent) => {
+  if (!courseMenu.value?.open) return
+  if (event.target instanceof Node && !courseMenu.value.contains(event.target)) closeCourseMenu()
+}
+
+const dismissCourseMenuByKeyboard = (event: KeyboardEvent) => {
+  if (event.key === 'Escape') closeCourseMenu()
+}
 
 const applyPreset = () => {
   const presets: Record<string, [string, string]> = {
@@ -24,6 +39,8 @@ const applyPreset = () => {
 }
 
 onMounted(() => {
+  document.addEventListener('pointerdown', dismissCourseMenu)
+  document.addEventListener('keydown', dismissCourseMenuByKeyboard)
   const saved = localStorage.getItem('reviewlab:coach-config')
   if (!saved) return
   try {
@@ -36,6 +53,12 @@ onMounted(() => {
   } catch {
     localStorage.removeItem('reviewlab:coach-config')
   }
+})
+
+watch(() => route.fullPath, closeCourseMenu)
+onBeforeUnmount(() => {
+  document.removeEventListener('pointerdown', dismissCourseMenu)
+  document.removeEventListener('keydown', dismissCourseMenuByKeyboard)
 })
 
 const saveCoach = () => {
@@ -93,18 +116,18 @@ provide('coach-config', { apiKey, endpoint, model, open: () => { showCoach.value
     <header class="site-nav">
       <NuxtLink class="brand" to="/"><b>∿</b>Review Lab</NuxtLink>
       <nav class="nav-links">
-        <NuxtLink to="/">学习路径</NuxtLink>
-        <details class="course-menu">
+        <NuxtLink to="/learning-paths">学习路径</NuxtLink>
+        <details ref="courseMenu" class="course-menu">
           <summary>课程 <span>⌄</span></summary>
           <div class="course-dropdown">
-            <NuxtLink v-for="track in tracks" :key="track.id" :to="`/tracks/${track.id}`">
+            <NuxtLink v-for="track in tracks" :key="track.id" :to="`/tracks/${track.id}`" @click="closeCourseMenu">
               <i :style="{ background: track.color }">{{ track.symbol }}</i>
               <span><strong>{{ track.name }}</strong><small>{{ track.lessons.length }} 节专题</small></span>
             </NuxtLink>
           </div>
         </details>
-        <NuxtLink to="/#projects">综合项目</NuxtLink>
-        <NuxtLink to="/#sources">源码地图</NuxtLink>
+        <NuxtLink to="/projects">综合项目</NuxtLink>
+        <NuxtLink to="/source-map">源码地图</NuxtLink>
       </nav>
       <button class="coach-button" :class="{ connected: apiKey }" @click="showCoach = true"><i />{{ apiKey ? 'AI 已配置' : '配置 AI' }}</button>
     </header>
