@@ -30,6 +30,7 @@ const showSelfCheckAnswer = ref(false)
 const showBuiltInInterviewAnswer = ref(false)
 const copiedId = ref('')
 const editorScrollTop = ref(0)
+const reviewDrawer = ref<HTMLDetailsElement | null>(null)
 const workspaceFilename = computed(() => {
   if (['python', 'langchain', 'langgraph', 'deepagents', 'transformer', 'torch', 'vllm', 'lora'].includes(track.value!.id)) return 'solution.py'
   if (track.value!.id === 'nuxt') return 'lesson.vue'
@@ -114,11 +115,17 @@ const ruleReview = () => {
     /TODO|\.\.\./.test(code.value) ? '△ 仍有未完成占位，请把其中一处替换为可执行逻辑。' : '✓ 未检测到明显占位实现。'
   ]
   feedback.value = `规则化审阅\n\n${checks.join('\n')}\n\n下一步追问：\n${interviewQuestion.value}`
+  nextTick(() => {
+    if (reviewDrawer.value) reviewDrawer.value.open = true
+  })
 }
 
 const aiReview = async () => {
   reviewing.value = true
   feedback.value = 'AI 教练正在审阅机制理解、边界条件与可运行性…'
+  nextTick(() => {
+    if (reviewDrawer.value) reviewDrawer.value.open = true
+  })
   try {
     feedback.value = await callCoach(
       '你是大厂高级工程师面试官。用中文严谨审阅代码：先指出一个正确机制，再按 P0/P1/P2 给出最多三项可操作修改，补一个边界测试，最后追问一个源码或运行时问题。切勿虚构执行结果。',
@@ -185,6 +192,17 @@ const resetWorkspace = () => {
 
 const syncEditorScroll = (event: Event) => {
   editorScrollTop.value = (event.target as HTMLTextAreaElement).scrollTop
+}
+
+const scrollEditorWithWheel = (event: WheelEvent) => {
+  const editor = event.currentTarget as HTMLTextAreaElement
+  if (editor.scrollHeight <= editor.clientHeight || event.deltaY === 0) return
+  const nextTop = Math.max(0, Math.min(editor.scrollHeight - editor.clientHeight, editor.scrollTop + event.deltaY))
+  if (nextTop === editor.scrollTop) return
+  event.preventDefault()
+  event.stopPropagation()
+  editor.scrollTop = nextTop
+  editorScrollTop.value = nextTop
 }
 
 const resize = (event: PointerEvent) => {
@@ -404,7 +422,7 @@ onBeforeUnmount(stopResize)
         </div>
         <div class="workspace-editor">
           <pre class="editor-gutter" aria-hidden="true" :style="{ transform: `translateY(-${editorScrollTop}px)` }"><span v-for="(_, index) in codeLines" :key="index">{{ index + 1 }}</span></pre>
-          <textarea v-model="code" class="editor" spellcheck="false" aria-label="代码工作区" @scroll="syncEditorScroll" />
+          <textarea v-model="code" class="editor" spellcheck="false" aria-label="代码工作区" @scroll="syncEditorScroll" @wheel="scrollEditorWithWheel" />
         </div>
         <div class="editor-actions">
           <button @click="ruleReview">规则审阅</button>
@@ -419,7 +437,13 @@ onBeforeUnmount(stopResize)
             <button :disabled="assisting || !assistantQuestion.trim()">{{ assisting ? '思考中…' : '发送' }}</button>
           </form>
         </section>
-        <pre class="review" :class="{ 'review-empty': !feedback }">{{ feedback || '把你的方案写进工作区。\n\n评阅关注：\n· 设计不变量是否清晰\n· 边界和失败路径是否可解释\n· 是否能用源码或测试验证推断\n\n代码会自动保存在当前浏览器。' }}</pre>
+        <details ref="reviewDrawer" class="review-drawer">
+          <summary>
+            <span><b>规则说明与审阅结果</b><small>{{ feedback ? '已有结果，点击展开' : '默认折叠，需要时展开' }}</small></span>
+            <i aria-hidden="true">⌄</i>
+          </summary>
+          <pre class="review" :class="{ 'review-empty': !feedback }">{{ feedback || '把你的方案写进工作区。\n\n评阅关注：\n· 设计不变量是否清晰\n· 边界和失败路径是否可解释\n· 是否能用源码或测试验证推断\n\n代码会自动保存在当前浏览器。' }}</pre>
+        </details>
       </section>
   </main>
 </template>

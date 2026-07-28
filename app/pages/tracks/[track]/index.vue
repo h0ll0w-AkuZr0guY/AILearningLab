@@ -21,7 +21,8 @@ const openInterviewerAnswer = ref<number | null>(null)
 </script>
 
 <template>
-  <main class="shell">
+  <div class="track-page">
+    <main class="shell">
       <section class="page-hero">
         <div class="breadcrumb"><NuxtLink to="/">课程地图</NuxtLink><span>/</span><span>{{ track?.name }}</span></div>
         <p class="eyebrow">SOURCE-DRIVEN CURRICULUM</p><h1>{{ track?.name }}</h1>
@@ -40,4 +41,5 @@ const openInterviewerAnswer = ref<number | null>(null)
       </section>
     </main>
     <footer class="footer"><span>{{ track?.name }} · {{ track?.lessons.length }} lessons</span><span>知识正文 · 源码复现 · 练习 · 面试官实战</span></footer>
+  </div>
 </template>
