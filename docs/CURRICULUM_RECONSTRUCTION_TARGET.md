@@ -298,17 +298,18 @@ rg -n "完整课题标题" app/data/guides app/data/topic-guides.ts
 截至 2026-07-28 最近一次内容审计：
 
 ```text
-全站：125 / 1090 已精写，965 待完成
+全站：130 / 1090 已精写，960 待完成
 Python：102 / 102
 TypeScript：13 / 114
+LangGraph：5 / 132
 Transformer：10 / 120
 ```
 
 当前应继续的课题是：
 
 ```text
-TypeScript / 01 · JavaScript 运行时地基
-Node ESM/CJS 互操作、解析与缓存边界
+LangGraph / 01 · Graph 思维与执行模型
+状态快照与执行元数据：values、tasks、next 与 config
 ```
 
 若工作树中该课已经精写，则继续本模块下一个 pending 课题，不依赖上述快照。
@@ -405,6 +406,13 @@ corepack pnpm generate
    - 暂停任务，等待用户确认下一批的课程方向或产品需求。
 5. 未获得用户“继续下一批”的明确确认前，不自动开启第 6 个课题。
 6. 紧急 Bug 修复可以形成独立小 PR，不必等待凑满 5 章；修复后仍回到原批次剩余章数。
+7. 已启用独立本地自动化 `ailearninglab`（“AILearningLab 每日五课深度精写”），按本地时区每天 12:00 运行：
+   - 候选只限 LangGraph、LangChain、PyTorch。
+   - 已达到 100% curated 的路线永久退出候选池。
+   - 首次自动内容批次优先 LangGraph，随后从仍有 pending 的候选随机选择。
+   - 每次只净增 5 个 curated 课题，完成审计、生成、浏览器验收和 draft PR 后停止。
+   - 若前一自动 PR 未合并，新批次以其 head 为起点创建堆叠 PR，避免从 main 重复写同一课。
+   - 本地宿主、Codex 自动化权限/额度与 GitHub 凭据必须在运行时可用；工作树存在无法安全归属的用户改动时自动停止，不覆盖文件。
 
 当前发布基线：
 
@@ -421,4 +429,21 @@ GitHub Pages：https://h0ll0w-akuzr0guy.github.io/AILearningLab/
 线上验收：首页、TypeScript 第 13 节、官方锚点、8 章正文、上下题链接和 4 个静态资源均返回正确内容；交互已在同构本地构建中完成浏览器验收。
 当前内容批次：已完成并发布，任务暂停，等待用户指定下一批 5 章或产品需求
 下一候选课题：Node ESM/CJS 互操作、解析与缓存边界
+```
+
+当前维护批次：
+
+```text
+分支：agent/langgraph-batch-01
+课程：LangGraph
+curated 变化：0 / 132 → 5 / 132
+全站变化：125 / 1090 → 130 / 1090
+01：函数链为何不足：显式图、状态机与执行日志边界
+02：StateGraph Builder 与 compile：从 schema 到 CompiledStateGraph
+03：Pregel super-step：Plan、Execute、Update 与 BSP barrier
+04：START、END 与静态边：入口、终止、fan-out 和 join
+05：节点执行契约：Runnable、同步/异步、返回更新与副作用
+源码基线：langchain-ai/langgraph 1.2.9 / 30c4d58db86455128e42ddec96b1ba53c553ba22
+下一 pending：状态快照与执行元数据：values、tasks、next 与 config
+PR：https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/1
 ```
