@@ -1,0 +1,92 @@
+.course-intro {
+  max-width: 78ch;
+  font-size: 1.03rem;
+  line-height: 1.8;
+}
+
+.course-intro strong {
+  color: var(--ink, #14213d);
+}
+
+.interview-jump {
+  display: inline-flex;
+  margin-top: 1rem;
+  font-weight: 750;
+}
+
+.interviewer-section {
+  margin-top: 3rem;
+  padding: 2.2rem;
+  border: 1px solid #dce2f0;
+  border-radius: 1rem;
+  background: #fbfcff;
+}
+
+.interviewer-section h2 {
+  margin: .25rem 0 .55rem;
+  font-size: clamp(1.7rem, 3vw, 2.45rem);
+}
+
+.interviewer-section > p {
+  max-width: 72ch;
+  line-height: 1.8;
+}
+
+.interviewer-card {
+  display: grid;
+  grid-template-columns: 3.7rem 1fr;
+  gap: 1rem;
+  padding: 1.25rem 0;
+  border-top: 1px solid #e0e5ef;
+}
+
+.interviewer-card:first-of-type {
+  margin-top: 1.25rem;
+}
+
+.interviewer-card > span {
+  color: #5069dd;
+  font-family: var(--mono, ui-monospace, monospace);
+  font-size: .95rem;
+  font-weight: 800;
+}
+
+.interviewer-card h3 {
+  margin: 0;
+  font-size: 1.18rem;
+}
+
+.interviewer-card p {
+  margin: .45rem 0 .7rem;
+  line-height: 1.7;
+}
+
+.lesson-tabs {
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.lesson-tab {
+  min-height: 2.75rem;
+  font-size: .98rem;
+  white-space: nowrap;
+}
+
+.lesson-content p,
+.lesson-content li {
+  font-size: 1.02rem;
+  line-height: 1.78;
+}
+
+.source-path {
+  padding: .9rem 1rem;
+  border-left: 4px solid #5c6ff3;
+  border-radius: .4rem;
+  background: #eff2ff;
+  line-height: 1.7;
+}
+
+@media (max-width: 700px) {
+  .interviewer-section { padding: 1.35rem; }
+  .interviewer-card { grid-template-columns: 1fr; gap: .35rem; }
+}
