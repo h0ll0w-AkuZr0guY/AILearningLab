@@ -475,5 +475,5 @@ curated 变化：0 / 120 → 5 / 120
 静态生成：Nuxt 4.5.1 / Nitro 2.13.4，2204 路由通过
 浏览器：本批五页标题、官方锚点、源码、复制、练习/面试答案、上下题、1440px 分栏、960px 堆叠和控制台通过
 下一 pending：transpose、permute 与 movedim：只改维度解释的零拷贝重排
-PR：待创建 draft PR 后回写
+PR：https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/2
 ```
