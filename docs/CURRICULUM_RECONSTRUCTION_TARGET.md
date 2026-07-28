@@ -413,6 +413,12 @@ corepack pnpm generate
 Python：102 / 102
 TypeScript：13 / 114
 Transformer：10 / 120
-当前内容批次：已完成，等待首次 GitHub Pages 发布
+GitHub 仓库：https://github.com/h0ll0w-AkuZr0guY/AILearningLab
+GitHub Pages：https://h0ll0w-akuzr0guy.github.io/AILearningLab/
+基线提交：2b83aa1 Initial Review Lab learning platform
+部署修复：160a4dd Fix Pages package manager setup
+成功部署：https://github.com/h0ll0w-AkuZr0guY/AILearningLab/actions/runs/30347664499
+线上验收：首页、TypeScript 第 13 节、官方锚点、8 章正文、上下题链接和 4 个静态资源均返回正确内容；交互已在同构本地构建中完成浏览器验收。
+当前内容批次：已完成并发布，任务暂停，等待用户指定下一批 5 章或产品需求
 下一候选课题：Node ESM/CJS 互操作、解析与缓存边界
 ```
