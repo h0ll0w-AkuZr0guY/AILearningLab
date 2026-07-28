@@ -298,18 +298,19 @@ rg -n "完整课题标题" app/data/guides app/data/topic-guides.ts
 截至 2026-07-28 最近一次内容审计：
 
 ```text
-全站：130 / 1090 已精写，960 待完成
+全站：135 / 1090 已精写，955 待完成
 Python：102 / 102
 TypeScript：13 / 114
 LangGraph：5 / 132
 Transformer：10 / 120
+PyTorch：5 / 120
 ```
 
 当前应继续的课题是：
 
 ```text
-LangGraph / 01 · Graph 思维与执行模型
-状态快照与执行元数据：values、tasks、next 与 config
+PyTorch / 01 · Tensor、Storage 与 Stride
+transpose、permute 与 movedim：只改维度解释的零拷贝重排
 ```
 
 若工作树中该课已经精写，则继续本模块下一个 pending 课题，不依赖上述快照。
@@ -446,4 +447,33 @@ curated 变化：0 / 132 → 5 / 132
 源码基线：langchain-ai/langgraph 1.2.9 / 30c4d58db86455128e42ddec96b1ba53c553ba22
 下一 pending：状态快照与执行元数据：values、tasks、next 与 config
 PR：https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/1
+```
+
+当前一次性自动化维护批次：
+
+```text
+自动化：ailearninglab-2 / AILearningLab 一次性自动唤醒验收
+随机选择：PyTorch（随机原始值 2726560484，索引 2）
+分支：agent/curriculum-torch-2026-07-28-01
+课程：PyTorch
+curated 变化：0 / 120 → 5 / 120
+全站变化：130 / 1090 → 135 / 1090
+01：Tensor 双层模型：TensorImpl 元数据如何解释同一块字节
+    粒度：把 Tensor metadata 与 Storage 入口合并为两层模型，先建立后续所有 view 推理的共同地址合同。
+02：UntypedStorage、DataPtr 与别名生命周期：共享、所有权和序列化
+    粒度：从普通 Storage 课拆出所有权、allocator、指针差异和序列化别名保真，避免把字节地址当生命周期。
+03：shape、numel、dtype、device 与 layout：张量合同的正交坐标
+    粒度：合并原 dtype/device 与 shape/numel，并补 layout/meta/sparse；五个属性共同形成算子入口合同。
+04：Stride 地址代数与连续性：从索引公式到 memory_format
+    粒度：把 stride 计算拆成专家专题，覆盖地址集合、默认/channels-last 连续性、重叠、洞和性能取证。
+05：view、reshape 与 flatten：零拷贝兼容条件和复制回退
+    粒度：把 view/reshape 从笼统连续性中拆出，沿 computeStride、view_impl 与 reshape 真实分派复现复制边界。
+源码基线：pytorch/pytorch v2.13.0（2026-07-08 发布）
+本地运行时：PyTorch 2.10.0+cu126；五个 CPU 合同示例全部通过
+普通审计：135 / 1090；PyTorch 5 / 120（4.2%）
+冻结安装：pnpm 11.17.0 --frozen-lockfile 通过
+静态生成：Nuxt 4.5.1 / Nitro 2.13.4，2204 路由通过
+浏览器：本批五页标题、官方锚点、源码、复制、练习/面试答案、上下题、1440px 分栏、960px 堆叠和控制台通过
+下一 pending：transpose、permute 与 movedim：只改维度解释的零拷贝重排
+PR：待创建 draft PR 后回写
 ```
