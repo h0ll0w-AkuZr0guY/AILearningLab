@@ -226,7 +226,18 @@ const catalogue: Record<string, Omit<Track, 'lessons'> & { units: UnitSeed[] }> 
   langgraph: {
     id: 'langgraph', name: 'LangGraph', symbol: 'LGr', color: '#9a6cff', description: '显式状态机、耐久执行、人工审批与生产编排。', docs: 'https://docs.langchain.com/oss/python/langgraph/overview', source: 'https://github.com/langchain-ai/langgraph',
     units: [
-      unit('01 · Graph 思维与执行模型', '先厘清节点、边、状态、super-step 和副作用的边界。', '用假节点搭建可重复的图执行实验。', '为什么 Agent 不能被当作普通函数链？', '图与工作流的差别|节点纯度与副作用|State 的职责|super-step 模型|START END 语义|同步与异步节点|状态快照|可重放执行|确定性节点|拓扑设计'),
+      unit('01 · Graph 思维与执行模型', '先厘清节点、边、状态、super-step 和副作用的边界。', '用假节点搭建可重复的图执行实验。', '为什么 Agent 不能被当作普通函数链？', [
+        { title: '函数链为何不足：显式图、状态机与执行日志边界', difficulty: '困难', difficultyReason: '需要从循环、并发、暂停恢复和失败重放推导何时必须把控制流外显，同时区分图定义、运行状态、运行时上下文与外部副作用。', learningValue: '基础必修', learningValueScore: 5, estimatedMinutes: 145, granularity: '合并精讲' },
+        { title: 'StateGraph Builder 与 compile：从 schema 到 CompiledStateGraph', difficulty: '专家', difficultyReason: 'compile 会把 schema、channel、node、edge、branch、interrupt、checkpointer 和 store 编译成 Pregel 运行时对象；需要沿多个真实源码函数追踪。', learningValue: '进阶关键', learningValueScore: 5, estimatedMinutes: 190, granularity: '拆分专题' },
+        { title: 'Pregel super-step：Plan、Execute、Update 与 BSP barrier', difficulty: '专家', difficultyReason: '同一 super-step 的任务读取旧快照、并发产生不可见写入，barrier 后再确定性归并并触发下一步；错误、停机和递归上限又跨越循环状态。', learningValue: '高频核心', learningValueScore: 5, estimatedMinutes: 200, granularity: '拆分专题' },
+        { title: 'START、END 与静态边：入口、终止、fan-out 和 join', difficulty: '困难', difficultyReason: 'START/END 是编译哨兵而非普通业务节点；单边、并行 fan-out、多起点 join 分别编译成触发 channel、写入和 barrier，需用时间线验证。', learningValue: '基础必修', learningValueScore: 5, estimatedMinutes: 160, granularity: '单点精讲' },
+        { title: '节点执行契约：Runnable、同步/异步、返回更新与副作用', difficulty: '专家', difficultyReason: '普通函数会被适配为 Runnable，并按签名注入 state、config、runtime；同步/异步调用矩阵、部分更新、超时取消和幂等副作用需要统一设计。', learningValue: '高频核心', learningValueScore: 5, estimatedMinutes: 195, granularity: '拆分专题' },
+        { title: '状态快照与执行元数据：values、tasks、next 与 config', difficulty: '困难', difficultyReason: '快照同时描述 channel values、待执行 tasks、下一节点和线程配置，必须区分业务 state、调度元数据与 checkpoint identity。', learningValue: '进阶关键', learningValueScore: 5, estimatedMinutes: 145, granularity: '拆分专题' },
+        { title: '可重放执行：checkpoint、pending writes 与恢复边界', difficulty: '专家', difficultyReason: '恢复并非从头重跑；成功任务写入、失败任务、interrupt、resume 和 checkpoint 版本共同决定哪些操作复用、哪些重新执行。', learningValue: '进阶关键', learningValueScore: 5, estimatedMinutes: 190, granularity: '拆分专题' },
+        { title: '确定性：reducer 顺序、任务排序与外部 I/O', difficulty: '专家', difficultyReason: '运行时可排序任务与归并写入，但随机数、时间、模型调用和外部系统仍会破坏可重放性；需要事件记录与幂等键共同收敛。', learningValue: '进阶关键', learningValueScore: 5, estimatedMinutes: 175, granularity: '拆分专题' },
+        { title: '拓扑验证与迁移：孤立节点、循环和 interrupt 兼容', difficulty: '困难', difficultyReason: '编译验证只覆盖可静态证明的结构错误；带持久线程的节点改名、删除、状态键变更和中断位置会形成迁移约束。', learningValue: '工程扩展', learningValueScore: 4, estimatedMinutes: 145, granularity: '单点精讲' },
+        { title: '递归限制、停机条件与生产保护', difficulty: '困难', difficultyReason: '循环是合法控制流，但必须同时设计语义停机、RemainingSteps、外部 deadline、取消和部分结果，避免把 recursion_limit 当业务规则。', learningValue: '高频核心', learningValueScore: 5, estimatedMinutes: 150, granularity: '单点精讲' }
+      ]),
       unit('02 · State、Reducer 与消息', '理解状态 schema、reducer 与消息累积的可组合契约。', '为客服图建立消息与订单状态 reducer。', '为什么不能随意覆盖共享 state？', 'TypedDict state|MessagesState|Annotated reducer|append 与 replace|自定义 reducer|消息 ID|状态迁移|不可变思维|schema 演进|state 校验'),
       unit('03 · Edge、路由与循环', '把条件控制流实现为可审计的图结构。', '实现分类、路由、循环重试和终止条件。', '条件边和在节点中 if/else 的工程差异？', 'add_edge|conditional edges|Command 路由|循环终止|fan-out|fan-in|错误边|重试边界|map reduce 图|路由可测试性'),
       unit('04 · Checkpoint 与耐久执行', '把任务恢复建立在 checkpoint 和幂等副作用上。', '为支付审核图实现 crash-resume 演练。', '如何避免 resume 后重复产生副作用？', 'checkpointer 接口|thread id|snapshot history|pending writes|resume 语义|idempotency key|outbox pattern|故障恢复|time travel|状态迁移'),

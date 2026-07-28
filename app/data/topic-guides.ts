@@ -18,6 +18,7 @@ import { typescriptAccessorProxyGuides } from './guides/typescript/accessors-pro
 import { typescriptPromiseGuides } from './guides/typescript/promises'
 import { typescriptEventLoopGuides } from './guides/typescript/event-loop'
 import { typescriptModuleGuides } from './guides/typescript/modules'
+import { langGraphRuntimeGuides } from './guides/langgraph/runtime'
 
 export interface GuideChapter {
   title: string
@@ -591,6 +592,9 @@ export const topicGuides: Partial<Record<TrackId, Record<string, TopicGuide>>> =
     ...typescriptPromiseGuides,
     ...typescriptEventLoopGuides,
     ...typescriptModuleGuides
+  },
+  langgraph: {
+    ...langGraphRuntimeGuides
   }
 }
 
