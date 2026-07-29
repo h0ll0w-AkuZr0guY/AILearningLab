@@ -502,6 +502,8 @@ curated 变化：5 / 132 → 10 / 132（7.6%）
 普通审计：140 / 1090；LangGraph 10 / 132（7.6%）
 冻结安装：pnpm 11.17.0 --frozen-lockfile 通过
 可运行示例：examples/langgraph/06–10 五个 Python 合同实验通过
+静态生成：Nuxt 4.5.1 / Nitro 2.13.4，2210 路由通过
+浏览器：本批五页标题、官方锚点、1.2.10 源码、复制、练习/面试答案、上下题、宽屏可调分栏、960px 堆叠、长标题和控制台通过
 下一 pending：TypedDict state
-PR：待创建 draft PR 后回写
+PR：https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/4
 ```
