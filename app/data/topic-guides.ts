@@ -19,6 +19,7 @@ import { typescriptPromiseGuides } from './guides/typescript/promises'
 import { typescriptEventLoopGuides } from './guides/typescript/event-loop'
 import { typescriptModuleGuides } from './guides/typescript/modules'
 import { langGraphRuntimeGuides } from './guides/langgraph/runtime'
+import { langGraphResilienceGuides } from './guides/langgraph/resilience'
 import { torchTensorGuides } from './guides/torch/tensors'
 
 export interface GuideChapter {
@@ -595,7 +596,8 @@ export const topicGuides: Partial<Record<TrackId, Record<string, TopicGuide>>> =
     ...typescriptModuleGuides
   },
   langgraph: {
-    ...langGraphRuntimeGuides
+    ...langGraphRuntimeGuides,
+    ...langGraphResilienceGuides
   },
   torch: {
     ...torchTensorGuides
