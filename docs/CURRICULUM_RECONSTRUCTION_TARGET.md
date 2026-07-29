@@ -2,7 +2,7 @@
 
 > 本文件是课程重构工作的长期恢复锚点。聊天记录、活动目标或网络状态不可用时，以当前工作树、本文件、课程审计结果和实际页面为准继续工作。
 >
-> 最后更新：2026-07-28
+> 最后更新：2026-07-29
 
 ## 1. 最终目标
 
@@ -476,4 +476,32 @@ curated 变化：0 / 120 → 5 / 120
 浏览器：本批五页标题、官方锚点、源码、复制、练习/面试答案、上下题、1440px 分栏、960px 堆叠和控制台通过
 下一 pending：transpose、permute 与 movedim：只改维度解释的零拷贝重排
 PR：https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/2
+```
+
+当前每日自动化维护批次：
+
+```text
+自动化：ailearninglab / AILearningLab 每日五课深度精写
+运行日期：2026-07-29（Asia/Shanghai）
+随机选择：LangGraph（随机原始值 145556775，索引 0）
+分支：agent/curriculum-langgraph-2026-07-29-01
+课程：LangGraph
+curated 变化：5 / 132 → 10 / 132（7.6%）
+全站变化：135 / 1090 → 140 / 1090
+01：状态快照与执行元数据：values、tasks、next 与 config
+    粒度：把业务 channel 值、下一任务、checkpoint 地址和历史因果拆成一张可验证快照合同。
+02：可重放执行：checkpoint、pending writes 与恢复边界
+    粒度：独立解释 task 级 pending writes、step 级一致快照及外部副作用崩溃窗口。
+03：确定性：reducer 顺序、任务排序与外部 I/O
+    粒度：分开归并顺序、同一次运行恢复一致性和跨运行复现，并补观察/副作用协议。
+04：拓扑验证与迁移：孤立节点、循环和 interrupt 兼容
+    粒度：把当前图静态自洽与存量 checkpoint 兼容拆成两道上线门禁。
+05：递归限制、停机条件与生产保护
+    粒度：把业务停机、进展检测、步数预算、deadline、取消和受控恢复组织成多层护栏。
+源码基线：langchain-ai/langgraph 1.2.10 / 41341457342327166d72fc11952ab28fb61ec0bf
+普通审计：140 / 1090；LangGraph 10 / 132（7.6%）
+冻结安装：pnpm 11.17.0 --frozen-lockfile 通过
+可运行示例：examples/langgraph/06–10 五个 Python 合同实验通过
+下一 pending：TypedDict state
+PR：待创建 draft PR 后回写
 ```
