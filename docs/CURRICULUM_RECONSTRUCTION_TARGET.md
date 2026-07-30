@@ -534,5 +534,5 @@ curated 变化：5 / 120 → 10 / 120（8.3%）
 冻结安装：pnpm 11.17.0 --frozen-lockfile 通过。
 验证状态：普通审计、冻结安装、五个示例、Nuxt 静态生成与本地浏览器验收已通过；PR 创建、合并与 Pages 部署待本批继续完成。
 下一 pending：basic indexing 与 advanced indexing：view/copy 边界与赋值 scatter
-PR：待创建
+PR：https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/5
 ```
