@@ -536,3 +536,15 @@ curated 变化：5 / 120 → 10 / 120（8.3%）
 下一 pending：basic indexing 与 advanced indexing：view/copy 边界与赋值 scatter
 PR：https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/5
 ```
+
+同日发布后质量修复：
+
+```text
+恢复原因：以当前普通课程审计重新验收时，第一节轴重排课约 1927 个中文字符，低于困难课 2000 字绝对下限；旧运行记录中的“审计通过”不再作为权威证据。
+分支：agent/curriculum-torch-2026-07-30-audit-fix
+修复内容：为“transpose、permute 与 movedim”补充排列复合、逆排列恒等式、语义适配器和非对称 shape 回归；不新增第 6 节。
+curated：PyTorch 10 / 120（8.3%），全站 145 / 1090，均保持不变。
+本地验证：普通审计、冻结安装、examples/torch/06–10、Nuxt 静态生成（2210 routes）与本批五页浏览器验收通过。
+下一 pending：basic indexing 与 advanced indexing：view/copy 边界与赋值 scatter
+PR：https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/6
+```
