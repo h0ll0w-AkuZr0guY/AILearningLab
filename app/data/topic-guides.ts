@@ -21,6 +21,7 @@ import { typescriptModuleGuides } from './guides/typescript/modules'
 import { langGraphRuntimeGuides } from './guides/langgraph/runtime'
 import { langGraphResilienceGuides } from './guides/langgraph/resilience'
 import { torchTensorGuides } from './guides/torch/tensors'
+import { torchViewGuides } from './guides/torch/views'
 
 export interface GuideChapter {
   title: string
@@ -600,7 +601,8 @@ export const topicGuides: Partial<Record<TrackId, Record<string, TopicGuide>>> =
     ...langGraphResilienceGuides
   },
   torch: {
-    ...torchTensorGuides
+    ...torchTensorGuides,
+    ...torchViewGuides
   }
 }
 
