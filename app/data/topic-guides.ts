@@ -22,6 +22,7 @@ import { langGraphRuntimeGuides } from './guides/langgraph/runtime'
 import { langGraphResilienceGuides } from './guides/langgraph/resilience'
 import { torchTensorGuides } from './guides/torch/tensors'
 import { torchViewGuides } from './guides/torch/views'
+import { torchIndexingGuides } from './guides/torch/indexing'
 
 export interface GuideChapter {
   title: string
@@ -602,7 +603,8 @@ export const topicGuides: Partial<Record<TrackId, Record<string, TopicGuide>>> =
   },
   torch: {
     ...torchTensorGuides,
-    ...torchViewGuides
+    ...torchViewGuides,
+    ...torchIndexingGuides
   }
 }
 

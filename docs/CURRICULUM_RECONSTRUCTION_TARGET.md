@@ -548,3 +548,22 @@ curated：PyTorch 10 / 120（8.3%），全站 145 / 1090，均保持不变。
 下一 pending：basic indexing 与 advanced indexing：view/copy 边界与赋值 scatter
 PR：https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/6
 ```
+
+当前每日自动化维护批次（待发布）：
+
+```text
+自动化：ailearninglab
+运行日期：2026-07-30（Asia/Shanghai）
+随机选择：PyTorch（索引 2）
+分支：agent/curriculum-torch-2026-07-30-02
+curated 变化：10 / 120 → 15 / 120（12.5%）
+全站变化：145 / 1090 → 150 / 1090
+01：basic indexing
+02：advanced indexing
+03：boolean mask
+04：ellipsis None
+05：broadcast alignment
+源码基线：pytorch/pytorch v2.13.0；稳定文档 Tensor Views 与 Broadcasting semantics。
+下一 pending：expand 与 repeat
+PR：https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/7
+```
