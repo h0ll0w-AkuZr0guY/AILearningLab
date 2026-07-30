@@ -177,47 +177,27 @@
 
 新作者或新 AI 接手时，应先完整阅读至少一个同类型样例，再开始写作。
 
-### 4.1 TypeScript 长篇课程样例
+- 公共深度课程模板：`content/templates/deep-lesson.md`
+- 优质课程参考集：`docs/LESSON_REFERENCE_SET.md`
+- 单课贡献说明：`docs/CONTRIBUTING_LESSONS.md`
+- 仓库级贡献与 PR 规范：`CONTRIBUTING.md`
 
-- 值、Reference 与相等算法：
-  - `app/data/guides/typescript/runtime.ts`
-  - 适合参考：规范类型与引擎实现分层、反例、三种设计变体。
-- Property Descriptor、内部方法与 V8 对象形状：
-  - `app/data/guides/typescript/runtime.ts`
-  - 适合参考：135 分钟专家课、7 章正文、真实 V8 分派源码、规范与 HiddenClass 分层。
-- GC、WeakRef 与 FinalizationRegistry：
-  - `app/data/guides/typescript/gc.ts`
-  - 适合参考：底层算法、并发不变量、真实 collector 源码、可手写 tracing collector。
-- Execution Context、Environment Record、TDZ：
-  - `app/data/guides/typescript/contexts.ts`
-  - 适合参考：官方规范中文重构、binding 生命周期、V8 bytecode 对照。
-- 闭包与 per-iteration environment：
-  - `app/data/guides/typescript/closures.ts`
-  - 适合参考：困难课的动态粒度、binding identity、循环复现和 retained path。
-
-### 4.2 Python 源码课程样例
-
-- CPython 从 tokenizer 到解释器与 specialization：
-  - `app/data/guides/python/cpython.ts`
-  - 适合参考：按源码流水线拆分课程、真实函数入口、构建与调试实验。
-- asyncio 与并发控制：
-  - `app/data/guides/python/asyncio.ts`
-  - 适合参考：状态、取消、失败传播与工程验证。
-- 类型系统与 API 设计：
-  - `app/data/guides/python/typing.ts`
-  - 适合参考：语言语义、静态类型能力边界和变体。
-
-### 4.3 Transformer 当前样例
-
-- 线性代数与张量记号的已精写内容：
-  - `app/data/lesson-content.ts`
-  - 当前仍属于早期兼容内容，后续应迁移到 `app/data/guides/transformer/`，并按本文件的新长课标准继续扩写。
+参考集当前覆盖三类写法：LangGraph 运行时调度、PyTorch 内存与所有权、TypeScript 规范与引擎实现。参考文件直接指向真实课程 Markdown，不维护容易过期的副本。
 
 ## 5. 内容模型与页面入口
 
-- 课程目录与题目元数据：
-  - `app/data/curriculum.ts`
-- 专题内容类型、导入与 track 映射：
+- 路线与模块课程目录：
+  - `content/curriculum/<track>/track.md`
+  - `content/curriculum/<track>/<module>/catalog.md`
+- 单课知识内容：
+  - `content/curriculum/<track>/<module>/lessons/<lesson-id>.md`
+- 公共模板：
+  - `content/templates/deep-lesson.md`
+- Markdown 类型与解析：
+  - `app/data/curriculum-markdown.ts`
+  - `app/data/guide-types.ts`
+  - `app/data/lesson-markdown.ts`
+- 构建期自动索引与 track 映射：
   - `app/data/topic-guides.ts`
 - 课程详情聚合与 fallback：
   - `app/data/lesson-content.ts`
@@ -232,7 +212,7 @@
 - 内容审计：
   - `scripts/audit-curriculum.mjs`
 
-新增 guide 文件后，必须在 `app/data/topic-guides.ts` 中导入并合并到正确 track，否则页面仍会使用模板 fallback。
+新增模块或课程 Markdown 后无需手写 import。`curriculum.ts` 与 `topic-guides.ts` 使用 Vite glob 在构建期自动读取；目录状态、文件路径、frontmatter id 和目录题名不一致时审计会失败。
 
 ## 6. 快速定位未完成目标
 
@@ -260,57 +240,57 @@ corepack pnpm run curriculum:audit:strict
 ### 6.2 检查当前课程顺序
 
 ```powershell
-rg -n "unit\\(|title:" app/data/curriculum.ts
+rg -n "^## |^title:|^status:|^owner:" content/curriculum/*/*/catalog.md
 ```
 
 定位某条路线：
 
 ```powershell
-rg -n "typescript:|langchain:|langgraph:|deepagents:|nuxt:|transformer:|torch:|vllm:|lora:" app/data/curriculum.ts
+Get-ChildItem content/curriculum/<track> -Directory
 ```
 
 定位已有精写题名：
 
 ```powershell
-rg -n "^  '[^']+': \\{" app/data/guides
+rg -n "^status: curated" content/curriculum/*/*/catalog.md
 ```
 
-确认某个课程题目是否已有专属 guide：
+确认某个课程题目是否已有专属 Markdown：
 
 ```powershell
-rg -n "完整课题标题" app/data/guides app/data/topic-guides.ts
+rg -n "完整课题标题" content/curriculum/<track>
 ```
 
-若只在 `curriculum.ts` 中出现，而未在 `app/data/guides/<track>/` 中出现，该课题仍未精写。
+`status: pending` 表示尚未认领，`status: claimed` 必须同时填写 `owner`，`status: curated` 必须存在对应正文。目录状态是协作入口，审计会核对它与文件是否一致。
 
 ### 6.3 推荐的恢复后第一条任务
 
 1. 运行 `corepack pnpm run curriculum:audit`。
 2. 找到当前 `in_progress` 路线中最靠前的 pending 课题。
-3. 阅读该模块前一篇已完成 guide，确认叙事连续性。
+3. 阅读公共模板、参考集和该模块前一篇已完成 Markdown，确认叙事连续性。
 4. 在线核对官方文档和真实上游源码。
 5. 根据真实复杂度决定维持、拆分或合并课程。
-6. 写入专属 guide，并在 `topic-guides.ts` 注册。
+6. 用 `corepack pnpm curriculum:claim <track> <lesson-id> <owner>` 认领，再用 `corepack pnpm curriculum:new <track> <lesson-id>` 创建专属 Markdown。
 7. 运行普通审计。
 8. 打开对应页面做 DOM 与截图验收。
 9. 完成一个模块后运行 `corepack pnpm generate`。
 
-截至 2026-07-28 最近一次内容审计：
+截至 2026-07-30 最近一次内容审计：
 
 ```text
-全站：135 / 1090 已精写，955 待完成
+全站：150 / 1090 已精写，940 待完成
 Python：102 / 102
 TypeScript：13 / 114
-LangGraph：5 / 132
+LangGraph：10 / 132
 Transformer：10 / 120
-PyTorch：5 / 120
+PyTorch：15 / 120
 ```
 
 当前应继续的课题是：
 
 ```text
-PyTorch / 01 · Tensor、Storage 与 Stride
-transpose、permute 与 movedim：只改维度解释的零拷贝重排
+PyTorch / torch-02-06
+expand 与 repeat
 ```
 
 若工作树中该课已经精写，则继续本模块下一个 pending 课题，不依赖上述快照。

@@ -1,176 +1,152 @@
-import { readdir, readFile } from 'node:fs/promises'
+import { readFile, readdir } from 'node:fs/promises'
 import { join, relative } from 'node:path'
-import { tracks } from '../app/data/curriculum.ts'
+import { parseLessonMarkdown } from '../app/data/lesson-markdown.ts'
+import { loadCurriculumFromDisk } from './lib/load-curriculum.mjs'
 
 const root = new URL('..', import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1')
-const guideRoot = join(root, 'app', 'data', 'guides')
-const requiredFields = [
-  'official',
-  'overview',
-  'mechanisms',
-  'pitfalls',
-  'example',
-  'buildSteps',
-  'selfCheckQuestion',
-  'selfCheckAnswer'
-]
+const curriculumRoot = join(root, 'content', 'curriculum')
+const malformed = []
+const { tracks, trackDocuments, moduleDocuments } = await loadCurriculumFromDisk(root)
 
-async function listTypeScriptFiles(directory) {
+async function listMarkdownFiles(directory) {
   const result = []
   for (const entry of await readdir(directory, { withFileTypes: true })) {
     const absolute = join(directory, entry.name)
-    if (entry.isDirectory()) result.push(...await listTypeScriptFiles(absolute))
-    else if (entry.isFile() && entry.name.endsWith('.ts')) result.push(absolute)
+    if (entry.isDirectory()) result.push(...await listMarkdownFiles(absolute))
+    else if (entry.isFile() && entry.name.endsWith('.md')) result.push(absolute)
   }
   return result
 }
 
-function topLevelTitles(source) {
-  return [...source.matchAll(/^  '([^']+)': \{$/gm)].map(match => match[1])
-}
-
-function topLevelGuideBlocks(source) {
-  const matches = [...source.matchAll(/^  '([^']+)': \{$/gm)]
-  return matches.map((match, index) => ({
-    title: match[1],
-    source: source.slice(match.index, matches[index + 1]?.index ?? source.length)
-  }))
-}
-
-function sliceField(block, field, nextFields) {
-  const start = block.indexOf(`    ${field}:`)
-  if (start < 0) return ''
-  const ends = nextFields
-    .map(next => block.indexOf(`    ${next}:`, start + field.length + 5))
-    .filter(index => index >= 0)
-  return block.slice(start, ends.length ? Math.min(...ends) : block.length)
-}
-
-function countCjk(value) {
-  return (value.match(/[\u3400-\u9fff]/g) || []).length
-}
-
-function numericField(source, field) {
-  const match = source.match(new RegExp(`${field}:\\s*(\\d+)`))
-  return match ? Number(match[1]) : NaN
-}
-
-const lessonTitlesByTrack = new Map(
-  tracks.map(track => [track.id, new Set(track.lessons.map(lesson => lesson.title))])
-)
-const lessonByTrackAndTitle = new Map(
-  tracks.flatMap(track => track.lessons.map(lesson => [`${track.id}:${lesson.title}`, lesson]))
+const lessonByTrackAndId = new Map(
+  tracks.flatMap(track =>
+    track.lessons.map(lesson => [`${track.id}:${lesson.id}`, { track, lesson }])
+  )
 )
 const curatedByTrack = new Map(tracks.map(track => [track.id, new Set()]))
-const malformed = []
+const seenTitles = new Set()
+const seenIds = new Set()
 
-for (const file of await listTypeScriptFiles(guideRoot)) {
-  const source = await readFile(file, 'utf8')
-  const trackId = relative(guideRoot, file).split(/[\\/]/)[0]
-  const trackTitles = lessonTitlesByTrack.get(trackId)
-  if (!trackTitles) {
-    malformed.push(`${relative(root, file)}: 目录名 ${trackId} 不是课程 TrackId`)
+const countCjk = value => (value.match(/[\u3400-\u9fff]/g) || []).length
+const nonEmptyLines = value => value.split('\n').filter(line => line.trim()).length
+
+const lessonFiles = (await listMarkdownFiles(curriculumRoot))
+  .filter(file => file.replace(/\\/g, '/').includes('/lessons/'))
+
+for (const file of lessonFiles) {
+  const relativePath = relative(root, file).replace(/\\/g, '/')
+  const raw = await readFile(file, 'utf8')
+  if (/\bTODO\b|\{\{[A-Z_]+\}\}/.test(raw)) {
+    malformed.push(`${relativePath}: 仍含公共模板占位符`)
+  }
+  let document
+  try {
+    document = parseLessonMarkdown(raw, relativePath)
+  } catch (error) {
+    malformed.push(error.message)
     continue
   }
 
-  const titles = topLevelTitles(source)
-  for (const title of titles) {
-    if (!trackTitles.has(title)) {
-      malformed.push(`${relative(root, file)}: 专题“${title}”未出现在 ${trackId} 课程表`)
-      continue
-    }
-    curatedByTrack.get(trackId).add(title)
+  const key = `${document.track}:${document.id}`
+  const titleKey = `${document.track}:${document.title}`
+  const curriculumEntry = lessonByTrackAndId.get(key)
+  if (!curriculumEntry) {
+    malformed.push(`${relativePath}: ${key} 未出现在课程表`)
+    continue
   }
 
-  for (const field of requiredFields) {
-    const count = [...source.matchAll(new RegExp(`^    ${field}:`, 'gm'))].length
-    if (count !== titles.length) {
+  if (seenIds.has(key)) malformed.push(`${relativePath}: 课程 id 重复 ${key}`)
+  if (seenTitles.has(titleKey)) malformed.push(`${relativePath}: 课程题名重复 ${titleKey}`)
+  seenIds.add(key)
+  seenTitles.add(titleKey)
+
+  const expectedPath = `content/curriculum/${document.track}/${String(curriculumEntry.lesson.moduleOrder).padStart(2, '0')}/lessons/${document.id}.md`
+  if (relativePath !== expectedPath) {
+    malformed.push(`${relativePath}: 文件路径应为 ${expectedPath}`)
+  }
+  if (document.title !== curriculumEntry.lesson.title) {
+    malformed.push(
+      `${relativePath}: frontmatter 题名“${document.title}”与课程表“${curriculumEntry.lesson.title}”不一致`
+    )
+  }
+
+  const guide = document.guide
+  if (guide.overview.length < 2) malformed.push(`${relativePath}: 导读至少需要 2 段`)
+  if (!guide.example.trim()) malformed.push(`${relativePath}: 缺少可运行示例`)
+
+  if (document.depth === 'deep') {
+    for (const [field, value] of [
+      ['官方入口', guide.official],
+      ['真实源码', guide.source],
+      ['分章正文', guide.chapters?.length],
+      ['核心机制', guide.mechanisms?.length],
+      ['常见误区', guide.pitfalls?.length],
+      ['实现变体', guide.variants?.length],
+      ['学习时间', guide.studyPlan],
+      ['搭积木复现', guide.buildSteps?.length],
+      ['自检问题', guide.selfCheckQuestion],
+      ['站内答案', guide.selfCheckAnswer]
+    ]) {
+      if (!value) malformed.push(`${relativePath}: 深度课程缺少 ${field}`)
+    }
+
+    const lesson = curriculumEntry.lesson
+    const expert = lesson.difficulty === '专家'
+    const chapterCount = guide.chapters?.length || 0
+    const variantCount = guide.variants?.length || 0
+    const walkthroughCount = guide.source?.walkthrough.length || 0
+    const buildStepCount = guide.buildSteps?.length || 0
+    const sourceCodeLines = nonEmptyLines(guide.source?.code || '')
+    const readingMinutes = guide.studyPlan?.readingMinutes || 0
+    const minCjk = Math.max(expert ? 2800 : 2000, readingMinutes * 70)
+
+    if (chapterCount < (expert ? 7 : 5)) {
+      malformed.push(`${relativePath}: ${lesson.difficulty}课正文仅 ${chapterCount} 章`)
+    }
+    if (variantCount < 2) malformed.push(`${relativePath}: 实现变体仅 ${variantCount} 个`)
+    if (walkthroughCount < 4) malformed.push(`${relativePath}: 源码逐段讲解仅 ${walkthroughCount} 步`)
+    if (buildStepCount < (expert ? 6 : 5)) {
+      malformed.push(`${relativePath}: 复现积木仅 ${buildStepCount} 个`)
+    }
+    if (sourceCodeLines < (expert ? 20 : 14)) {
+      malformed.push(`${relativePath}: 真实源码节选仅 ${sourceCodeLines} 行`)
+    }
+    if (countCjk(raw) < minCjk) {
+      malformed.push(`${relativePath}: 中文内容不足 ${minCjk} 字`)
+    }
+
+    const plannedMinutes = guide.studyPlan
+      ? Object.values(guide.studyPlan).reduce((sum, value) => sum + value, 0)
+      : 0
+    if (plannedMinutes !== lesson.estimatedMinutes) {
       malformed.push(
-        `${relative(root, file)}: ${titles.length} 篇专题中 ${field} 出现 ${count} 次`
+        `${relativePath}: 四段时间合计 ${plannedMinutes}，应为 ${lesson.estimatedMinutes}`
       )
     }
   }
 
-  // Python 采用第一阶段的专题结构。从 TypeScript 开始，所有新精写课必须
-  // 通过长课文密度门：分章正文、真实源码、写法变体和可核对的时间预算。
-  if (trackId !== 'python') {
-    for (const guide of topLevelGuideBlocks(source)) {
-      const lesson = lessonByTrackAndTitle.get(`${trackId}:${guide.title}`)
-      if (!lesson) continue
+  if (curriculumEntry.lesson.status === 'pending') {
+    malformed.push(`${relativePath}: pending 课题不应已有正文，请先认领`)
+  }
+  if (curriculumEntry.lesson.status === 'curated') {
+    curatedByTrack.get(document.track).add(document.id)
+  }
+}
 
-      for (const field of ['source', 'chapters', 'variants', 'studyPlan']) {
-        if (!new RegExp(`^    ${field}:`, 'm').test(guide.source)) {
-          malformed.push(`${relative(root, file)}: “${guide.title}”缺少长课文必填字段 ${field}`)
-        }
-      }
-
-      const chapterSource = sliceField(guide.source, 'chapters', ['mechanisms', 'pitfalls', 'variants', 'studyPlan', 'example'])
-      const variantSource = sliceField(guide.source, 'variants', ['studyPlan', 'example', 'buildSteps'])
-      const sourceField = sliceField(guide.source, 'source', ['overview', 'chapters', 'mechanisms'])
-      const buildStepSource = sliceField(guide.source, 'buildSteps', ['selfCheckQuestion', 'selfCheckAnswer'])
-      const chapterCount = [...chapterSource.matchAll(/\btitle:\s*['"`]/g)].length
-      const variantCount = [...variantSource.matchAll(/\btitle:\s*['"`]/g)].length
-      const walkthroughCount = [...sourceField.matchAll(/^\s{8}['"`]/gm)].length
-      const buildStepCount = [...buildStepSource.matchAll(/\btitle:\s*['"`]/g)].length
-      const sourceCode = sourceField.match(/\bcode:\s*`([\s\S]*?)`/)?.[1] || ''
-      const sourceCodeLines = sourceCode ? sourceCode.split('\n').filter(line => line.trim()).length : 0
-      const cjkCount = countCjk(guide.source)
-      const expert = lesson.difficulty === '专家'
-      const minChapters = expert ? 7 : 5
-      const plan = sliceField(guide.source, 'studyPlan', ['example', 'buildSteps'])
-      const readingMinutes = numericField(plan, 'readingMinutes')
-      // 深度阅读按每分钟至少 70 个中文字符校准。该阈值远低于普通中文
-      // 浏览速度，因为读者还要停下来手推、看代码和做章内实验，但足以阻止
-      // “预计 45 分钟、正文只有几段摘要”的虚假时间预算。
-      const minCjk = Math.max(expert ? 2800 : 2000, readingMinutes * 70)
-      const minBuildSteps = expert ? 6 : 5
-      const minSourceLines = expert ? 20 : 14
-
-      if (chapterCount < minChapters) {
-        malformed.push(`${relative(root, file)}: “${guide.title}”正文仅 ${chapterCount} 章，${lesson.difficulty}课至少需要 ${minChapters} 章`)
-      }
-      if (variantCount < 2) {
-        malformed.push(`${relative(root, file)}: “${guide.title}”仅 ${variantCount} 个写法/设计变体，至少需要 2 个`)
-      }
-      if (walkthroughCount < 4) {
-        malformed.push(`${relative(root, file)}: “${guide.title}”源码逐段讲解仅 ${walkthroughCount} 步，至少需要 4 步`)
-      }
-      if (cjkCount < minCjk) {
-        malformed.push(`${relative(root, file)}: “${guide.title}”中文内容约 ${cjkCount} 字，按 ${readingMinutes} 分钟正文预算至少需要 ${minCjk} 字`)
-      }
-      if (buildStepCount < minBuildSteps) {
-        malformed.push(`${relative(root, file)}: “${guide.title}”仅 ${buildStepCount} 个复现积木，${lesson.difficulty}课至少需要 ${minBuildSteps} 个`)
-      }
-      if (sourceCodeLines < minSourceLines) {
-        malformed.push(`${relative(root, file)}: “${guide.title}”真实源码节选仅 ${sourceCodeLines} 行，${lesson.difficulty}课至少需要 ${minSourceLines} 行`)
-      }
-
-      const plannedMinutes = ['readingMinutes', 'sourceMinutes', 'practiceMinutes', 'reviewMinutes']
-        .map(field => numericField(plan, field))
-        .reduce((sum, value) => sum + value, 0)
-      if (!Number.isFinite(plannedMinutes) || plannedMinutes !== lesson.estimatedMinutes) {
-        malformed.push(`${relative(root, file)}: “${guide.title}”四段时间合计 ${plannedMinutes}，应与预计 ${lesson.estimatedMinutes} 分钟一致`)
-      }
+for (const track of tracks) {
+  for (const lesson of track.lessons) {
+    const key = `${track.id}:${lesson.id}`
+    if (lesson.status === 'curated' && !seenIds.has(key)) {
+      malformed.push(`${track.id}/${lesson.id}: catalog 标记 curated，但缺少课程正文`)
     }
   }
 }
 
-// 早期精写内容仍有两处位于分轨 guide 目录外。只按真实课程题名计入，
-// 等迁移完成后可删除兼容读取。
-const legacyTopicGuides = await readFile(join(root, 'app', 'data', 'topic-guides.ts'), 'utf8')
-const pythonTitles = lessonTitlesByTrack.get('python')
-for (const title of topLevelTitles(legacyTopicGuides)) {
-  if (pythonTitles.has(title)) curatedByTrack.get('python').add(title)
+if (trackDocuments.length !== tracks.length) {
+  malformed.push(`路线注册数量异常：读取 ${trackDocuments.length}，构建 ${tracks.length}`)
 }
-
-const legacyContent = await readFile(join(root, 'app', 'data', 'lesson-content.ts'), 'utf8')
-const transformerTitles = lessonTitlesByTrack.get('transformer')
-for (const title of topLevelTitles(legacyContent)) {
-  if (transformerTitles.has(title)) curatedByTrack.get('transformer').add(title)
-}
-for (const match of legacyContent.matchAll(/track\.id === '([^']+)' && lesson\.title === '([^']+)'/g)) {
-  const [, trackId, title] = match
-  if (lessonTitlesByTrack.get(trackId)?.has(title)) curatedByTrack.get(trackId).add(title)
+if (moduleDocuments.length !== tracks.reduce((sum, track) => sum + track.modules.length, 0)) {
+  malformed.push('模块注册数量与构建结果不一致')
 }
 
 const rows = tracks.map(track => {

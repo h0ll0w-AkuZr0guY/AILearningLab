@@ -1,6 +1,6 @@
 import type { Lesson, Track, TrackId } from './curriculum'
 import { getTopicGuide } from './topic-guides'
-import type { GuideChapter, GuideStudyPlan, GuideVariant, TopicGuide } from './topic-guides'
+import type { GuideChapter, GuideStudyPlan, GuideVariant, TopicGuide } from './guide-types'
 
 export interface OfficialSection {
   title: string
@@ -349,286 +349,6 @@ assert linear(x).shape == (2, d_out)`
   return examples[track.id]
 }
 
-const scalarVectorMatrixSource: SourceExcerpt = {
-  repo: 'pytorch/pytorch',
-  file: '教学版实现，对应 torch.matmul / aten::matmul',
-  symbol: '线性代数核心函数组',
-  language: 'python',
-  code: `def scalar_mul(scalar: float, vector: list[float]) -> list[float]:
-    """标量乘向量：一个数依次缩放向量中的每个分量。"""
-    return [scalar * value for value in vector]
-
-
-def vector_dot(left: list[float], right: list[float]) -> float:
-    """向量点积：对应位置相乘后求和，结果是一个标量。"""
-    if len(left) != len(right):
-        raise ValueError("点积要求两个向量长度相同")
-    return sum(a * b for a, b in zip(left, right))
-
-
-def transpose(matrix: list[list[float]]) -> list[list[float]]:
-    """把矩阵的行变成列，方便复用 vector_dot。"""
-    if not matrix or not matrix[0]:
-        raise ValueError("矩阵不能为空")
-    width = len(matrix[0])
-    if any(len(row) != width for row in matrix):
-        raise ValueError("矩阵必须是规则的二维数组")
-    return [list(column) for column in zip(*matrix)]
-
-
-def matrix_multiply(
-    left: list[list[float]],
-    right: list[list[float]],
-) -> list[list[float]]:
-    """矩阵乘法：左矩阵的每一行，与右矩阵的每一列做点积。"""
-    right_columns = transpose(right)
-    if len(left[0]) != len(right_columns[0]):
-        raise ValueError("A 的列数必须等于 B 的行数")
-    return [
-        [vector_dot(row, column) for column in right_columns]
-        for row in left
-    ]`,
-  walkthrough: [
-    'scalar_mul 只做逐元素缩放，是后续线性组合的最小积木。',
-    'vector_dot 把两个同长度向量压缩成标量，对应注意力里的单个相似度。',
-    'transpose 把“取列”转成可复用的数据结构操作。',
-    'matrix_multiply 只负责组织行与列，真正的数值核心继续复用 vector_dot。'
-  ],
-  url: 'https://docs.pytorch.org/docs/stable/generated/torch.matmul.html'
-}
-
-const scalarVectorMatrixLesson = {
-  overview: [
-    '标量、向量和矩阵首先是“数据有多少个方向”的记号。一个标量只有一个数，例如学习率 0.001；一个向量是一列有顺序的数，例如某个 token 的 768 个特征；一个矩阵是许多等长向量按行排在一起，例如 128 个 token 的隐藏状态可以写成形状 [128, 768] 的矩阵。',
-    '程序里的重点是 shape。0 维张量常被当作标量，1 维张量可表示向量，2 维张量可表示矩阵，更高维张量是在它们外面继续增加 batch、head、time 等轴。轴的名字来自业务语义，并不会被 PyTorch 自动理解，所以工程师需要在代码和断言中主动标注。',
-    '矩阵乘法不是逐元素相乘。若 A 的形状是 [m, k]，B 的形状是 [k, n]，A @ B 的结果才存在，形状为 [m, n]。中间维 k 被“消费”：结果中的每个数，都来自 A 的一行与 B 的一列做点积。',
-    'Transformer 几乎所有核心计算都能还原为这些积木。隐藏状态 X[B,T,D] 乘权重 W[D,H] 得到投影 XW[B,T,H]；Q 与 Kᵀ 相乘得到每对 token 的相似度；最后再用注意力权重乘 V。学会逐行推导 shape，后面的 attention 才不会变成背公式。'
-  ],
-  mechanisms: [
-    '标量缩放：s × v 对向量每个分量应用同一个比例，shape 不变。',
-    '向量点积：两个长度为 k 的向量对应位置相乘并求和，k 个数被压缩为一个标量。',
-    '矩阵乘法：把“每一行与每一列做点积”批量组织起来，要求左列数等于右行数。',
-    '高维张量：最后两个轴执行矩阵乘法，前面的轴通常作为 batch 维参与广播。'
-  ],
-  buildSteps: [
-    {
-      title: '积木 1：先区分值、维度与形状',
-      body: 'ndim 表示轴的数量，shape 描述每条轴的长度，numel 是所有轴长度的乘积。三个概念不能混用。',
-      code: `import torch
-
-scalar = torch.tensor(3.0)            # shape: []
-vector = torch.tensor([1.0, 2.0])     # shape: [2]
-matrix = torch.tensor([[1., 2.],
-                       [3., 4.]])      # shape: [2, 2]
-
-assert scalar.ndim == 0
-assert vector.shape == (2,)
-assert matrix.shape == (2, 2)`
-    },
-    {
-      title: '积木 2：自己实现点积',
-      body: '点积是矩阵乘法的数值核心。先用循环实现，再与 torch.dot 对照，可以把公式变成可调试的程序。',
-      code: `def vector_dot(left, right):
-    if len(left) != len(right):
-        raise ValueError("长度必须相同")
-    total = 0.0
-    for a, b in zip(left, right):
-        total += a * b
-    return total
-
-assert vector_dot([1, 2, 3], [4, 5, 6]) == 32`
-    },
-    {
-      title: '积木 3：用点积搭出矩阵乘法',
-      body: '矩阵乘法本身只做两件事：枚举左矩阵的行、枚举右矩阵的列。每一对行列继续交给 vector_dot。',
-      code: `def matrix_multiply(left, right):
-    right_columns = list(zip(*right))
-    if len(left[0]) != len(right):
-        raise ValueError("A 的列数必须等于 B 的行数")
-    return [
-        [vector_dot(row, column) for column in right_columns]
-        for row in left
-    ]
-
-assert matrix_multiply([[1, 2]], [[3], [4]]) == [[11]]`
-    },
-    {
-      title: '积木 4：映射到 Transformer 投影',
-      body: '把 T 个 token 的 D 维表示看作 [T,D] 矩阵，用 [D,H] 权重做线性投影，结果自然成为 [T,H]。',
-      code: `T, D, H = 4, 8, 16
-x = torch.randn(T, D)     # 4 个 token，每个 8 维
-weight = torch.randn(D, H)
-projected = x @ weight
-
-assert projected.shape == (T, H)`
-    }
-  ],
-  example: `import torch
-
-# X: 两个 token，每个 token 有三个特征
-X = torch.tensor([[1., 2., 3.],
-                  [4., 5., 6.]])       # [T=2, D=3]
-
-# W: 把 3 维特征投影到 4 维
-W = torch.tensor([[1., 0., 0., 1.],
-                  [0., 1., 0., 1.],
-                  [0., 0., 1., 1.]])   # [D=3, H=4]
-
-Y = X @ W                              # [T=2, H=4]
-
-assert Y.shape == (2, 4)
-assert torch.equal(Y[0], torch.tensor([1., 2., 3., 6.]))
-print(Y)`,
-  pitfalls: [
-    '把 * 当成矩阵乘法。对 Tensor 而言，* 通常表示逐元素相乘，@ 才表达矩阵乘法。',
-    '只看元素总数，不看每条轴的业务含义。[B,T,D] 与 [T,B,D] 元素数相同，却会让后续计算完全不同。',
-    '省略 shape 断言，让错误一直传播到 attention 或 loss 才暴露，定位成本会急剧增加。',
-    '误以为 vector 一定是列向量。程序中的一维 Tensor 没有行列方向，方向由参与的运算决定。'
-  ]
-}
-
-const linearAlgebraGuides: Record<string, { overview: string[]; example: string }> = {
-  'batch 维度': {
-    overview: [
-      'batch 是为了同时处理多份彼此独立的数据而增加的外层轴。单句隐藏状态可以是 [T,D]，一次送入 B 句话后就成为 [B,T,D]。B 只表示并行样本数量，句子之间不会因为放进同一个 batch 就互相做 attention。',
-      '实现算子时通常把最后几个轴留给核心数学，把前面的轴看作 batch。例如 [B,T,D] @ [D,H] 会对 B 个样本和 T 个 token 复用同一个 [D,H] 投影，得到 [B,T,H]。',
-      'batch 里的样本长度可能不同，因此还需要 padding 和 attention mask。shape 对齐只保证程序能算，mask 才保证填充位置不会污染语义。'
-    ],
-    example: `import torch
-
-B, T, D, H = 2, 3, 4, 5
-x = torch.randn(B, T, D)
-weight = torch.randn(D, H)
-
-# 同一份权重自动应用到每个 batch、每个 token
-y = x @ weight
-assert y.shape == (B, T, H)`
-  },
-  'einsum 记号': {
-    overview: [
-      'einsum 用字母给每条轴命名，再声明哪些轴保留、哪些轴求和。它把 transpose、broadcast、multiply 和 sum 合在一个可检查的字符串中。',
-      '公式 "btd,dh->bth" 表示：输入分别拥有 [batch,time,dimension] 与 [dimension,hidden]，d 同时出现但没有出现在输出中，所以沿 d 求和；b、t、h 被保留。',
-      'einsum 更接近数学推导，但过长表达式会降低可读性。工程中应让字母与 shape 注释对应，并用普通 matmul 版本作为测试基准。'
-    ],
-    example: `import torch
-
-x = torch.randn(2, 3, 4)      # b t d
-weight = torch.randn(4, 5)    # d h
-
-by_einsum = torch.einsum("btd,dh->bth", x, weight)
-by_matmul = x @ weight
-
-assert by_einsum.shape == (2, 3, 5)
-assert torch.allclose(by_einsum, by_matmul)`
-  },
-  '矩阵乘法形状': {
-    overview: [
-      '判断矩阵乘法能否执行，只看相邻的两个内维是否相等。A[m,k] @ B[k,n] 中 k 被消去，结果留下外侧的 m 和 n。',
-      '推 shape 时不要从元素总数猜结果。先在纸上写出每条轴的业务名称，再把参与收缩的轴圈出来；Transformer 中最常被收缩的是 hidden dimension 或 head dimension。',
-      '高维 matmul 对最后两个轴执行矩阵乘法，前面的轴按 broadcast 规则对齐，因此 Q[B,H,T,Dh] @ Kᵀ[B,H,Dh,T] 得到 [B,H,T,T]。'
-    ],
-    example: `import torch
-
-Q = torch.randn(2, 8, 16, 64)          # [B,H,T,Dh]
-K = torch.randn(2, 8, 16, 64)
-scores = Q @ K.transpose(-2, -1)        # [B,H,T,T]
-
-assert scores.shape == (2, 8, 16, 16)`
-  },
-  'broadcast 规则': {
-    overview: [
-      'broadcast 让不同 shape 的张量在不真实复制数据的情况下参与逐元素运算。比较 shape 时从最后一维向前看，两条轴相等或其中一条为 1 才兼容。',
-      '例如 [B,T,D] 加 [D] 时，[D] 会被理解成 [1,1,D]，同一偏置应用到所有 batch 和 token。broadcast 改变的是索引规则，expand 得到的维度可能拥有 stride 0。',
-      '隐式 broadcast 很方便，也容易掩盖轴写反。关键代码应先写 shape 断言，并在注释里写清哪条轴被扩展。'
-    ],
-    example: `import torch
-
-x = torch.randn(2, 3, 4)   # [B,T,D]
-bias = torch.randn(4)      # [D] -> [1,1,D]
-y = x + bias
-
-assert y.shape == (2, 3, 4)`
-  },
-  '范数与归一化': {
-    overview: [
-      '范数把一个向量压缩成描述“大小”的标量。L2 范数是各分量平方和再开方；归一化通常用向量除以范数，使方向保留而尺度受控。',
-      '神经网络里的 LayerNorm 并非简单 L2 归一化。它沿指定特征轴计算均值与方差，再用可学习的缩放和偏移恢复表达能力。',
-      '必须明确沿哪条轴归一化。对 [B,T,D] 的隐藏状态，LayerNorm 通常沿 D 处理每个 token，而不会把不同 batch 或 token 混在一起。'
-    ],
-    example: `import torch
-
-x = torch.tensor([3.0, 4.0])
-norm = torch.linalg.vector_norm(x)
-unit = x / norm
-
-assert norm.item() == 5.0
-assert torch.allclose(torch.linalg.vector_norm(unit), torch.tensor(1.0))`
-  },
-  'softmax 性质': {
-    overview: [
-      'softmax 把一组任意实数转换成和为 1 的正数分布。它先对每个值取指数，再除以整组指数之和，因此较大的 logit 会得到更高权重。',
-      '直接计算 exp(x) 可能溢出。减去同一行最大值不会改变结果，因为分子分母同时乘了相同常数，却能把最大指数稳定在 exp(0)=1。',
-      'axis 决定“哪一组数竞争”。attention score [B,H,T,T] 通常沿最后一维归一化，表示每个 query 在所有 key 上分配权重。'
-    ],
-    example: `import torch
-
-def stable_softmax(x, dim=-1):
-    shifted = x - x.max(dim=dim, keepdim=True).values
-    exp = shifted.exp()
-    return exp / exp.sum(dim=dim, keepdim=True)
-
-x = torch.tensor([[1000.0, 1001.0]])
-probs = stable_softmax(x)
-assert torch.allclose(probs.sum(-1), torch.ones(1))`
-  },
-  'Jacobian 直觉': {
-    overview: [
-      '普通导数描述一个输入对一个输出的变化率；Jacobian 把“多个输入影响多个输出”的全部偏导排列成矩阵。若 f: Rⁿ→Rᵐ，Jacobian 的形状是 [m,n]。',
-      '深度学习通常不会显式构造完整 Jacobian，因为它可能巨大。反向模式自动微分计算的是向量与 Jacobian 的乘积 VJP，并从标量 loss 向输入高效传播。',
-      '理解 Jacobian 的价值在于判断梯度 shape 和依赖关系，而非手算大矩阵。每个局部算子的 VJP 会在 autograd 图上按链式法则组合。'
-    ],
-    example: `import torch
-
-def f(x):
-    return torch.stack([x[0] * x[1], x[0] ** 2])
-
-x = torch.tensor([2.0, 3.0], requires_grad=True)
-jacobian = torch.autograd.functional.jacobian(f, x)
-
-assert jacobian.shape == (2, 2)
-# [[df0/dx0, df0/dx1], [df1/dx0, df1/dx1]]
-print(jacobian)`
-  },
-  '计算复杂度': {
-    overview: [
-      '复杂度估算回答规模扩大后计算量和内存如何增长。A[m,k] @ B[k,n] 需要大约 m·k·n 次乘加，结果本身占 m·n 个元素。',
-      '标准 self-attention 的 score 矩阵形状为 [T,T]，因此序列长度 T 翻倍时，score 相关计算和显存约增长到四倍。隐藏维和 head 数则影响常数与投影开销。',
-      '工程优化前应先找主导项，再结合硬件判断真正瓶颈。相同 FLOPs 可能受计算吞吐、内存带宽或 kernel launch 限制。'
-    ],
-    example: `def matmul_flops(m: int, k: int, n: int) -> int:
-    # 每个输出元素执行 k 次乘法和约 k 次加法
-    return 2 * m * k * n
-
-assert matmul_flops(128, 768, 768) == 2 * 128 * 768 * 768`
-  },
-  '数值稳定性': {
-    overview: [
-      '浮点数只能表示有限精度和范围。数学上等价的表达式，在计算机里可能因为溢出、下溢或舍入顺序得到不同结果。',
-      '稳定实现会主动重写公式，例如 softmax 先减最大值、log(sum(exp(x))) 使用 logsumexp、方差计算避免两个大数相减。',
-      '混合精度训练进一步放大范围问题，需要 loss scaling、合适的累加 dtype，并用有限值检查及时暴露 NaN/Inf。'
-    ],
-    example: `import torch
-
-x = torch.tensor([1000.0, 1001.0])
-
-unstable = torch.log(torch.exp(x).sum())   # 可能得到 inf
-stable = torch.logsumexp(x, dim=0)
-
-assert torch.isfinite(stable)
-print({"unstable": unstable, "stable": stable})`
-  }
-}
-
 const commentPrefix = (language: string) => language === 'c' || language === 'typescript' ? '//' : '#'
 
 const exampleLanguageFor = (track: Track, topicGuide?: TopicGuide) => {
@@ -670,50 +390,44 @@ const fallbackStudyPlan = (estimatedMinutes: number): GuideStudyPlan => {
 }
 
 export function getLessonDetail(track: Track, lesson: Lesson): LessonDetail {
-  const topicGuide = getTopicGuide(track.id, lesson.title)
+  const topicGuide = getTopicGuide(track.id, lesson.id, lesson.title)
   const sections = officialSections[track.id]
   const sources = sourceCatalog[track.id]
   const official = topicGuide?.official || sections[Math.min(lesson.moduleOrder - 1, sections.length - 1)]
-  const isScalarVectorMatrix = track.id === 'transformer' && lesson.title === '标量向量矩阵'
-  const linearAlgebraGuide = track.id === 'transformer' && lesson.moduleOrder === 1
-    ? linearAlgebraGuides[lesson.title]
-    : undefined
-  const source = isScalarVectorMatrix
-    ? scalarVectorMatrixSource
-    : topicGuide?.source || sources[(lesson.moduleOrder - 1) % sources.length]
+  const source = topicGuide?.source || sources[(lesson.moduleOrder - 1) % sources.length]
   const sourceComment = commentPrefix(source.language)
-  const annotatedSource = isScalarVectorMatrix || topicGuide?.source
+  const annotatedSource = topicGuide?.source
     ? source.code
     : `${source.walkthrough.map((item, index) => `${sourceComment} ${index + 1}. ${item}`).join('\n')}\n\n${source.code}`
-  const special = isScalarVectorMatrix ? scalarVectorMatrixLesson : null
+  const isTeachingSource = source.file.startsWith('教学版实现')
   return {
-    curated: Boolean(special || topicGuide || linearAlgebraGuide),
+    curated: Boolean(topicGuide),
     official,
     source,
-    overview: special?.overview || topicGuide?.overview || linearAlgebraGuide?.overview || [
+    overview: topicGuide?.overview?.length ? topicGuide.overview : [
       `${lesson.title} 是本节真正要掌握的能力。先把它还原为具体问题：调用者交给系统什么数据，系统依据哪些规则处理，结果以什么形式返回，失败时又能观察到什么。`,
       lesson.why,
       `官方文档给出的关键约束是：${official.note} 本节会把这条约束放进一个可运行的最小实现，再逐步补上错误处理、状态和工程取舍。`
     ],
     chapters: topicGuide?.chapters || [],
-    mechanisms: special?.mechanisms || topicGuide?.mechanisms || [
+    mechanisms: topicGuide?.mechanisms?.length ? topicGuide.mechanisms : [
       `输入与表示：明确「${lesson.title}」处理的数据结构、类型、shape 或状态字段。`,
       `核心变换：只描述输入如何一步步变为输出，先排除缓存、兼容层等辅助逻辑。`,
       `失败边界：确定无效输入、重复调用、并发或取消时的可观察行为。`,
       `组合方式：说明这个积木如何被上一层函数调用，以及它会继续调用哪些更小的积木。`
     ],
-    pitfalls: special?.pitfalls || topicGuide?.pitfalls || [
+    pitfalls: topicGuide?.pitfalls?.length ? topicGuide.pitfalls : [
       `只记调用形式，没有用具体输入手算或单步执行「${lesson.title}」的状态变化。`,
       `一开始照搬上游全部参数与兼容分支，导致核心算法被工程噪声淹没。`,
       `缺少失败用例和断言，直到多个函数组合后才发现底层契约理解错误。`
     ],
     variants: topicGuide?.variants || [],
     studyPlan: topicGuide?.studyPlan || fallbackStudyPlan(lesson.estimatedMinutes),
-    example: special?.example || topicGuide?.example || linearAlgebraGuide?.example || exampleFor(track, lesson),
+    example: topicGuide?.example || exampleFor(track, lesson),
     exampleLanguage: exampleLanguageFor(track, topicGuide),
-    buildSteps: special?.buildSteps || topicGuide?.buildSteps || genericBuildSteps(track, lesson, source),
+    buildSteps: topicGuide?.buildSteps?.length ? topicGuide.buildSteps : genericBuildSteps(track, lesson, source),
     annotatedSource,
-    sourceLabel: isScalarVectorMatrix
+    sourceLabel: isTeachingSource
       ? '核心架构教学版 · 对应上游 torch.matmul'
       : topicGuide?.source
         ? '课题对应的真实上游源码 · 已补充中文阅读注释'
