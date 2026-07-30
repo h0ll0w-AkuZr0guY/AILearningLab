@@ -61,7 +61,11 @@ assert p[1, 3, 2] == base[1, 2, 3]`, language: 'python', takeaway: '轴排列必
       { kicker: '05 · AUTOGRAD', title: 'view 的梯度与原地写边界', paragraphs: [
         'permute 的 backward 是逆置换：若 forward 把 `(B,T,D)`改成 `(B,D,T)`，梯度再 permute 回去即可。这没有改变数学值，却要求 autograd 知道它是 view，才能在正确基 Tensor 上累积。',
         '需要梯度的叶子和其 view 不能随意原地写。即使当前地址不重叠，保存的 forward 值与版本计数也可能被破坏。训练代码优先使用 out-of-place 更新；确需写入时先明确所有权，再用 anomaly detection 与反向测试证明。'
-      ], takeaway: '共享 Storage 的高效与可变状态耦合在一起，autograd 是这份合同的守门人。' }
+      ], takeaway: '共享 Storage 的高效与可变状态耦合在一起，autograd 是这份合同的守门人。' },
+      { kicker: '06 · COMPOSITION', title: '把多次换轴化成可证明的坐标变换', paragraphs: [
+        '连续调用两次 permute 时，第二个排列作用在第一次输出的轴位置上，不能把两组整数直接相加。可靠做法是把每个输出轴记录成原输入轴的标签，再按第二次排列重新取标签；得到复合排列后只执行一次 permute。其逆排列满足 `inverse[perm[i]]=i`，把输出送回逆排列后，shape、stride、逐元素值和 Storage identity 都应恢复。这组恒等式比观察一个对称 shape 更能抓住轴顺序错误。',
+        '工程接口应把裸整数排列封装成 `to_channels_last`、`bth_to_bht` 一类有输入输出约定的适配器，并在边界断言 rank 与关键轴长度。测试故意采用互不相等的维度和坐标编码值，覆盖负维度、重复维度、漏轴及逆变换；性能测试再确认合并重排没有提前 materialize。这样，模型结构变更时失败会停在布局边界，而不会等到广播或矩阵乘用一组形状合法、语义错位的数据继续运行。'
+      ], takeaway: '排列是可复合、可求逆的坐标变换；用标签和恒等式验证，比从整数列表猜轴语义可靠。' }
     ],
     mechanisms: ['transpose 交换两项 size/stride；permute 对全部轴做双射排列。', 'movedim 将指定轴移动到目标位置，未指定轴保持相对次序。', '普通 strided 输出通过 as_strided 共享 Storage，往往失去默认 contiguous。', '下游 kernel 可以接受 stride，也可能触发或要求物化。'],
     pitfalls: ['用 view 代替 permute，只改 shape 而没有同步坐标含义。', '把 `data_ptr`不同的 slice 误判为没有共享 Storage。', '假定 sparse transpose 与 dense strided transpose 一样别名。', '为每次 permute 无条件 contiguous，未测量复制是否回本。'],
