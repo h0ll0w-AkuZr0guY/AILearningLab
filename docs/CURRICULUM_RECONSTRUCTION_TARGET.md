@@ -478,7 +478,7 @@ curated 变化：0 / 120 → 5 / 120
 PR：https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/2
 ```
 
-当前每日自动化维护批次：
+上一每日自动化维护批次：
 
 ```text
 自动化：ailearninglab / AILearningLab 每日五课深度精写
@@ -506,4 +506,33 @@ curated 变化：5 / 132 → 10 / 132（7.6%）
 浏览器：本批五页标题、官方锚点、1.2.10 源码、复制、练习/面试答案、上下题、宽屏可调分栏、960px 堆叠、长标题和控制台通过
 下一 pending：TypedDict state
 PR：https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/4
+```
+
+当前每日自动化维护批次：
+
+```text
+自动化：ailearninglab / AILearningLab 每日五课深度精写
+运行日期：2026-07-30（Asia/Shanghai）
+恢复：发现同日自动化分支的未提交 PyTorch 内容；确认与文件命名、修改时间一致后恢复，不新增第 6 节。
+分支：agent/curriculum-torch-2026-07-30-01
+课程：PyTorch
+curated 变化：5 / 120 → 10 / 120（8.3%）
+全站变化：140 / 1090 → 145 / 1090
+01：transpose、permute 与 movedim：只改维度解释的零拷贝重排
+    粒度：把三种轴重排 API 合并为同一地址合同，重点验证 axis 语义、stride 置换和下游物化边界。
+02：slice、select 与 narrow：storage_offset 和步长切片
+    粒度：合并共享 size/stride/offset 合同的 basic indexing，并把 gather copy、读写差异与 Storage 生命周期作为边界。
+03：expand 与 repeat：零 stride 广播和真实物化
+    粒度：以零 stride 的多对一地址映射串联只读广播、梯度归约、独立写入和 hidden copy 取舍。
+04：as_strided：滑窗能力、越界检查与重叠写未定义行为
+    粒度：独立为专家课，覆盖范围证明、overlap、autograd scatter-add、后端限制和审查门禁。
+05：clone、contiguous 与 to：显式物化、所有权和设备迁移
+    粒度：合并三类 copy 决策，分清独立 Storage、目标 memory format、dtype/device 变换与计算图身份。
+源码基线：pytorch/pytorch v2.13.0；官方文档 2.13 稳定页与对应 ATen 源码交叉核验。
+本地运行时：五个 CPU 合同示例（examples/torch/06–10）通过。
+普通审计：145 / 1090；PyTorch 10 / 120（8.3%）。
+冻结安装：pnpm 11.17.0 --frozen-lockfile 通过。
+验证状态：普通审计、冻结安装、五个示例、Nuxt 静态生成与本地浏览器验收已通过；PR 创建、合并与 Pages 部署待本批继续完成。
+下一 pending：basic indexing 与 advanced indexing：view/copy 边界与赋值 scatter
+PR：https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/5
 ```
