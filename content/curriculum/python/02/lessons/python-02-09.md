@@ -4,7 +4,6 @@ track: "python"
 title: "__set_name__ 与声明式字段收集"
 depth: "foundation"
 exampleLanguage: "python"
-visualIndex: "../visuals/python-02-09.md"
 ---
 
 ## 官方入口

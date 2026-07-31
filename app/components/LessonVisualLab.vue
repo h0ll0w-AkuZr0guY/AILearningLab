@@ -64,6 +64,24 @@ const customVisual = (visual: GuideVisual) =>
 const compactGraphLabel = (label: string) =>
   label.length > 10 ? `${label.slice(0, 9)}…` : label
 
+const visualAccent = (kind: GuideVisual['kind']) => ({
+  flow: '#526ce5',
+  graph: '#8157d9',
+  tensor: '#26a77c',
+  playground: '#e27b3f',
+  state: '#307dc2',
+  image: '#64748b'
+}[kind] || '#526ce5')
+
+const progress = (visual: GuideVisual) =>
+  `${((activeIndex(visual) + 1) / Math.max(1, visual.steps.length)) * 100}%`
+
+const previousStep = (visual: GuideVisual) =>
+  visual.steps[Math.max(0, activeIndex(visual) - 1)]
+
+const nextStep = (visual: GuideVisual) =>
+  visual.steps[Math.min(visual.steps.length - 1, activeIndex(visual) + 1)]
+
 const graphPoint = (index: number, total: number) => {
   const columns = Math.min(4, Math.max(1, total))
   const row = Math.floor(index / columns)
@@ -103,6 +121,7 @@ onBeforeUnmount(() => {
       :key="visual.id"
       class="visual-card"
       :class="`visual-${visual.kind}`"
+      :style="{ '--visual-accent': visualAccent(visual.kind) }"
     >
       <header class="visual-card-heading">
         <div>
@@ -138,63 +157,93 @@ onBeforeUnmount(() => {
           class="visual-flow-stage"
           :aria-label="visual.title"
         >
-          <template v-for="(step, index) in visual.steps" :key="`${visual.id}-${step.label}`">
-            <button
-              :class="{ active: activeIndex(visual) === index, done: activeIndex(visual) > index }"
-              @click="setActive(visual, index)"
-            >
-              <span>{{ String(index + 1).padStart(2, '0') }}</span>
-              <b>{{ step.label }}</b>
-            </button>
-            <i v-if="index < visual.steps.length - 1" aria-hidden="true">→</i>
-          </template>
+          <div class="flow-rail">
+            <template v-for="(step, index) in visual.steps" :key="`${visual.id}-${step.label}`">
+              <button
+                :class="{ active: activeIndex(visual) === index, done: activeIndex(visual) > index }"
+                @click="setActive(visual, index)"
+              >
+                <span>{{ String(index + 1).padStart(2, '0') }}</span>
+                <b>{{ step.label }}</b>
+                <small>{{ activeIndex(visual) > index ? 'DONE' : activeIndex(visual) === index ? 'ACTIVE' : 'WAIT' }}</small>
+              </button>
+              <i v-if="index < visual.steps.length - 1" aria-hidden="true"><em /></i>
+            </template>
+          </div>
+          <aside class="flow-console">
+            <span>PIPELINE TRACE · {{ String(activeIndex(visual) + 1).padStart(2, '0') }}</span>
+            <h4>{{ visual.steps[activeIndex(visual)]?.label }}</h4>
+            <p>{{ visual.steps[activeIndex(visual)]?.detail }}</p>
+            <div><i :style="{ width: progress(visual) }" /></div>
+          </aside>
         </div>
 
         <div v-else-if="visual.kind === 'graph'" class="visual-graph-stage">
-          <svg viewBox="0 0 640 270" role="img" :aria-label="`${visual.title} 节点流`">
-            <g class="graph-edges">
-              <line
-                v-for="(_, index) in visual.steps.slice(0, -1)"
-                :key="`edge-${index}`"
-                :x1="graphPoint(index, visual.steps.length).x"
-                :y1="graphPoint(index, visual.steps.length).y"
-                :x2="graphPoint(index + 1, visual.steps.length).x"
-                :y2="graphPoint(index + 1, visual.steps.length).y"
-                :class="{ active: activeIndex(visual) > index }"
-              />
-            </g>
-            <g
-              v-for="(step, index) in visual.steps"
-              :key="step.label"
-              class="graph-node"
-              :class="{ active: activeIndex(visual) === index, done: activeIndex(visual) > index }"
-              :transform="`translate(${graphPoint(index, visual.steps.length).x} ${graphPoint(index, visual.steps.length).y})`"
-              role="button"
-              tabindex="0"
-              @click="setActive(visual, index)"
-              @keydown.enter.prevent="setActive(visual, index)"
-              @keydown.space.prevent="setActive(visual, index)"
-            >
-              <title>{{ step.detail }}</title>
-              <circle r="34" />
-              <text text-anchor="middle" dominant-baseline="middle">{{ index + 1 }}</text>
-              <text class="graph-label" text-anchor="middle" y="54">{{ compactGraphLabel(step.label) }}</text>
-            </g>
-          </svg>
+          <div class="graph-canvas">
+            <span class="graph-coordinate">NODE GRAPH · {{ visual.steps.length }} NODES</span>
+            <svg viewBox="0 0 640 270" role="img" :aria-label="`${visual.title} 节点流`">
+              <g class="graph-edges">
+                <line
+                  v-for="(_, index) in visual.steps.slice(0, -1)"
+                  :key="`edge-${index}`"
+                  :x1="graphPoint(index, visual.steps.length).x"
+                  :y1="graphPoint(index, visual.steps.length).y"
+                  :x2="graphPoint(index + 1, visual.steps.length).x"
+                  :y2="graphPoint(index + 1, visual.steps.length).y"
+                  :class="{ active: activeIndex(visual) > index }"
+                />
+              </g>
+              <g
+                v-for="(step, index) in visual.steps"
+                :key="step.label"
+                class="graph-node"
+                :class="{ active: activeIndex(visual) === index, done: activeIndex(visual) > index }"
+                :transform="`translate(${graphPoint(index, visual.steps.length).x} ${graphPoint(index, visual.steps.length).y})`"
+                role="button"
+                tabindex="0"
+                @click="setActive(visual, index)"
+                @keydown.enter.prevent="setActive(visual, index)"
+                @keydown.space.prevent="setActive(visual, index)"
+              >
+                <title>{{ step.detail }}</title>
+                <circle class="node-halo" r="43" />
+                <circle r="31" />
+                <text text-anchor="middle" dominant-baseline="middle">{{ index + 1 }}</text>
+                <text class="graph-label" text-anchor="middle" y="51">{{ compactGraphLabel(step.label) }}</text>
+              </g>
+            </svg>
+          </div>
+          <aside class="graph-inspector">
+            <span>ACTIVE NODE</span>
+            <b>{{ visual.steps[activeIndex(visual)]?.label }}</b>
+            <p>{{ visual.steps[activeIndex(visual)]?.detail }}</p>
+            <dl>
+              <div><dt>前驱</dt><dd>{{ previousStep(visual)?.label }}</dd></div>
+              <div><dt>后继</dt><dd>{{ nextStep(visual)?.label }}</dd></div>
+            </dl>
+          </aside>
         </div>
 
         <div v-else-if="visual.kind === 'tensor'" class="visual-tensor-stage">
-          <div class="tensor-axis"><span>状态 / shape</span><b>{{ activeIndex(visual) + 1 }} × {{ visual.steps.length }}</b></div>
-          <div class="tensor-grid" :style="{ '--cells': String(Math.min(4, visual.steps.length)) }">
-            <button
-              v-for="(step, index) in visual.steps"
-              :key="step.label"
-              :class="{ active: activeIndex(visual) === index, done: activeIndex(visual) > index }"
-              @click="setActive(visual, index)"
-            >
-              <span>{{ index }}</span>
-              <b>{{ step.label }}</b>
-            </button>
+          <div class="tensor-board">
+            <div class="tensor-axis"><span>MEMORY / SHAPE PROBE</span><b>{{ activeIndex(visual) + 1 }} × {{ visual.steps.length }}</b></div>
+            <div class="tensor-grid" :style="{ '--cells': String(Math.min(4, visual.steps.length)) }">
+              <button
+                v-for="(step, index) in visual.steps"
+                :key="step.label"
+                :class="{ active: activeIndex(visual) === index, done: activeIndex(visual) > index }"
+                @click="setActive(visual, index)"
+              >
+                <span>[{{ index }}]</span>
+                <b>{{ step.label }}</b>
+                <i v-for="cell in 6" :key="cell" :style="{ '--delay': String(cell) }" />
+              </button>
+            </div>
+          </div>
+          <div class="tensor-readout">
+            <span>ACTIVE TRANSFORM</span>
+            <strong>{{ visual.steps[activeIndex(visual)]?.label }}</strong>
+            <p>{{ visual.steps[activeIndex(visual)]?.detail }}</p>
           </div>
         </div>
 
@@ -208,25 +257,42 @@ onBeforeUnmount(() => {
             >{{ step.label }}</button>
           </div>
           <div class="playground-preview">
-            <span>RUNTIME STATE</span>
+            <span>LIVE RUNTIME PREVIEW</span>
             <Transition name="visual-swap" mode="out-in">
               <strong :key="activeIndex(visual)">{{ visual.steps[activeIndex(visual)]?.label }}</strong>
             </Transition>
+            <p>{{ visual.steps[activeIndex(visual)]?.detail }}</p>
+            <div class="playground-signals">
+              <span>INPUT <b>{{ previousStep(visual)?.label }}</b></span>
+              <span>EFFECT <b>{{ visual.steps[activeIndex(visual)]?.label }}</b></span>
+              <span>NEXT <b>{{ nextStep(visual)?.label }}</b></span>
+            </div>
             <i :style="{ width: `${((activeIndex(visual) + 1) / visual.steps.length) * 100}%` }" />
           </div>
         </div>
 
         <div v-else class="visual-state-stage">
-          <div>
-            <span>前一状态</span>
-            <b>{{ visual.steps[Math.max(0, activeIndex(visual) - 1)]?.label }}</b>
+          <div class="state-timeline">
+            <button
+              v-for="(step, index) in visual.steps"
+              :key="step.label"
+              :class="{ active: activeIndex(visual) === index, done: activeIndex(visual) > index }"
+              @click="setActive(visual, index)"
+            ><i />{{ step.label }}</button>
           </div>
-          <i aria-hidden="true">→</i>
-          <div class="current">
-            <span>当前状态</span>
-            <Transition name="visual-swap" mode="out-in">
-              <b :key="activeIndex(visual)">{{ visual.steps[activeIndex(visual)]?.label }}</b>
-            </Transition>
+          <div class="state-comparison">
+            <div>
+              <span>前一状态</span>
+              <b>{{ previousStep(visual)?.label }}</b>
+            </div>
+            <i aria-hidden="true">→</i>
+            <div class="current">
+              <span>当前状态</span>
+              <Transition name="visual-swap" mode="out-in">
+                <b :key="activeIndex(visual)">{{ visual.steps[activeIndex(visual)]?.label }}</b>
+              </Transition>
+              <p>{{ visual.steps[activeIndex(visual)]?.detail }}</p>
+            </div>
           </div>
         </div>
 
@@ -310,6 +376,17 @@ onBeforeUnmount(() => {
   box-shadow: 0 16px 34px rgba(31, 41, 64, .06);
   margin-top: 16px;
   overflow: hidden;
+  position: relative;
+}
+
+.visual-card::before {
+  background: var(--visual-accent);
+  content: '';
+  height: 3px;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 
 .visual-card-heading {
@@ -327,13 +404,22 @@ onBeforeUnmount(() => {
 }
 
 .visual-flow-stage {
+  align-items: stretch;
+  display: grid;
+  gap: 18px;
+  grid-template-columns: minmax(0, 1fr) 230px;
+}
+
+.flow-rail {
   align-items: center;
   display: flex;
   justify-content: center;
+  min-width: max-content;
   overflow-x: auto;
+  padding: 8px;
 }
 
-.visual-flow-stage button {
+.flow-rail button {
   background: #fff;
   border: 1px solid #cbd2df;
   border-radius: 7px;
@@ -341,15 +427,17 @@ onBeforeUnmount(() => {
   flex: 0 0 112px;
   min-height: 92px;
   padding: 12px 8px;
+  position: relative;
+  transition: border-color .2s ease, background .2s ease, transform .2s ease;
 }
 
-.visual-flow-stage button span {
+.flow-rail button span {
   color: #7f8aa0;
   display: block;
   font: .65rem 'DM Mono', monospace;
 }
 
-.visual-flow-stage button b {
+.flow-rail button b {
   display: block;
   font-size: .78rem;
   line-height: 1.4;
@@ -357,7 +445,17 @@ onBeforeUnmount(() => {
   overflow-wrap: anywhere;
 }
 
-.visual-flow-stage button.active,
+.flow-rail button small {
+  bottom: 6px;
+  color: #9aa4b5;
+  display: block;
+  font: .48rem 'DM Mono', monospace;
+  left: 0;
+  position: absolute;
+  right: 0;
+}
+
+.flow-rail button.active,
 .tensor-grid button.active {
   background: #172033;
   border-color: #172033;
@@ -365,13 +463,95 @@ onBeforeUnmount(() => {
   transform: translateY(-4px);
 }
 
-.visual-flow-stage button.done,
+.flow-rail button.done,
 .tensor-grid button.done {
   background: #edf8f2;
   border-color: #9ed7bc;
 }
 
-.visual-flow-stage i {
+.flow-rail > i {
+  display: block;
+  height: 1px;
+  padding: 0;
+  position: relative;
+  width: 18px;
+  background: #b9c3d4;
+}
+
+.flow-rail > i::after {
+  border-bottom: 3px solid transparent;
+  border-left: 5px solid #8996ac;
+  border-top: 3px solid transparent;
+  content: '';
+  position: absolute;
+  right: -1px;
+  top: -3px;
+}
+
+.flow-rail > i em {
+  animation: flow-pulse 1.8s ease-in-out infinite;
+  background: var(--visual-accent);
+  border-radius: 50%;
+  height: 6px;
+  left: 0;
+  position: absolute;
+  top: -3px;
+  width: 6px;
+}
+
+@keyframes flow-pulse {
+  0%, 100% { opacity: .25; transform: translateX(0); }
+  50% { opacity: 1; transform: translateX(12px); }
+}
+
+.flow-console {
+  align-content: center;
+  background: #151f32;
+  border-radius: 9px;
+  color: #fff;
+  display: grid;
+  padding: 18px;
+}
+
+.flow-console > span,
+.graph-inspector > span,
+.tensor-readout > span {
+  color: #91a0bb;
+  font: .55rem 'DM Mono', monospace;
+  letter-spacing: .08em;
+}
+
+.flow-console h4 {
+  font-size: 1rem;
+  line-height: 1.35;
+  margin: 8px 0;
+}
+
+.flow-console p,
+.graph-inspector p,
+.tensor-readout p {
+  color: #b4bfd2;
+  font-size: .68rem;
+  line-height: 1.65;
+  margin: 0;
+}
+
+.flow-console > div {
+  background: #2a3650;
+  border-radius: 3px;
+  height: 5px;
+  margin-top: 17px;
+  overflow: hidden;
+}
+
+.flow-console > div i {
+  background: linear-gradient(90deg, var(--visual-accent), #d8ff61);
+  display: block;
+  height: 100%;
+  transition: width .3s ease;
+}
+
+.visual-flow-stage > i {
   color: #7c89a4;
   font-style: normal;
   padding: 0 6px;
@@ -380,7 +560,23 @@ onBeforeUnmount(() => {
 .visual-graph-stage {
   background-image: radial-gradient(#d6dce8 1px, transparent 1px);
   background-size: 18px 18px;
-  padding: 6px 18px;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: minmax(0, 1fr) 210px;
+  padding: 13px;
+}
+
+.graph-canvas {
+  min-width: 0;
+  position: relative;
+}
+
+.graph-coordinate {
+  left: 10px;
+  color: #8b96a9;
+  font: .52rem 'DM Mono', monospace;
+  position: absolute;
+  top: 8px;
 }
 
 .visual-graph-stage svg {
@@ -415,6 +611,14 @@ onBeforeUnmount(() => {
   transition: fill .22s ease, transform .22s ease;
 }
 
+.graph-node .node-halo {
+  fill: transparent;
+  opacity: 0;
+  stroke: var(--visual-accent);
+  stroke-dasharray: 3 5;
+  stroke-width: 1;
+}
+
 .graph-node text {
   fill: #4c5870;
   font: 700 14px 'DM Mono', monospace;
@@ -436,6 +640,16 @@ onBeforeUnmount(() => {
   stroke-width: 4;
 }
 
+.graph-node.active .node-halo {
+  animation: node-orbit 5s linear infinite;
+  opacity: .65;
+  transform-origin: center;
+}
+
+@keyframes node-orbit {
+  to { transform: rotate(360deg); }
+}
+
 .graph-node.active text {
   fill: #fff;
 }
@@ -444,9 +658,49 @@ onBeforeUnmount(() => {
   fill: #172033;
 }
 
+.graph-inspector {
+  align-content: center;
+  background: #fff;
+  border: 1px solid #d7deea;
+  border-radius: 9px;
+  display: grid;
+  padding: 16px;
+}
+
+.graph-inspector > b {
+  font-size: .9rem;
+  margin: 8px 0;
+}
+
+.graph-inspector p {
+  color: #667289;
+}
+
+.graph-inspector dl {
+  display: grid;
+  gap: 6px;
+  margin: 15px 0 0;
+}
+
+.graph-inspector dl div {
+  border-left: 2px solid var(--visual-accent);
+  background: #f3f5fa;
+  padding: 7px 9px;
+}
+
+.graph-inspector dt { color: #919bad; font-size: .52rem; }
+.graph-inspector dd { font-size: .62rem; font-weight: 800; margin: 1px 0 0; }
+
 .visual-tensor-stage {
   background: #151d2d;
   color: #dce6f8;
+  display: grid;
+  gap: 18px;
+  grid-template-columns: minmax(0, 1fr) 230px;
+}
+
+.tensor-board {
+  min-width: 0;
 }
 
 .tensor-axis {
@@ -481,6 +735,7 @@ onBeforeUnmount(() => {
   padding: 8px;
   place-items: center;
   transition: .2s ease;
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .tensor-grid button span {
@@ -492,6 +747,26 @@ onBeforeUnmount(() => {
   font-size: .72rem;
   line-height: 1.35;
   overflow-wrap: anywhere;
+  grid-column: 1 / -1;
+}
+
+.tensor-grid button i {
+  background: #43516b;
+  border-radius: 2px;
+  height: 8px;
+  opacity: .55;
+  width: 100%;
+}
+
+.tensor-grid button.active i {
+  animation: tensor-cell .65s ease both;
+  animation-delay: calc(var(--delay) * 35ms);
+  background: #d8ff61;
+}
+
+@keyframes tensor-cell {
+  from { opacity: .2; transform: scale(.65); }
+  to { opacity: 1; transform: scale(1); }
 }
 
 .tensor-grid button.active {
@@ -505,14 +780,81 @@ onBeforeUnmount(() => {
   border-color: #4d9679;
 }
 
-.visual-state-stage {
-  align-items: center;
+.tensor-readout {
+  align-content: center;
+  border: 1px solid #3a4761;
+  border-radius: 8px;
   display: grid;
-  gap: 16px;
-  grid-template-columns: 1fr auto 1fr;
+  padding: 18px;
 }
 
-.visual-state-stage > div {
+.tensor-readout strong {
+  color: #fff;
+  font-size: 1rem;
+  line-height: 1.35;
+  margin: 9px 0;
+}
+
+.visual-state-stage {
+  display: block;
+}
+
+.state-timeline {
+  align-items: center;
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  padding: 2px 3px 18px;
+}
+
+.state-timeline button {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  color: #8b96a9;
+  display: flex;
+  flex: 1 0 105px;
+  font-size: .62rem;
+  gap: 7px;
+  padding: 0;
+  position: relative;
+  text-align: left;
+}
+
+.state-timeline button::after {
+  background: #cad1de;
+  content: '';
+  height: 1px;
+  left: 13px;
+  position: absolute;
+  right: -1px;
+  top: 6px;
+  z-index: 0;
+}
+
+.state-timeline button:last-child::after { display: none; }
+.state-timeline button i {
+  background: #fff;
+  border: 2px solid #a9b3c4;
+  border-radius: 50%;
+  flex: 0 0 13px;
+  height: 13px;
+  position: relative;
+  width: 13px;
+  z-index: 1;
+}
+.state-timeline button.done i,
+.state-timeline button.active i { background: var(--visual-accent); border-color: var(--visual-accent); }
+.state-timeline button.active { color: #23314a; font-weight: 800; }
+
+.state-comparison {
+  align-items: stretch;
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 1fr auto 1.25fr;
+}
+
+.state-comparison > div {
   background: #fff;
   border: 1px solid #d5dae5;
   border-radius: 8px;
@@ -523,22 +865,29 @@ onBeforeUnmount(() => {
   text-align: center;
 }
 
-.visual-state-stage > div.current {
+.state-comparison > div.current {
   background: #172033;
   border-color: #172033;
   color: #fff;
   box-shadow: 8px 8px 0 #d8ff61;
 }
 
-.visual-state-stage > i {
+.state-comparison > i {
   color: #5069df;
   font-size: 1.6rem;
   font-style: normal;
 }
 
-.visual-state-stage b {
+.state-comparison b {
   display: block;
   margin-top: 8px;
+}
+
+.state-comparison p {
+  color: #bfc9dc;
+  font-size: .66rem;
+  line-height: 1.55;
+  margin: 10px 0 0;
 }
 
 .visual-playground-stage {
@@ -585,6 +934,34 @@ onBeforeUnmount(() => {
   font-size: 1.5rem;
   line-height: 1.3;
   margin-top: 10px;
+}
+
+.playground-preview > p {
+  color: #66738a;
+  font-size: .68rem;
+  line-height: 1.65;
+  margin: 8px 0 15px;
+}
+
+.playground-signals {
+  display: grid;
+  gap: 6px;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.playground-signals span {
+  background: #f2f4f8;
+  border-radius: 5px;
+  color: #8b95a8;
+  display: grid;
+  font: .48rem 'DM Mono', monospace;
+  padding: 7px;
+}
+
+.playground-signals b {
+  color: #40506d;
+  font-size: .56rem;
+  margin-top: 3px;
 }
 
 .playground-preview i {
@@ -698,19 +1075,22 @@ onBeforeUnmount(() => {
 @media (max-width: 720px) {
   .visual-lab-heading,
   .visual-card-heading,
-  .visual-playground-stage {
+  .visual-playground-stage,
+  .visual-flow-stage,
+  .visual-graph-stage,
+  .visual-tensor-stage {
     grid-template-columns: 1fr;
   }
 
-  .visual-flow-stage {
+  .flow-rail {
     justify-content: flex-start;
   }
 
-  .visual-state-stage {
+  .state-comparison {
     grid-template-columns: 1fr;
   }
 
-  .visual-state-stage > i {
+  .state-comparison > i {
     transform: rotate(90deg);
     text-align: center;
   }

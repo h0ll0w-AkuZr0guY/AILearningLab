@@ -4,7 +4,6 @@ track: "python"
 title: "函数对象：code、globals、defaults 与 closure"
 depth: "foundation"
 exampleLanguage: "python"
-visualIndex: "../visuals/python-03-01.md"
 ---
 
 ## 官方入口

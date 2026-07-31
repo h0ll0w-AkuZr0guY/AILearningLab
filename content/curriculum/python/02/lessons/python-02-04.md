@@ -4,7 +4,6 @@ track: "python"
 title: "data 与 non-data descriptor 优先级"
 depth: "foundation"
 exampleLanguage: "python"
-visualIndex: "../visuals/python-02-04.md"
 ---
 
 ## 官方入口

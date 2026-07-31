@@ -4,7 +4,6 @@ track: "python"
 title: "分代 GC 与循环检测"
 depth: "foundation"
 exampleLanguage: "python"
-visualIndex: "../visuals/python-01-07.md"
 ---
 
 ## 官方入口

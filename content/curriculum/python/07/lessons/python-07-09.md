@@ -4,7 +4,6 @@ track: "python"
 title: "TypeGuard、TypeIs 与双分支收窄"
 depth: "foundation"
 exampleLanguage: "python"
-visualIndex: "../visuals/python-07-09.md"
 ---
 
 ## 官方入口

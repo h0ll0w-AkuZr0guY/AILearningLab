@@ -4,7 +4,6 @@ track: "python"
 title: "PEG parser：回溯、memo、cut 与错误规则"
 depth: "foundation"
 exampleLanguage: "python"
-visualIndex: "../visuals/python-10-03.md"
 ---
 
 ## 官方入口

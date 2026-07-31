@@ -4,7 +4,6 @@ track: "python"
 title: "身份、相等与哈希契约"
 depth: "foundation"
 exampleLanguage: "python"
-visualIndex: "../visuals/python-01-02.md"
 ---
 
 ## 官方入口

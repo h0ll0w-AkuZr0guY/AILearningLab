@@ -4,7 +4,6 @@ track: "python"
 title: "late binding 与默认参数早绑定"
 depth: "foundation"
 exampleLanguage: "python"
-visualIndex: "../visuals/python-03-05.md"
 ---
 
 ## 官方入口

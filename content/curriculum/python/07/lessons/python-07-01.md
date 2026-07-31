@@ -4,7 +4,6 @@ track: "python"
 title: "注解求值：3.14 lazy scopes、annotationlib 与 future"
 depth: "foundation"
 exampleLanguage: "python"
-visualIndex: "../visuals/python-07-01.md"
 ---
 
 ## 官方入口

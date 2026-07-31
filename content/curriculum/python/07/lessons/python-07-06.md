@@ -4,7 +4,6 @@ track: "python"
 title: "协变、逆变、不变与可变性证明"
 depth: "foundation"
 exampleLanguage: "python"
-visualIndex: "../visuals/python-07-06.md"
 ---
 
 ## 官方入口

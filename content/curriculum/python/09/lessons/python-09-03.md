@@ -4,7 +4,6 @@ track: "python"
 title: "dict 紧凑布局、探测序列与哈希冲突"
 depth: "foundation"
 exampleLanguage: "python"
-visualIndex: "../visuals/python-09-03.md"
 ---
 
 ## 官方入口

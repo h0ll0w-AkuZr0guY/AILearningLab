@@ -1,0 +1,78 @@
+.nav-actions {
+  display: flex;
+  gap: 9px;
+  align-items: center;
+}
+
+.repo-index {
+  display: grid;
+  grid-template-columns: 24px auto auto;
+  gap: 8px;
+  align-items: center;
+  min-height: 42px;
+  padding: 6px 9px;
+  border: 1px solid #d8deea;
+  border-radius: 7px;
+  background: #f9fafc;
+  color: #2f3c54;
+  transition: border-color .18s ease, transform .18s ease, box-shadow .18s ease;
+}
+
+.repo-index:hover {
+  border-color: #8495dc;
+  box-shadow: 0 7px 18px #17233d10;
+  transform: translateY(-1px);
+}
+
+.repo-index svg {
+  width: 22px;
+  height: 22px;
+  fill: #172033;
+}
+
+.repo-index > span {
+  display: grid;
+  line-height: 1.15;
+}
+
+.repo-index small {
+  color: #8994a8;
+  font-family: "DM Mono", Consolas, monospace;
+  font-size: .48rem;
+  letter-spacing: .35px;
+}
+
+.repo-index b {
+  font-size: .66rem;
+}
+
+.repo-index em {
+  padding: 2px 5px;
+  border-radius: 9px;
+  background: #e9edfa;
+  color: #566cc8;
+  font-family: "DM Mono", Consolas, monospace;
+  font-size: .48rem;
+  font-style: normal;
+}
+
+@media (max-width: 1180px) {
+  .repo-index > span,
+  .repo-index em {
+    display: none;
+  }
+
+  .repo-index {
+    grid-template-columns: 22px;
+  }
+}
+
+@media (max-width: 600px) {
+  .repo-index {
+    display: none;
+  }
+
+  .coach-button {
+    padding: 8px 10px;
+  }
+}

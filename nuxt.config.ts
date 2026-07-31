@@ -11,5 +11,11 @@ export default defineNuxtConfig({
     // 单 worker 牺牲少量构建速度，换取本地与 CI 都可重复的静态产物。
     prerender: { concurrency: 1 }
   },
-  css: ['~/assets/css/main.css', '~/assets/css/interview.css', '~/assets/css/workbench.css', '~/assets/css/portal.css']
+  css: [
+    '~/assets/css/main.css',
+    '~/assets/css/navigation.css',
+    '~/assets/css/interview.css',
+    '~/assets/css/workbench.css',
+    '~/assets/css/portal.css'
+  ]
 })

@@ -4,7 +4,6 @@ track: "python"
 title: "awaitable 与 __await__ 迭代协议"
 depth: "foundation"
 exampleLanguage: "python"
-visualIndex: "../visuals/python-04-09.md"
 ---
 
 ## 官方入口

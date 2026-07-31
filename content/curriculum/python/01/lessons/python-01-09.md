@@ -4,7 +4,6 @@ track: "python"
 title: "浅拷贝、深拷贝与图"
 depth: "foundation"
 exampleLanguage: "python"
-visualIndex: "../visuals/python-01-09.md"
 ---
 
 ## 官方入口

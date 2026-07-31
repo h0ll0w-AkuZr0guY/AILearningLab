@@ -4,7 +4,6 @@ track: "python"
 title: "引用计数的增减时机"
 depth: "foundation"
 exampleLanguage: "python"
-visualIndex: "../visuals/python-01-06.md"
 ---
 
 ## 官方入口

@@ -4,7 +4,6 @@ track: "python"
 title: "code object、常量表与名称表"
 depth: "foundation"
 exampleLanguage: "python"
-visualIndex: "../visuals/python-03-02.md"
 ---
 
 ## 官方入口

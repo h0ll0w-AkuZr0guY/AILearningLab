@@ -4,7 +4,6 @@ track: "python"
 title: "ModuleSpec、create_module 与 exec_module"
 depth: "foundation"
 exampleLanguage: "python"
-visualIndex: "../visuals/python-06-05.md"
 ---
 
 ## 官方入口

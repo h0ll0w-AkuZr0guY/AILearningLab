@@ -4,7 +4,6 @@ track: "python"
 title: "实例字典、类字典与查找入口"
 depth: "foundation"
 exampleLanguage: "python"
-visualIndex: "../visuals/python-02-01.md"
 ---
 
 ## 官方入口

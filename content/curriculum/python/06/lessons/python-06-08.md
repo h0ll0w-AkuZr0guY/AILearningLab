@@ -4,7 +4,6 @@ track: "python"
 title: "循环导入、半初始化模块与依赖方向"
 depth: "foundation"
 exampleLanguage: "python"
-visualIndex: "../visuals/python-06-08.md"
 ---
 
 ## 官方入口

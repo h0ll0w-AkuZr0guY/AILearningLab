@@ -4,7 +4,6 @@ track: "python"
 title: "普通包、__path__ 与 namespace package"
 depth: "foundation"
 exampleLanguage: "python"
-visualIndex: "../visuals/python-06-06.md"
 ---
 
 ## 官方入口

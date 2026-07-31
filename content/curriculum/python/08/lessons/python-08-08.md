@@ -4,7 +4,6 @@ track: "python"
 title: "timeout、wait_for、shield 与取消作用域"
 depth: "foundation"
 exampleLanguage: "python"
-visualIndex: "../visuals/python-08-08.md"
 ---
 
 ## 官方入口

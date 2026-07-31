@@ -4,7 +4,6 @@ track: "python"
 title: "__slots__ 的布局影响"
 depth: "foundation"
 exampleLanguage: "python"
-visualIndex: "../visuals/python-01-10.md"
 ---
 
 ## 官方入口
