@@ -579,3 +579,29 @@ curated 变化：10 / 120 → 15 / 120（12.5%）
 下一 pending：expand 与 repeat
 PR：https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/7
 ```
+
+当前 LangChain 自动化维护批次（2026-07-31）：
+
+```text
+恢复：网络中断后发现同日分支已有 2 篇未提交正文；核对分支、修改时间与目录认领后继续原批次，只补齐至 5 节。
+分支：agent/curriculum-langchain-2026-07-31-01
+课程：LangChain
+curated 变化：0 / 120 → 5 / 120（4.2%）
+全站变化：150 / 1090 → 155 / 1090
+01：消息角色与 content blocks
+    粒度：合并角色信封、标准 content blocks 与 provider 原生块，先建立跨 provider 的消息协议边界。
+02：BaseMessage 不变量
+    粒度：独立讲 content、type、provider payload、响应元数据与可重放持久化之间的责任分离。
+03：ChatModel 输入输出
+    粒度：围绕 _convert_input 与 invoke，收敛字符串、消息序列和 PromptValue，并区分四类失败。
+04：Prompt 变量绑定
+    粒度：把变量环境、递归消息展开、history placeholder 与一次性求值组织成模板编译器心智模型。
+05：Runnable invoke
+    粒度：以 RunnableSequence 为主线，同时推演业务值流、config/追踪树、失败短路和副作用幂等边界。
+源码基线：langchain-ai/langchain 725489f135458c37c668919b0d08652ebd04f131；langchain-core 1.5.3。
+官方基线：LangChain OSS Python Models / Messages 文档与 langchain-core Python Reference。
+视觉：本批 5 篇均建立课程级索引，分别覆盖消息转换、字段生命周期、输入归一化、模板绑定与 Runnable 执行时间线。
+可运行示例：examples/langchain/01–05 五个离线合同实验。
+下一 pending：batch 与 stream（langchain-01-06）
+PR：https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/11
+```

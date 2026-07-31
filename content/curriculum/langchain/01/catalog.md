@@ -18,19 +18,19 @@ planningStatus: established
 ## langchain-01-01
 
 title: "消息角色与 content blocks"
-status: pending
+status: curated
 owner: ""
 difficulty: "简单"
 difficultyReason: "核心规则较少，可通过一个最小实验直接观察，适合与相邻基础概念合并学习。"
 learningValue: "基础必修"
 learningValueScore: 4
-estimatedMinutes: 25
+estimatedMinutes: 45
 granularity: "合并基础课"
 
 ## langchain-01-02
 
 title: "BaseMessage 不变量"
-status: pending
+status: curated
 owner: ""
 difficulty: "中等"
 difficultyReason: "需要同时掌握公开契约、一个主要失败边界和对应实现路径。"
@@ -42,7 +42,7 @@ granularity: "单点精讲"
 ## langchain-01-03
 
 title: "ChatModel 输入输出"
-status: pending
+status: curated
 owner: ""
 difficulty: "中等"
 difficultyReason: "需要同时掌握公开契约、一个主要失败边界和对应实现路径。"
@@ -54,7 +54,7 @@ granularity: "单点精讲"
 ## langchain-01-04
 
 title: "Prompt 变量绑定"
-status: pending
+status: curated
 owner: ""
 difficulty: "中等"
 difficultyReason: "需要同时掌握公开契约、一个主要失败边界和对应实现路径。"
@@ -66,7 +66,7 @@ granularity: "单点精讲"
 ## langchain-01-05
 
 title: "Runnable invoke"
-status: pending
+status: curated
 owner: ""
 difficulty: "中等"
 difficultyReason: "需要同时掌握公开契约、一个主要失败边界和对应实现路径。"
