@@ -362,3 +362,12 @@ assert meta.numel() == 12
 ### 站内答案
 
 `a` 与 `b` 的 Tensor.data_ptr 指向各自第一个逻辑元素，因为 storage_offset 分别为 0 和 10，所以地址不同；二者的 `untyped_storage().data_ptr()`相同，说明仍引用同一 StorageImpl。删除 base 只减少 base TensorImpl 的引用，a 和 b 各自持有共享 Storage，任一存活都会让 StorageImpl/DataPtr 继续存在。c 通过 clone 分配新 Storage；先用 `torch.equal(c, a)`证明逻辑值相等，再断言二者 `untyped_storage().data_ptr()`不同，并修改 a 后确认 c 不变，便同时建立值与所有权两条证据。
+
+## 更新日志
+
+### 启用课程级协作署名与折叠时间线
+
+at: "2026-07-31T14:27:43+08:00"
+human: "h0ll0w-AkuZr0guY"
+ai: "OpenAI Codex · GPT-5"
+summary: "为课程页接入默认只显示最近贡献、可展开完整历史的人类 × AI 协作日志；本次没有改写课程正文。"

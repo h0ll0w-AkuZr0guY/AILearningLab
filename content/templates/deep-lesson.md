@@ -40,6 +40,11 @@ reviewMinutes: {{REVIEW_MINUTES}}
 9. 不允许自动循环、闪烁、纯装饰动画或无法暂停的 GIF。颜色之外必须还有文字/位置/形状提示；
    移动端、键盘和 prefers-reduced-motion 都要可用。
 10. 完整决策树、ImageGen 提示词契约和视觉 PR 验收清单见 docs/VISUAL_LESSON_STANDARD.md。
+11. 每次修改本课都在文末“更新日志”顶部追加一条记录。human 与 ai 永远成对出现：
+    - human 使用发起或负责本次贡献的人类姓名/GitHub handle。
+    - ai 使用实际协作产品与模型；纯人工贡献写“未使用 AI”，未知旧模型写“OpenAI Codex · 旧版本未记录”，禁止猜测。
+    - at 使用带时区的完整时间，summary 只写本次实际改变的内容；PR 创建后补回 pr，合并后可补 commit。
+    - 页面默认只显示最新一条，完整日志折叠展示，不属于课程正文和阅读字数。
 -->
 
 ## 官方入口
@@ -214,3 +219,16 @@ TODO：设计一道需要推演机制、引用源码并说明边界的问题。
 ### 站内答案
 
 TODO：按“结论 → 机制 → 源码证据 → 可运行验证 → 工程取舍 → 适用边界”完整回答。
+
+## 更新日志
+
+<!-- 最新记录始终放在最上面；已有记录禁止改写或删除。 -->
+
+### TODO：本次更新的短标题
+
+at: "TODO：YYYY-MM-DDTHH:mm:ss+08:00"
+human: "TODO：贡献发起者或 GitHub handle"
+ai: "TODO：AI 产品与模型；纯人工写“未使用 AI”"
+summary: "TODO：本次实际改动，不写笼统的“优化课程”"
+pr: "TODO：https://github.com/owner/repository/pull/number"
+# commit: "TODO：合并提交，可在发布后补充"
