@@ -1,6 +1,12 @@
 import type { Lesson, Track, TrackId } from './curriculum'
 import { getTopicGuide } from './topic-guides'
-import type { GuideChapter, GuideStudyPlan, GuideVariant, TopicGuide } from './guide-types'
+import type {
+  GuideChapter,
+  GuideStudyPlan,
+  GuideVariant,
+  GuideVisual,
+  TopicGuide
+} from './guide-types'
 
 export interface OfficialSection {
   title: string
@@ -36,6 +42,7 @@ export interface LessonDetail {
   buildSteps: Array<{ title: string; body: string; code?: string }>
   annotatedSource: string
   sourceLabel: string
+  visuals: GuideVisual[]
 }
 
 const section = (title: string, url: string, note: string): OfficialSection => ({ title, url, note })
@@ -432,6 +439,7 @@ export function getLessonDetail(track: Track, lesson: Lesson): LessonDetail {
       : topicGuide?.source
         ? '课题对应的真实上游源码 · 已补充中文阅读注释'
         : '模块级上游源码 · 待替换为课题精确入口',
+    visuals: topicGuide?.visuals || [],
     selfCheckQuestion: topicGuide?.selfCheckQuestion || `如果去掉「${lesson.title}」所代表的抽象，业务代码会在哪个边界变得脆弱？请先给出反例，再说明当前设计如何消除它。`,
     selfCheckAnswer: topicGuide?.selfCheckAnswer || `去掉「${lesson.title}」所代表的抽象后，调用者需要自行维护输入校验、状态变化、错误传播和恢复逻辑。最先变脆弱的通常是跨边界行为：同一能力在多个调用点出现不一致实现，失败路径缺少统一语义，也难以追踪。当前设计把这些规则收拢到 ${source.symbol} 附近的明确入口，通过统一协议和不变量降低重复实现；代价是多一层抽象、配置和调试路径，因此简单的一次性流程未必值得引入。`,
     referenceAnswer: topicGuide?.selfCheckAnswer || `结论：${lesson.title} 的价值在于把「${lesson.module}」中的关键约束变成可组合、可测试的协议。\n\n机制：调用从公开接口进入，核心状态在边界处被验证，再由 ${source.symbol} 完成分派或状态更新；成功结果和失败信息沿同一条协议返回。${official.note}\n\n源码证据：上游实现位于 ${source.repo} 的 ${source.file}，入口符号为 ${source.symbol}。阅读时应优先确认参数归一化、分派条件和错误路径。\n\n工程取舍：它用额外封装换取一致性、可观测性和替换能力；在低复杂度、无复用需求的场景中，直接实现可能更清楚。\n\n验证方式：运行本页最小示例，再补充空输入、重复执行和失败恢复三个用例，并对照上游测试确认行为。`

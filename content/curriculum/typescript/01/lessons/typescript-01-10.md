@@ -3,6 +3,7 @@ id: "typescript-01-10"
 track: "typescript"
 title: "HTML event loop：task、microtask、render 与饥饿"
 depth: "deep"
+visualIndex: "../visuals/typescript-01-10.md"
 exampleLanguage: "typescript"
 readingMinutes: 43
 sourceMinutes: 35
@@ -111,6 +112,7 @@ int MicrotaskQueue::RunMicrotasks(Isolate* isolate) {
 一次容易验证的主线是：宿主从某个 task queue 选择最早的可运行 task，执行到调用栈清空，然后执行 microtask checkpoint；窗口 event loop 在合适的 rendering opportunity 运行渲染更新。checkpoint 会持续处理微任务，连微任务中新加入的微任务也会执行，直到队列为空。因此 Promise.then 能稳定先于下一个 timer，却也能用递归微任务让输入和渲染长期得不到机会。
 
 这门课会把四层分开：ECMAScript 定义 Promise Job 的因果关系；HTML 定义浏览器 event loop 与 checkpoint；V8 提供可由 embedder 驱动的 microtask queue；Chromium 再落实任务优先级、帧调度和主线程工程策略。学完后你会手写一个带多个 task source、微任务排空、渲染机会、长任务记录和饥饿保护的教学调度器，并能用时间线解释真实页面卡顿。
+
 
 ## 分章正文
 

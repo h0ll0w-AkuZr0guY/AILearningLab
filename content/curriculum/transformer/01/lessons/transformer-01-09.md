@@ -3,6 +3,7 @@ id: "transformer-01-09"
 track: "transformer"
 title: "计算复杂度"
 depth: "foundation"
+visualIndex: "../visuals/transformer-01-09.md"
 exampleLanguage: "python"
 ---
 
@@ -13,6 +14,7 @@ exampleLanguage: "python"
 标准 self-attention 的 score 矩阵形状为 [T,T]，因此序列长度 T 翻倍时，score 相关计算和显存约增长到四倍。隐藏维和 head 数则影响常数与投影开销。
 
 工程优化前应先找主导项，再结合硬件判断真正瓶颈。相同 FLOPs 可能受计算吞吐、内存带宽或 kernel launch 限制。
+
 
 ## 可运行示例
 

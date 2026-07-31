@@ -3,6 +3,7 @@ id: "typescript-01-09"
 track: "typescript"
 title: "Promise resolution、thenable assimilation 与 Job queue"
 depth: "deep"
+visualIndex: "../visuals/typescript-01-09.md"
 exampleLanguage: "typescript"
 readingMinutes: 40
 sourceMinutes: 35
@@ -94,6 +95,7 @@ Promise 有 pending、fulfilled、rejected 三种内部状态，但“resolved�
 Promise resolution procedure 的目标是安全吸收任意 thenable。resolve(x) 若遇到对象，会读取 x.then；getter 抛错则拒绝，then 非函数则以 x fulfill，then 可调用则把调用安排为 Promise Job。job 用新的 resolve/reject 调 then，并以 shared alreadyResolved cell 确保 hostile thenable 同时调用、重复调用或调用后抛错时只有第一次生效。
 
 then 也会创建新 promise。reaction handler 的返回值交给新 promise 的 resolve，所以 return 普通值、throw、return promise、return thenable 分别形成 fulfillment、rejection、状态采纳与异步同化。Promise Jobs 由 host 入队；ECMAScript 定义 job 和因果语义，浏览器/Node 决定何时做 microtask checkpoint。下一课再把这条队列放进 HTML event loop。
+
 
 ## 分章正文
 

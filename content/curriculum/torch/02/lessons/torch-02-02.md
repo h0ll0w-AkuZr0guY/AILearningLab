@@ -3,6 +3,7 @@ id: "torch-02-02"
 track: "torch"
 title: "advanced indexing"
 depth: "deep"
+visualIndex: "../visuals/torch-02-02.md"
 exampleLanguage: "python"
 readingMinutes: 25
 sourceMinutes: 30
@@ -61,6 +62,7 @@ Tensor _unsafe_index(const Tensor& self,
 多个索引 tensor 不是逐个嵌套循环，而是先 broadcast、后共同迭代。若 rows shape `(2,1)`、cols shape `(1,3)`，`x[rows,cols]`结果 shape `(2,3)`，每个格子是一对 `(row,col)`。想要笛卡尔积时要显式制造这两个带 singleton 的索引，而不是期待两个 `(n,)` 自动交叉。
 
 本课把 LongTensor/list 索引和读取/赋值分在同一专题，因为它们共用索引规格却不共用所有权。读取建立新 buffer；`x[idx]=value`直接写回 x。把两者混为“索引总会 copy”会产生极危险的训练数据污染。
+
 
 ## 分章正文
 

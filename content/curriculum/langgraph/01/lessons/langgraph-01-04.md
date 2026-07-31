@@ -3,6 +3,7 @@ id: "langgraph-01-04"
 track: "langgraph"
 title: "START、END 与静态边：入口、终止、fan-out 和 join"
 depth: "deep"
+visualIndex: "../visuals/langgraph-01-04.md"
 exampleLanguage: "python"
 readingMinutes: 32
 sourceMinutes: 43
@@ -75,6 +76,7 @@ START 和 END 看起来像两个节点，实际是编译协议中的哨兵。STA
 静态 A → B 不是“调用 B”。A 的 task 在本轮结束时写入 B 的 trigger channel，B 在下一 super-step 被 Plan 选中。因此即使 A/B 都是同步函数，边仍跨越一次 barrier。
 
 fan-out 与 join 必须分开建模。A 同时连向 B/C 会让 B/C 在下一轮并行；若 D 要等二者，则用 `add_edge([B, C], D)` 建 barrier。简单地分别 `B→D`、`C→D` 可能让 D 触发两次，语义完全不同。
+
 
 ## 分章正文
 

@@ -1,6 +1,10 @@
 import { getLesson, type TrackId } from './curriculum'
-import type { LessonMarkdownDocument, TopicGuide } from './guide-types'
-import { parseLessonMarkdown } from './lesson-markdown'
+import type {
+  LessonMarkdownDocument,
+  TopicGuide,
+  VisualMarkdownDocument
+} from './guide-types'
+import { parseLessonMarkdown, parseVisualMarkdown } from './lesson-markdown'
 
 export type {
   GuideChapter,
@@ -16,9 +20,18 @@ const markdownFiles = import.meta.glob('../../content/curriculum/*/*/lessons/*.m
   query: '?raw'
 }) as Record<string, string>
 
+const visualMarkdownFiles = import.meta.glob('../../content/curriculum/*/*/visuals/*.md', {
+  eager: true,
+  import: 'default',
+  query: '?raw'
+}) as Record<string, string>
+
 const parsedLessonDocuments: LessonMarkdownDocument[] = Object.entries(markdownFiles)
   .map(([path, raw]) => parseLessonMarkdown(raw, path))
   .sort((left, right) => left.id.localeCompare(right.id))
+
+const parsedVisualDocuments: VisualMarkdownDocument[] = Object.entries(visualMarkdownFiles)
+  .map(([path, raw]) => parseVisualMarkdown(raw, path))
 
 export const lessonDocuments = parsedLessonDocuments.filter(document =>
   getLesson(document.track, document.id)?.status === 'curated'
@@ -38,8 +51,15 @@ for (const document of lessonDocuments) {
     throw new Error(`课程 id 重复：${idKey}`)
   }
 
-  trackGuides[document.title] = document.guide
-  guidesById.set(idKey, document.guide)
+  const visualDocument = parsedVisualDocuments.find(visual =>
+    visual.track === document.track && visual.lesson === document.id
+  )
+  const guide = {
+    ...document.guide,
+    visuals: visualDocument?.visuals || []
+  }
+  trackGuides[document.title] = guide
+  guidesById.set(idKey, guide)
 }
 
 export const getTopicGuide = (

@@ -3,6 +3,7 @@ id: "transformer-01-03"
 track: "transformer"
 title: "einsum 记号"
 depth: "foundation"
+visualIndex: "../visuals/transformer-01-03.md"
 exampleLanguage: "python"
 ---
 
@@ -13,6 +14,7 @@ einsum 用字母给每条轴命名，再声明哪些轴保留、哪些轴求和�
 公式 "btd,dh->bth" 表示：输入分别拥有 [batch,time,dimension] 与 [dimension,hidden]，d 同时出现但没有出现在输出中，所以沿 d 求和；b、t、h 被保留。
 
 einsum 更接近数学推导，但过长表达式会降低可读性。工程中应让字母与 shape 注释对应，并用普通 matmul 版本作为测试基准。
+
 
 ## 可运行示例
 

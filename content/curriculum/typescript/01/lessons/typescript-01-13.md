@@ -3,6 +3,7 @@ id: "typescript-01-13"
 track: "typescript"
 title: "top-level await、异步模块图与启动阻塞"
 depth: "deep"
+visualIndex: "../visuals/typescript-01-13.md"
 exampleLanguage: "typescript"
 readingMinutes: 48
 sourceMinutes: 40
@@ -129,6 +130,7 @@ top-level await 允许 ESM 顶层直接 await。它不会阻塞操作系统线�
 一个没有写 await 的模块也可能成为 async-evaluating。只要某个静态依赖含 TLA 或依赖的下游仍异步，该父模块的 PendingAsyncDependencies 就大于零，并登记到依赖的 AsyncParentModules。依赖完成后，运行时递减计数，归零才允许父模块执行；失败则沿父图传播并拒绝入口 Evaluate 返回的 promise。
 
 本课会把同步 SCC evaluator 扩展为异步调度器：HasTLA、pending count、async parents、evaluation ordinal、fulfilled/rejected 传播、启动 timeout 和 trace 全部可观察。你还会复现串行 waterfall、并行启动、动态 import 等待环与 SSR 全局启动阻塞，并给出把 TLA 收敛到边界层的工程规则。
+
 
 ## 分章正文
 

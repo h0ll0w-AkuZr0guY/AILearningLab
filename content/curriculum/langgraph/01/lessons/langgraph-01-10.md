@@ -3,6 +3,7 @@ id: "langgraph-01-10"
 track: "langgraph"
 title: "递归限制、停机条件与生产保护"
 depth: "deep"
+visualIndex: "../visuals/langgraph-01-10.md"
 exampleLanguage: "python"
 readingMinutes: 35
 sourceMinutes: 35
@@ -77,6 +78,7 @@ elif loop.status == "draining":
 可靠循环至少有五层出口：业务成功条件，例如证据充分；业务失败条件，例如确认无权限；进展检测，例如连续三轮没有新增信息；资源预算，例如步数、token、费用；外部控制，例如 deadline、取消与服务排空。只有最后再放 recursion_limit 兜底，才能在异常前整理部分结果。
 
 本课把“递归”还原为 super-step 计数，而非 Python 函数递归；再用 RemainingSteps 做主动降级，设计 checkpoint 后的恢复策略和可观测指标。目标是让循环在任何出口都给出可解释状态，而非只会把限制从 25 改到 1000。
+
 
 ## 分章正文
 

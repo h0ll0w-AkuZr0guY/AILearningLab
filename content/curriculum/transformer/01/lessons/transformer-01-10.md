@@ -3,6 +3,7 @@ id: "transformer-01-10"
 track: "transformer"
 title: "数值稳定性"
 depth: "foundation"
+visualIndex: "../visuals/transformer-01-10.md"
 exampleLanguage: "python"
 ---
 
@@ -13,6 +14,7 @@ exampleLanguage: "python"
 稳定实现会主动重写公式，例如 softmax 先减最大值、log(sum(exp(x))) 使用 logsumexp、方差计算避免两个大数相减。
 
 混合精度训练进一步放大范围问题，需要 loss scaling、合适的累加 dtype，并用有限值检查及时暴露 NaN/Inf。
+
 
 ## 可运行示例
 

@@ -3,6 +3,7 @@ id: "langgraph-01-02"
 track: "langgraph"
 title: "StateGraph Builder 与 compile：从 schema 到 CompiledStateGraph"
 depth: "deep"
+visualIndex: "../visuals/langgraph-01-02.md"
 exampleLanguage: "python"
 readingMinutes: 33
 sourceMinutes: 59
@@ -100,6 +101,7 @@ def compile(
 compile 的核心工作不是把 Python 变成机器码，而是“降低抽象层级”。State 字段变成 channel；节点函数变成 Runnable + input mapper + ChannelWrite；静态边变成目标节点触发 channel；多起点边变成 barrier channel；条件分支变成动态写入。
 
 这个边界提供三种工程收益：提前拒绝部分结构错误；冻结一份能被并发调用的执行计划；把 checkpointer/store/cache/interrupt 组合到统一运行时。代价是 builder 之后的修改不会进入已有 compiled graph，部署时必须管理图版本。
+
 
 ## 分章正文
 

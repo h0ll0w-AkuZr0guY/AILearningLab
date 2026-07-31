@@ -3,6 +3,7 @@ id: "torch-01-08"
 track: "torch"
 title: "expand 与 repeat：零 stride 广播和真实物化"
 depth: "deep"
+visualIndex: "../visuals/torch-01-08.md"
 exampleLanguage: "python"
 readingMinutes: 25
 sourceMinutes: 45
@@ -58,6 +59,7 @@ Tensor expand(const Tensor& self, c10::IntArrayRef size, bool /*unused*/) {
 `repeat`的目标外观常与 expand 相同，物理策略相反：它把数据平铺到新 Storage。选择由所有权和写需求决定。只读偏置、mask、条件向量适合 expand；需要逐元素独立写、导出独立缓冲区或向不支持零 stride 的外部库交接时，repeat/clone 的 copy 是合同的一部分。
 
 本课把 expand 与 repeat 合并，是因为二者只有对照才显出“广播”与“物化”的边界；单讲 expand 容易把零 stride 当成小技巧，单讲 repeat 又会掩盖不必要的显存成本。
+
 
 ## 分章正文
 

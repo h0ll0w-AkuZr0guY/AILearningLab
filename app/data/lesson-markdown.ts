@@ -1,8 +1,12 @@
 import type {
   GuideChapter,
+  GuideVisual,
+  GuideVisualKind,
+  GuideVisualPlacement,
   GuideVariant,
   LessonMarkdownDocument,
-  TopicGuide
+  TopicGuide,
+  VisualMarkdownDocument
 } from './guide-types'
 import type { TrackId } from './curriculum'
 
@@ -196,6 +200,76 @@ const parseBuildSteps = (source: string) => splitHeadings(source, 3)
     }
   })
 
+const VISUAL_KINDS = new Set<GuideVisualKind>([
+  'state',
+  'flow',
+  'graph',
+  'tensor',
+  'playground',
+  'image'
+])
+
+const parseVisualPlacement = (
+  value: unknown,
+  filePath: string,
+  visualIndex: number
+): GuideVisualPlacement => {
+  const placement = requiredString(
+    value,
+    `视觉实验 ${visualIndex + 1} placement`,
+    filePath
+  )
+  if (
+    placement === 'overview' ||
+    placement === 'mechanisms' ||
+    placement === 'build' ||
+    placement === 'example' ||
+    /^chapter:[1-9]\d*$/.test(placement)
+  ) {
+    return placement as GuideVisualPlacement
+  }
+  throw new Error(`${filePath}: 视觉实验 ${visualIndex + 1} 的 placement 无效`)
+}
+
+const parseVisualSteps = (source: string) => list(source)
+  .map((item, index) => {
+    const separator = item.indexOf('|')
+    if (separator < 0) {
+      return { label: `阶段 ${index + 1}`, detail: item }
+    }
+    return {
+      label: item.slice(0, separator).trim(),
+      detail: item.slice(separator + 1).trim()
+    }
+  })
+  .filter(step => step.label && step.detail)
+
+const parseVisuals = (source: string, filePath: string): GuideVisual[] =>
+  splitHeadings(source, 3).map((block, index) => {
+    const intro = beforeHeading(block.body, 4)
+    const meta = fields(intro)
+    const kind = String(meta.kind || '') as GuideVisualKind
+    if (!VISUAL_KINDS.has(kind)) {
+      throw new Error(`${filePath}: 视觉实验 ${index + 1} 的 kind 无效`)
+    }
+    const parts = splitHeadings(block.body, 4)
+    return {
+      id: requiredString(meta.id, `视觉实验 ${index + 1} id`, filePath),
+      kind,
+      placement: parseVisualPlacement(meta.placement, filePath, index),
+      title: block.title,
+      summary: requiredString(meta.summary, `视觉实验 ${index + 1} summary`, filePath),
+      caption: requiredString(meta.caption, `视觉实验 ${index + 1} caption`, filePath),
+      actionLabel: optionalString(meta.actionLabel),
+      component: optionalString(meta.component),
+      steps: parseVisualSteps(section(parts, '步骤')),
+      observations: list(section(parts, '观察重点')),
+      asset: optionalString(meta.asset),
+      alt: optionalString(meta.alt),
+      credit: optionalString(meta.credit)
+    }
+  })
+
 export function parseLessonMarkdown(
   raw: string,
   filePath = '<markdown>'
@@ -234,7 +308,8 @@ export function parseLessonMarkdown(
     example: example?.code || '',
     buildSteps: parseBuildSteps(section(sections, '搭积木复现')),
     selfCheckQuestion: optionalString(section(selfCheck, '问题')),
-    selfCheckAnswer: optionalString(section(selfCheck, '站内答案'))
+    selfCheckAnswer: optionalString(section(selfCheck, '站内答案')),
+    visuals: []
   }
 
   return {
@@ -242,6 +317,29 @@ export function parseLessonMarkdown(
     track: track as TrackId,
     title: requiredString(meta.title, 'title', filePath),
     depth: meta.depth === 'deep' ? 'deep' : 'foundation',
+    visualIndex: optionalString(meta.visualIndex),
     guide
+  }
+}
+
+export function parseVisualMarkdown(
+  raw: string,
+  filePath = '<visual-markdown>'
+): VisualMarkdownDocument {
+  const source = raw.replace(/\r\n?/g, '\n')
+  const frontmatter = source.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/)
+  if (!frontmatter) throw new Error(`${filePath}: 缺少 YAML frontmatter`)
+
+  const meta = fields(frontmatter[1])
+  const track = requiredString(meta.track, 'track', filePath)
+  if (!TRACK_IDS.has(track as TrackId)) {
+    throw new Error(`${filePath}: track ${track} 不是有效 TrackId`)
+  }
+  const sections = splitHeadings(frontmatter[2], 2)
+  return {
+    lesson: requiredString(meta.lesson, 'lesson', filePath),
+    track: track as TrackId,
+    decision: requiredString(meta.decision, 'decision', filePath),
+    visuals: parseVisuals(section(sections, '视觉实验'), filePath)
   }
 }

@@ -3,6 +3,7 @@ id: "typescript-01-03"
 track: "typescript"
 title: "可达性 GC、WeakRef 与 FinalizationRegistry"
 depth: "deep"
+visualIndex: "../visuals/typescript-01-03.md"
 exampleLanguage: "typescript"
 readingMinutes: 40
 sourceMinutes: 30
@@ -82,6 +83,7 @@ JavaScript 的对象不会因为“离开某个花括号”立刻释放。垃圾
 真实 V8 GC 远比“标记清除”四个字复杂。它按年龄划分空间，用 young collection 利用“大多数对象很快死亡”的经验；old generation 的 major GC 组合增量、并行和并发标记，写屏障在 mutator 修改对象图时维护正确性；sweep 与 compaction 在吞吐、碎片、停顿和内存峰值之间取舍。课程会先造一个可验证的 tracing collector，再逐层加入这些约束。
 
 WeakMap、WeakRef 与 FinalizationRegistry 只适合少量专门问题。WeakMap 让 metadata 不反向延长 key 生命周期；WeakRef 允许“有就复用、没有就重建”的机会式缓存；FinalizationRegistry 可做非关键资源的兜底提示。它们都不提供确定析构语义，正确性、文件句柄、锁和事务绝不能依赖 GC 何时发生。
+
 
 ## 分章正文
 

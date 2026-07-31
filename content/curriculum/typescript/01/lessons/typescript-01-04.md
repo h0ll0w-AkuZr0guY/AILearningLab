@@ -3,6 +3,7 @@ id: "typescript-01-04"
 track: "typescript"
 title: "执行上下文、Environment Record、TDZ 与 hoisting"
 depth: "deep"
+visualIndex: "../visuals/typescript-01-04.md"
 exampleLanguage: "typescript"
 readingMinutes: 45
 sourceMinutes: 35
@@ -103,6 +104,7 @@ void BytecodeGenerator::BuildThrowIfHole(Variable* variable) {
 名称、binding、值与属性必须分开。Identifier 通过当前 LexicalEnvironment 的 HasBinding/GetBindingValue 沿 [[OuterEnv]] 查找；global script 的 var/function 可能落在 global object 相关的 Object Environment Record，顶层 let/const 落在 DeclarativeRecord；ES module 的顶层 binding 位于 Module Environment Record，通常不是 globalThis 属性。不同来源的“全局变量”因此有不同可删除性、重声明规则和反射行为。
 
 V8 会把未逃逸局部放进寄存器/栈帧位置，把被闭包捕获的 binding 放进 heap Context slot，用内部 hole 值实现 TDZ。规范 Environment Record 与 V8 Context 有对应直觉，却不是逐字段等价物。理解这层转换后，闭包、loop binding、eval 性能、async 挂起、模块 live binding 和调试器显示都能落到同一套 binding 生命周期上。
+
 
 ## 分章正文
 

@@ -3,6 +3,7 @@ id: "torch-01-09"
 track: "torch"
 title: "as_strided：滑窗能力、越界检查与重叠写未定义行为"
 depth: "deep"
+visualIndex: "../visuals/torch-01-09.md"
 exampleLanguage: "python"
 readingMinutes: 25
 sourceMinutes: 45
@@ -66,6 +67,7 @@ Tensor as_strided_tensorimpl(
 安全使用 as_strided 的第一步不是调用 API，而是证明地址范围。对非负 stride，最小 offset 是 storage_offset，最大 offset 是 `storage_offset + Σ((size[i]-1)×stride[i])`。最大值必须小于 Storage 可用元素数；size=0 要单独处理，因为没有任何可读元素。
 
 本课独立成专家专题，因为滑窗、边界、内部重叠、autograd 和后端可移植性属于同一个地址合同。把它并入普通切片会让最危险的写语义在“高级用法”一句话里消失。
+
 
 ## 分章正文
 

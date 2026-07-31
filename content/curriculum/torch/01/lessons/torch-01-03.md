@@ -3,6 +3,7 @@ id: "torch-01-03"
 track: "torch"
 title: "shape、numel、dtype、device 与 layout：张量合同的正交坐标"
 depth: "deep"
+visualIndex: "../visuals/torch-01-03.md"
 exampleLanguage: "python"
 readingMinutes: 35
 sourceMinutes: 30
@@ -85,6 +86,7 @@ shape、numel、dtype、device、layout 常被并排打印，于是容易被当�
 例如 `(2,3)` float32 CPU strided Tensor 与同 shape 的 int64 CUDA Tensor 有相同坐标域和 numel，却在元素宽度、数值语义、地址空间和 kernel 上完全不同。同 shape 的 sparse COO Tensor 甚至不用普通 stride 表达全部值。shape 相同只足以讨论某些代数兼容，远不足以说明可交换。
 
 本课把这些属性组成可执行合同：输入检查不只写“Tensor”；要明确允许的 rank/shape、dtype 集、device 同置规则、layout 与是否需要真实数据。这样错误能在算子入口暴露，编译器 guard、测试矩阵和部署能力也有共同语言。
+
 
 ## 分章正文
 

@@ -3,6 +3,7 @@ id: "langgraph-01-07"
 track: "langgraph"
 title: "可重放执行：checkpoint、pending writes 与恢复边界"
 depth: "deep"
+visualIndex: "../visuals/langgraph-01-07.md"
 exampleLanguage: "python"
 readingMinutes: 38
 sourceMinutes: 52
@@ -82,6 +83,7 @@ pending writes 在边界内部再加一层任务级耐久记录。A 的输出按
 还要区分“结果已经在内存队列中”与“结果已经达到所选耐久级别”。后台 checkpointer 写入可能与下一段计算重叠，sync、async、exit 对进程突然终止时可保留的最近边界并不相同。生产验收不能只在 Python 对象上看到 checkpoint_pending_writes 就宣布安全，而要让持久化后端重新读取同一 thread/checkpoint，核对 task_id、task_path、channel、序列化后的值和错误标记。若后端写入失败，计算成功也只是尚未形成恢复承诺的暂态事实。
 
 恢复测试还要验证 reducer 只在 barrier 成功后把 pending writes 合成一次逻辑更新。若把已复用结果和重试结果提前各合并一次，追加型 reducer 会产生重复消息，计数型 reducer 会翻倍。任务级结果的“已保存”与业务 State 的“已提交”之间存在明确的提交阶段，任何教学实现都应把这条边界线画出来。
+
 
 ## 分章正文
 

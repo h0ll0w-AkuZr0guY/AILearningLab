@@ -3,6 +3,7 @@ id: "torch-01-04"
 track: "torch"
 title: "Stride 地址代数与连续性：从索引公式到 memory_format"
 depth: "deep"
+visualIndex: "../visuals/torch-01-04.md"
 exampleLanguage: "python"
 readingMinutes: 40
 sourceMinutes: 40
@@ -82,6 +83,7 @@ stride 是把多维坐标压到一维 Storage 的系数。它与线性代数中�
 连续性经常被误解为“内存中有一整块”。所有普通 Storage 都是字节缓冲区，关键在于逻辑索引按某种约定顺序遍历时，地址是否无洞地递增。默认 contiguous 与 channels_last 使用不同遍历约定；转置可能 non-overlapping-and-dense，却不满足默认 contiguous。
 
 性能也不能简化成连续真/假。kernel 可能原生接受任意 stride，TensorIterator 会合并维度并选择遍历顺序；GPU coalescing、CPU cache locality 和向量化取决于内层 stride、shape 与算子。`.contiguous()`是一笔真实复制，只有 profile 证明后续收益覆盖成本时才值得。
+
 
 ## 分章正文
 

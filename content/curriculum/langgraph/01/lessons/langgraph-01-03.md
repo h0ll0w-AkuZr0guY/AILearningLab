@@ -3,6 +3,7 @@ id: "langgraph-01-03"
 track: "langgraph"
 title: "Pregel super-step：Plan、Execute、Update 与 BSP barrier"
 depth: "deep"
+visualIndex: "../visuals/langgraph-01-03.md"
 exampleLanguage: "python"
 readingMinutes: 36
 sourceMinutes: 59
@@ -102,6 +103,7 @@ super-step 是理解 LangGraph 并发语义的核心单位。同一轮被选中�
 这与普通 `asyncio.as_completed` 的流式依赖不同。Pregel 可以并发执行任务，却故意延迟可见性，以换取可推演的轮次语义、确定性 reducer 顺序、稳定 checkpoint 和故障恢复边界。
 
 Plan 并非遍历所有 edge。运行时维护 channel versions 和每个节点 `versions_seen`，只有订阅的 channel 自上次执行后更新，节点才会被激活。循环、静态边、条件分支和 Send 最终都转成 channel/trigger 或 PUSH task。
+
 
 ## 分章正文
 

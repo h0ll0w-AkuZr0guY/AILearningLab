@@ -3,6 +3,7 @@ id: "typescript-01-12"
 track: "typescript"
 title: "循环依赖、SCC 求值与 TDZ 失败路径"
 depth: "deep"
+visualIndex: "../visuals/typescript-01-12.md"
 exampleLanguage: "typescript"
 readingMinutes: 44
 sourceMinutes: 36
@@ -111,6 +112,7 @@ MaybeDirectHandle<Object> SourceTextModule::InnerModuleEvaluation(
 普通拓扑排序要求有向无环图，模块图却允许环。ECMAScript 使用与 Tarjan strongly connected components 相同的 DFSIndex、DFSAncestorIndex 和 stack 思想：回边降低 low-link；到达一个 component root 时，才把栈上整组 Module Records 一起完成状态迁移。这样既能阻止无限递归，也能让环拥有一致的 lifecycle root。
 
 本课会把上一课的 MiniModule linker 改造成 SCC-aware evaluator。你会手算 A→B→C→A 与 C→D 两类边，比较 function/var/let/class 的初始化时机，复现 TDZ、partial initialization 和 barrel cycle，并用 dependency inversion、第三模块抽取与延迟调用拆除真正有害的环。
+
 
 ## 分章正文
 

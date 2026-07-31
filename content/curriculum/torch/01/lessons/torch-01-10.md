@@ -3,6 +3,7 @@ id: "torch-01-10"
 track: "torch"
 title: "clone、contiguous 与 to：显式物化、所有权和设备迁移"
 depth: "deep"
+visualIndex: "../visuals/torch-01-10.md"
 exampleLanguage: "python"
 readingMinutes: 25
 sourceMinutes: 45
@@ -59,6 +60,7 @@ Tensor contiguous(const Tensor& self, MemoryFormat memory_format) {
 显式物化像在数据管线里签收货物：从此刻起谁拥有缓冲区、花了多少带宽、布局为何可被下游假定，都应可观察。把 copy 隐藏在 reshape、外部库绑定或 `.cpu().numpy()`深处，会让显存峰值和延迟在生产中才显形。
 
 这一课把 clone、contiguous、to 合并，是因为它们共同构成 materialization 的决策面：独立所有权、指定布局、以及跨 dtype/device。分开讲会让学习者只背“某函数会复制”，却不能设计有成本边界的接口。
+
 
 ## 分章正文
 

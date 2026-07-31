@@ -3,6 +3,7 @@ id: "typescript-01-01"
 track: "typescript"
 title: "ECMAScript 值、规范 Reference 与相等算法"
 depth: "deep"
+visualIndex: "../visuals/typescript-01-01.md"
 exampleLanguage: "typescript"
 readingMinutes: 25
 sourceMinutes: 20
@@ -69,6 +70,7 @@ bool SameValue(Tagged<Object> left, Tagged<Object> right) {
 规范里的 Reference 是求值器使用的临时记录，描述“某个 base 上名为 referencedName 的位置”，还携带 strict、thisValue 等信息。表达式 obj.x 先产生 Reference，GetValue 才读取属性值；赋值 obj.x = 1 则把 Reference 交给 PutValue。普通变量保存的是 GetValue 后的语言值，无法把 Reference 存进数组或作为参数传走。
 
 TypeScript 只在编译阶段为这些值建立静态近似，emit 后仍由 JavaScript 算法运行。类型相同不能推出对象相等，readonly 不能冻结对象身份上的状态，结构类型也不会让两个结构相同的对象获得同一 identity。掌握这层边界后，alias、Map key、React/Vue 更新、memoization 和不可变数据的许多问题会落到同一张图上。
+
 
 ## 分章正文
 

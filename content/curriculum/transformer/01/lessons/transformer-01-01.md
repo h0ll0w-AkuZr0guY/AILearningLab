@@ -3,6 +3,7 @@ id: "transformer-01-01"
 track: "transformer"
 title: "标量向量矩阵"
 depth: "foundation"
+visualIndex: "../visuals/transformer-01-01.md"
 exampleLanguage: "python"
 ---
 
@@ -69,6 +70,7 @@ def matrix_multiply(
 矩阵乘法不是逐元素相乘。若 A 的形状是 [m, k]，B 的形状是 [k, n]，A @ B 的结果才存在，形状为 [m, n]。中间维 k 被“消费”：结果中的每个数，都来自 A 的一行与 B 的一列做点积。
 
 Transformer 几乎所有核心计算都能还原为这些积木。隐藏状态 X[B,T,D] 乘权重 W[D,H] 得到投影 XW[B,T,H]；Q 与 Kᵀ 相乘得到每对 token 的相似度；最后再用注意力权重乘 V。学会逐行推导 shape，后面的 attention 才不会变成背公式。
+
 
 ## 核心机制
 

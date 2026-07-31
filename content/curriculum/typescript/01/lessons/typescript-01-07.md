@@ -3,6 +3,7 @@ id: "typescript-01-07"
 track: "typescript"
 title: "prototype、new、class fields 与 private brand"
 depth: "deep"
+visualIndex: "../visuals/typescript-01-07.md"
 exampleLanguage: "typescript"
 readingMinutes: 48
 sourceMinutes: 37
@@ -97,6 +98,7 @@ class 不是与 prototype 无关的第二套对象模型。每次 class 定义�
 class field 与 constructor 里的普通赋值也不能互换。公开字段使用 DefineField，在实例上创建自有数据属性，不会调用继承 setter；基类字段在 constructor body 之前初始化，派生类字段在 super() 返回后初始化。computed field name 在 class 定义时求值，initializer expression 则在每次构造实例时求值。初始化时序决定了虚方法调用、setter、副作用和未初始化状态。
 
 #private 进一步超出字符串属性模型。源码中的 #x 解析成 class evaluation 独有的 Private Name；实例需要先拥有该名称对应的 private element 或 brand，PrivateGet/PrivateSet 才允许访问。相同拼写的两个 class #x 互不兼容，Proxy 也不能伪造品牌。V8 可以把 brand 优化成内部 symbol/property 与 IC，但可观察语义仍是不可枚举、不可反射、基于声明身份的检查。
+
 
 ## 分章正文
 

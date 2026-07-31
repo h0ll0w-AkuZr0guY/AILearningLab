@@ -8,7 +8,7 @@
 
 课程总纲会根据真实知识复杂度动态拆分或合并课题，不用固定课时数倒推内容。当前深度精写进度与恢复入口见 [`docs/CURRICULUM_RECONSTRUCTION_TARGET.md`](docs/CURRICULUM_RECONSTRUCTION_TARGET.md)。
 
-课程按“路线 → 模块 → 目录 → 单课正文”组织在 `content/curriculum/`。每个模块的 `catalog.md` 保存课题规划、状态和认领人，curated 课程正文独立放在同模块的 `lessons/<lesson-id>.md`。修正文案只需编辑对应单课；规划或认领则只改模块目录。公共模板、认领流程和优质课索引见 [`docs/CONTRIBUTING_LESSONS.md`](docs/CONTRIBUTING_LESSONS.md)，完整分支、提交与 PR 规范见 [`CONTRIBUTING.md`](CONTRIBUTING.md)。
+课程按“路线 → 模块 → 目录 → 单课正文”组织在 `content/curriculum/`。每个模块的 `catalog.md` 保存课题规划、状态和认领人，curated 课程正文独立放在 `lessons/<lesson-id>.md`；可选视觉以同名索引放在 `visuals/<lesson-id>.md`，再按章节锚点动态插入页面。修正文案只需编辑对应单课，修改视觉文字也无需触碰正文或 TypeScript。公共模板、认领流程和优质课索引见 [`docs/CONTRIBUTING_LESSONS.md`](docs/CONTRIBUTING_LESSONS.md)，插图、动画、交互演示与 ImageGen 选择规则见 [`docs/VISUAL_LESSON_STANDARD.md`](docs/VISUAL_LESSON_STANDARD.md)，完整分支、提交与 PR 规范见 [`CONTRIBUTING.md`](CONTRIBUTING.md)。
 
 ## 启动
 

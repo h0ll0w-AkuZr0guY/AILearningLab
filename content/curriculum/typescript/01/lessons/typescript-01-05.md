@@ -3,6 +3,7 @@ id: "typescript-01-05"
 track: "typescript"
 title: "闭包、捕获绑定与 per-iteration environment"
 depth: "deep"
+visualIndex: "../visuals/typescript-01-05.md"
 exampleLanguage: "typescript"
 readingMinutes: 30
 sourceMinutes: 20
@@ -79,6 +80,7 @@ RUNTIME_FUNCTION(Runtime_PushCatchContext) {
 for (let i = ...) 的经典结果来自 CreatePerIterationEnvironment。每轮会建立新的环境和新的 i binding，把上一轮 i 的当前值复制进新 binding，再执行 increment；当轮创建的闭包保存当轮环境。for (var i = ...) 只有函数级共享 binding，全部回调在真正执行时读取同一个最终值。差别落在 binding identity，而非异步 API 特判。
 
 实现层不会机械保存整个调用栈。V8 的 scope analysis 找出逃逸 binding，把它们分配进 heap Context slot；未捕获或可证明不逃逸的局部仍可留在寄存器，甚至被优化器消除。闭包的表达力与生命周期成本来自“函数对象让环境继续可达”，所以监听器、缓存、Promise 队列与大对象捕获都要从 retained path 审查。
+
 
 ## 分章正文
 

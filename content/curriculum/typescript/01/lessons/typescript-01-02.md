@@ -3,6 +3,7 @@ id: "typescript-01-02"
 track: "typescript"
 title: "Property Key、Descriptor、内部方法与对象形状"
 depth: "deep"
+visualIndex: "../visuals/typescript-01-02.md"
 exampleLanguage: "typescript"
 readingMinutes: 40
 sourceMinutes: 30
@@ -97,6 +98,7 @@ JavaScript 对象可先理解成“Property Key 到 property record 的映射”
 规范中的 [[Get]]、[[Set]]、[[DefineOwnProperty]] 是多态语义接口。普通对象沿原型链读写，数组还要守住 length，TypedArray 要解释整数索引，Proxy 把操作交给 trap 后继续验证不变量。把对象简单等同于 HashMap 会遗漏 getter 的 this、原型 setter、不可配置属性和 exotic object；把 V8 HiddenClass 当作规范概念，又会把某个引擎的优化策略误认成语言保证。
 
 V8 为常见对象建立 Map（工程文章常称 HiddenClass）和 DescriptorArray。相同属性、相同添加顺序的对象通常能共享形状，优化器可据此把“按名字查属性”缩成“检查 Map 后按固定 offset 读值”。频繁增删、稀疏索引或特殊 descriptor 可能切换到 dictionary 表示。这个变化通常不改变 JavaScript 可观察语义，却会改变内存、inline cache 和热路径性能。
+
 
 ## 分章正文
 

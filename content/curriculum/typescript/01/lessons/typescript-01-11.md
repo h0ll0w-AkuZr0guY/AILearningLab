@@ -3,6 +3,7 @@ id: "typescript-01-11"
 track: "typescript"
 title: "ESM 实例化、Module Environment 与 live binding"
 depth: "deep"
+visualIndex: "../visuals/typescript-01-11.md"
 exampleLanguage: "typescript"
 readingMinutes: 42
 sourceMinutes: 34
@@ -106,6 +107,7 @@ ES module 不是把被导入文件的文本粘贴到当前文件，也不是执�
 import { count } from "./counter.js" 创建的是本地名称 count 到目标模块 binding 的间接连接。导入方不能 count=7，因为 import binding immutable；导出方执行 count++ 后，同一 import 再读会取得新值。这里的 immutable 约束的是连接不能被导入方改指，目标 binding 本身可由 exporter 按 let/var 规则更新。
 
 本课按 Parse → LoadRequestedModules → Link/InitializeEnvironment → Evaluate 四阶段重建 ESM。你会手写 ModuleRecord、Cell、ResolveExport、ModuleEnvironment、namespace view 和 linker，覆盖缺失导出、重复 binding、TDZ、别名再导出和 single evaluation。下一课再在此基础上加入强连通分量、top-level await 与 Node ESM/CJS 互操作。
+
 
 ## 分章正文
 

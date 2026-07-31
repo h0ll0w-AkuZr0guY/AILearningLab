@@ -3,6 +3,7 @@ id: "transformer-01-02"
 track: "transformer"
 title: "batch 维度"
 depth: "foundation"
+visualIndex: "../visuals/transformer-01-02.md"
 exampleLanguage: "python"
 ---
 
@@ -13,6 +14,7 @@ batch 是为了同时处理多份彼此独立的数据而增加的外层轴。�
 实现算子时通常把最后几个轴留给核心数学，把前面的轴看作 batch。例如 [B,T,D] @ [D,H] 会对 B 个样本和 T 个 token 复用同一个 [D,H] 投影，得到 [B,T,H]。
 
 batch 里的样本长度可能不同，因此还需要 padding 和 attention mask。shape 对齐只保证程序能算，mask 才保证填充位置不会污染语义。
+
 
 ## 可运行示例
 

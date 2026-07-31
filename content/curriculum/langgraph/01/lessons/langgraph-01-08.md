@@ -3,6 +3,7 @@ id: "langgraph-01-08"
 track: "langgraph"
 title: "确定性：reducer 顺序、任务排序与外部 I/O"
 depth: "deep"
+visualIndex: "../visuals/langgraph-01-08.md"
 exampleLanguage: "python"
 readingMinutes: 35
 sourceMinutes: 50
@@ -81,6 +82,7 @@ def apply_writes(
 LangGraph 能控制自己拥有的部分：任务路径、channel version、reducer 输入序列、checkpoint 与 task 结果。它无法控制模型供应商、远端搜索索引、数据库当前值、随机数源和操作系统调度。正确策略是把这些观察变成显式事件并持久化，再让路由只依赖已记录值。
 
 本课用一个故意非交换的 reducer 暴露顺序问题，再把外部 I/O 划分为 observation 与 effect。observation 如模型输出影响后续路线，需要记录供恢复复用；effect 如发信改变外界，需要幂等键保证重试后业务效果收敛。需要始终追问并严格验证：这份稳定性究竟来自运行时排序、已保存事件，还是外部系统自身的协议。
+
 
 ## 分章正文
 

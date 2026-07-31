@@ -14,12 +14,21 @@
 
 <!-- 课程贡献列出官方锚点、上游仓库 tag/commit、文件和核心符号。代码贡献说明关键设计决策。 -->
 
+视觉实验（不适用时删除）：
+
+- 学习者原本无法观察的变化：
+- 选择的媒介与理由：
+- 视觉索引、placement 与相邻正文章节：
+- 状态/节点/shape 对应的代码证据：
+- ImageGen 或外部图片来源、alt 与类比边界：
+
 ## 验证
 
 - [ ] `corepack pnpm run curriculum:audit`
 - [ ] `corepack pnpm generate`
 - [ ] 新增可运行示例已逐个执行
 - [ ] UI 改动已完成桌面与窄屏浏览器验收
+- [ ] 有视觉时已验证索引、锚点、文字说明、单步、播放/暂停、重置、键盘与 reduced motion
 - [ ] `git diff --check`
 
 验证结果或截图：
