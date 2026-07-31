@@ -603,5 +603,5 @@ curated 变化：0 / 120 → 5 / 120（4.2%）
 视觉：本批 5 篇均建立课程级索引，分别覆盖消息转换、字段生命周期、输入归一化、模板绑定与 Runnable 执行时间线。
 可运行示例：examples/langchain/01–05 五个离线合同实验。
 下一 pending：batch 与 stream（langchain-01-06）
-PR：待创建
+PR：https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/11
 ```
