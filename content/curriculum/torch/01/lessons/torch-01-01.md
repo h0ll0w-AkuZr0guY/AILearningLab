@@ -3,6 +3,7 @@ id: "torch-01-01"
 track: "torch"
 title: "Tensor 双层模型：TensorImpl 元数据如何解释同一块字节"
 depth: "deep"
+visualIndex: "../visuals/torch-01-01.md"
 exampleLanguage: "python"
 readingMinutes: 40
 sourceMinutes: 30
@@ -82,6 +83,7 @@ struct C10_API TensorImpl : public c10::intrusive_ptr_target {
 可以把 Storage 类比成一卷没有格子的胶片，Tensor 元数据是一张取景表。shape 规定逻辑坐标范围，stride 规定坐标每走一步跨多少个元素，storage_offset 规定从胶片哪一格起拍，dtype 规定每格有多少字节以及怎样解码。同一卷胶片换一张取景表，便得到 transpose、slice 或 view。
 
 这套模型也有边界。`device="meta"` 的 Tensor 可以携带 shape、dtype 和算子传播信息，却没有普通数据；sparse layout 用索引和值描述稀疏结构；Tensor subclass 还可能自定义语义。因此本课讨论的是最常见的 strided Tensor 表示，并把“不一定有普通 Storage”作为后续编译与扩展课程的防错栏。
+
 
 ## 分章正文
 

@@ -3,6 +3,7 @@ id: "torch-02-05"
 track: "torch"
 title: "broadcast alignment"
 depth: "deep"
+visualIndex: "../visuals/torch-02-05.md"
 exampleLanguage: "python"
 readingMinutes: 25
 sourceMinutes: 30
@@ -62,6 +63,7 @@ broadcast 不是把小 tensor 真的复制很多份，而是为逐元素算子�
 最常见事故发生在轴语义，而非规则本身：`(B,T,D)+(B,D)`不会把第二个 tensor 当成每个 batch 的 bias，因为尾维从 D 对齐后，B 会撞上 T。正确形状通常是 `(B,1,D)`。先给每一维命名，再决定 unsqueeze 位置，比凭长度“试到能跑”为可靠。
 
 本课把 forward 对齐、反向 reduce 和原地限制放在一起。它们都来自同一事实：一个输入元素若被逻辑复用多次，forward 可读同一地址，backward 必须把多条梯度贡献加回一个位置，而原地写没有唯一目标地址。
+
 
 ## 分章正文
 

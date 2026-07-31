@@ -3,6 +3,7 @@ id: "typescript-01-08"
 track: "typescript"
 title: "getter、setter、Proxy、Reflect 与 Receiver"
 depth: "deep"
+visualIndex: "../visuals/typescript-01-08.md"
 exampleLanguage: "typescript"
 readingMinutes: 45
 sourceMinutes: 35
@@ -86,6 +87,7 @@ transitioning builtin ProxyGetProperty(
 写入更加微妙。OrdinarySetWithOwnDescriptor 可能调用 holder 上的 setter，也可能在 Receiver 上创建或更新自有数据属性；只读 descriptor、不可扩展 Receiver、已有 accessor 与代理对象都会改变结果。严格赋值语句在 [[Set]] 返回 false 时抛 TypeError，Reflect.set 则把这个 Boolean 直接交给调用者，因此它适合实现可组合的元对象操作。
 
 Proxy 不只是“拦截点集合”。它用 handler traps 替换 target 的内部方法，再以一组不变量阻止 handler 谎报会破坏对象模型的事实。正确透明转发通常需要 Reflect.get(target, key, receiver) 或 Reflect.set(target, key, value, receiver)，但带 #private、Map/Set 内部槽、DOM brand check 的对象又可能要求把 receiver 改回 target。这些边界决定 Proxy 是可靠 membrane、调试器还是一层隐蔽 bug。
+
 
 ## 分章正文
 

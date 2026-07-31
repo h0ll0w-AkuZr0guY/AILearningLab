@@ -3,6 +3,7 @@ id: "langgraph-01-01"
 track: "langgraph"
 title: "函数链为何不足：显式图、状态机与执行日志边界"
 depth: "deep"
+visualIndex: "../visuals/langgraph-01-01.md"
 exampleLanguage: "python"
 readingMinutes: 45
 sourceMinutes: 35
@@ -64,6 +65,7 @@ class Pregel(PregelProtocol[StateT, ContextT, InputT, OutputT]):
 显式图把控制流提升为数据。节点名称形成稳定执行地址，边形成可检查的跳转关系，State 保存跨节点业务事实，checkpoint 保存某一时刻的运行快照。编排器因此可以在不理解节点业务代码的情况下做调度、stream、interrupt、resume、time travel 和 trace。
 
 图并不自动带来正确性。若节点直接修改共享对象、把数据库连接塞进 State、用当前时间决定不可记录的分支，或者恢复后重复发送付款，图只会把混乱画得更漂亮。本课先建立四层边界：Graph Definition、Business State、Runtime Context、External World，再决定每项数据和副作用应该放在哪里。
+
 
 ## 分章正文
 

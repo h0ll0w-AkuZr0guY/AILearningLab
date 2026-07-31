@@ -3,6 +3,7 @@ id: "langgraph-01-06"
 track: "langgraph"
 title: "状态快照与执行元数据：values、tasks、next 与 config"
 depth: "deep"
+visualIndex: "../visuals/langgraph-01-06.md"
 exampleLanguage: "python"
 readingMinutes: 33
 sourceMinutes: 30
@@ -68,6 +69,7 @@ class StateSnapshot(NamedTuple):
 可以把它类比成列车运行图的一张定格照片。values 是车上已经装载的货物，tasks 是下一站待发的具体车次，next 是车次目的站的摘要，config 是线路、班次与照片编号。只看货物不能知道哪辆车将开出，只看目的站也不能证明货物内容。
 
 本课把快照作为可验证合同来读：先建立 step 时间线，再比较 values、next、tasks；随后沿 config 找到历史与分支，最后讨论错误、interrupt 和子图怎样改变观察结果。目标是写出能诊断真实恢复问题的检查器，而非会打印对象。
+
 
 ## 分章正文
 

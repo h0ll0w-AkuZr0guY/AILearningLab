@@ -3,6 +3,7 @@ id: "transformer-01-08"
 track: "transformer"
 title: "Jacobian 直觉"
 depth: "foundation"
+visualIndex: "../visuals/transformer-01-08.md"
 exampleLanguage: "python"
 ---
 
@@ -13,6 +14,7 @@ exampleLanguage: "python"
 深度学习通常不会显式构造完整 Jacobian，因为它可能巨大。反向模式自动微分计算的是向量与 Jacobian 的乘积 VJP，并从标量 loss 向输入高效传播。
 
 理解 Jacobian 的价值在于判断梯度 shape 和依赖关系，而非手算大矩阵。每个局部算子的 VJP 会在 autograd 图上按链式法则组合。
+
 
 ## 可运行示例
 

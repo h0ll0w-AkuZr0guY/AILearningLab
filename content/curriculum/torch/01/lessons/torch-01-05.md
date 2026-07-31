@@ -3,6 +3,7 @@ id: "torch-01-05"
 track: "torch"
 title: "view、reshape 与 flatten：零拷贝兼容条件和复制回退"
 depth: "deep"
+visualIndex: "../visuals/torch-01-05.md"
 exampleLanguage: "python"
 readingMinutes: 40
 sourceMinutes: 40
@@ -81,6 +82,7 @@ view、reshape、flatten 都能改变 shape，差别藏在复制合同。`view`�
 “numel 相同就能 view”是最常见误解。把一组原维度合并成一个新维度时，那些维度必须在物理地址上形成连续子空间。transpose 后 stride 顺序被打断，某些维仍可局部合并，跨越 chunk 边界则必须重排字节。
 
 复制回退让 reshape 易用，也会把性能与别名语义变成输入布局的函数。同一行代码在连续训练数据上零拷贝，在另一路非连续数据上突然分配数 GB。稳定 API 要选择：需要零拷贝时用 view 让失败显式；允许复制时用 reshape，并监控/测试物化。
+
 
 ## 分章正文
 

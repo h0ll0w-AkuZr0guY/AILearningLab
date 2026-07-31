@@ -3,6 +3,7 @@ id: "torch-01-02"
 track: "torch"
 title: "UntypedStorage、DataPtr 与别名生命周期：共享、所有权和序列化"
 depth: "deep"
+visualIndex: "../visuals/torch-01-02.md"
 exampleLanguage: "python"
 readingMinutes: 40
 sourceMinutes: 35
@@ -91,6 +92,7 @@ struct C10_API Storage {
 UntypedStorage 的“untyped”表示它按字节管理容量，元素 dtype 属于 Tensor 的解释。官方仍保留 TypedStorage 兼容层，但它已弃用；新代码应从 `tensor.untyped_storage()`观察底层。直接对 Storage `fill_` 或 `set_` 会绕过高层安全合同，只能在受控实验中使用。
 
 别名的生命周期由 StorageImpl 引用计数收敛。Tensor view、序列化恢复对象、共享内存句柄都可能引用同一 Storage。数据复制、句柄复制和所有权转移必须分开命名，否则 API 的“零拷贝”承诺会在异常、缓存和异步执行下变成悬空地址或意外保留。
+
 
 ## 分章正文
 

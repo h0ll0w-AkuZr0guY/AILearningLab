@@ -15,6 +15,7 @@ corepack pnpm dev
 - 模块目录设计：`content/templates/module-catalog.md`
 - 优质课参考：`docs/LESSON_REFERENCE_SET.md`
 - 单课格式说明：`docs/CONTRIBUTING_LESSONS.md`
+- 视觉实验标准：`docs/VISUAL_LESSON_STANDARD.md`
 - 课程路线与模块目录：`content/curriculum/<track>/track.md`、`content/curriculum/<track>/<module>/catalog.md`
 - 课程拆分目标：`docs/CURRICULUM_RECONSTRUCTION_TARGET.md`
 - 页面或构建贡献：相关 Vue、TypeScript、脚本及现有 CSS 约定
@@ -49,7 +50,9 @@ corepack pnpm curriculum:new <track-id> <lesson-id>
 
 ### 修改页面、组件或样式
 
-保持内容层与渲染层分离。课程正文进入 Markdown，类型、解析和索引进入 `app/data`，页面交互进入 Vue，视觉规则进入 CSS。涉及响应式布局、复制、答案展开或导航时，附桌面与窄屏浏览器证据。
+保持内容层与渲染层分离。课程正文进入 `lessons/<lesson-id>.md`，可选视觉文字进入同模块 `visuals/<lesson-id>.md`，类型、解析和索引进入 `app/data`，页面交互进入 Vue，视觉规则进入 CSS。涉及响应式布局、复制、答案展开或导航时，附桌面与窄屏浏览器证据。
+
+课程插图、动画和演示先遵循 `docs/VISUAL_LESSON_STANDARD.md`。视觉可为空；有明确教学价值时，正文只登记 `visualIndex`，视觉索引通过 `placement` 动态插入固定叙事锚点。一个试题可以拥有多个不同 kind。只有通用渲染器无法表达真实交互时，才在 `app/components/lesson-visuals/<lesson-id>/` 新建组件。ImageGen 资产必须进入 `public/visuals/<track>/<lesson-id>/`，同时提交中文 alt、生成/来源说明和类比边界。
 
 ### 修改脚本、构建或部署
 
@@ -75,7 +78,8 @@ AI 在写课前必须按顺序完成：
 3. 联网核验官方文档与真实上游源码。
 4. 先在目标 `catalog.md` 认领，再只创建或修改目标 lesson；除非题名或拆分发生变化，不碰其他模块目录。
 5. 运行示例、课程审计和静态生成。
-6. 检查 diff，确认没有缩短其他课程、覆盖人工改动或加入构建产物。
+6. 若课题存在难以观察的状态、数据流或 UI 结果，按视觉决策树补充可验证实验；禁止默认生成装饰图。
+7. 检查 diff，确认没有缩短其他课程、覆盖人工改动或加入构建产物。
 
 一次内容 PR 应保持单一主题。大批量机械迁移与课程扩写分开提交，避免在同一 diff 中混合架构和内容判断。
 
@@ -92,10 +96,11 @@ corepack pnpm generate
 
 - 新增示例：逐个执行，并覆盖失败路径
 - UI：浏览器验证标题、长正文、源码、复制、答案、上一题/下一题、窄屏和控制台
+- 视觉实验：逐步、播放/暂停、重置、键盘、reduced motion、本地图片路径和专属组件
 - 构建或依赖：`corepack pnpm install --frozen-lockfile`
 - 全部改动：`git diff --check`
 
-`curriculum:audit` 会拒绝重复 id、题名错配、错误路径、残留模板占位符和不满足密度门的深度课程。
+`curriculum:audit` 会拒绝重复 id、题名错配、错误路径、残留模板占位符、不满足密度门的深度课程，以及失效的视觉双向索引、章节锚点和资源归属。
 
 ## 分支与提交
 
@@ -115,6 +120,7 @@ corepack pnpm generate
 - 关键设计决策及替代方案
 - 执行过的命令与结果
 - 课程 URL 或页面截图
+- 视觉媒介选择、状态证据、图片来源与无动画/减弱动态表现，若适用
 - curated 数量变化及下一 pending 课题，若适用
 - 风险、兼容性和回退方式
 

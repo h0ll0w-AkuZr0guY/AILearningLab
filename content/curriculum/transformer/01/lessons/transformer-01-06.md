@@ -3,6 +3,7 @@ id: "transformer-01-06"
 track: "transformer"
 title: "范数与归一化"
 depth: "foundation"
+visualIndex: "../visuals/transformer-01-06.md"
 exampleLanguage: "python"
 ---
 
@@ -13,6 +14,7 @@ exampleLanguage: "python"
 神经网络里的 LayerNorm 并非简单 L2 归一化。它沿指定特征轴计算均值与方差，再用可学习的缩放和偏移恢复表达能力。
 
 必须明确沿哪条轴归一化。对 [B,T,D] 的隐藏状态，LayerNorm 通常沿 D 处理每个 token，而不会把不同 batch 或 token 混在一起。
+
 
 ## 可运行示例
 

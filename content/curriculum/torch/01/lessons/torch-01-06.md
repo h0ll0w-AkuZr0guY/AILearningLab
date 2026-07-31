@@ -3,6 +3,7 @@ id: "torch-01-06"
 track: "torch"
 title: "transpose、permute 与 movedim：只改维度解释的零拷贝重排"
 depth: "deep"
+visualIndex: "../visuals/torch-01-06.md"
 exampleLanguage: "python"
 readingMinutes: 25
 sourceMinutes: 40
@@ -59,6 +60,7 @@ Tensor permute(const Tensor& self, IntArrayRef dims) {
 把连续 `(B,T,D)` 的 stride 写成 `(T×D,D,1)`。`permute(0,2,1)`得到 size `(B,D,T)`、stride `(T×D,1,D)`；新逻辑索引 `(b,d,t)`访问的仍是旧 `(b,t,d)`。因此值的轴语义变了，物理元素的地址集合没有变。这是零拷贝的精确含义，不是“结果看起来没变”。
 
 `transpose(d0,d1)`是交换两个轴的窄接口，`permute`给出完整轴排列，`movedim(src,dst)`适合表达“把 channel 送到最后”这类位置意图。三者应按代码意图选，不应为了性能在它们之间猜测；普通 dense 输入上的别名事实相同，后续消费布局才决定性能。
+
 
 ## 分章正文
 

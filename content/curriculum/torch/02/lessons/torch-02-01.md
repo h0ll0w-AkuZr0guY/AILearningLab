@@ -3,6 +3,7 @@ id: "torch-02-01"
 track: "torch"
 title: "basic indexing"
 depth: "deep"
+visualIndex: "../visuals/torch-02-01.md"
 exampleLanguage: "python"
 readingMinutes: 25
 sourceMinutes: 30
@@ -66,6 +67,7 @@ inline Tensor handleDimInMultiDimIndexing(
 基本索引由整数、slice、冒号、`...`和`None`构成。它不需要为每个输出元素保存独立地址表，所以普通 strided Tensor 能用 size、stride、offset 表达结果。下标列表、LongTensor 或 bool mask 则需要逐元素寻址，属于下一课的高级索引。
 
 本课把整数和 slice 合并，因为它们共享一条地址公式；`select`相当于固定一个坐标，`slice`相当于保留一段坐标。拆开会重复解释同一个 Storage 合同，却掩盖“降维”和“保留维”的关键差异。
+
 
 ## 分章正文
 

@@ -25,6 +25,42 @@ export interface GuideStudyPlan {
   reviewMinutes: number
 }
 
+export type GuideVisualKind =
+  | 'state'
+  | 'flow'
+  | 'graph'
+  | 'tensor'
+  | 'playground'
+  | 'image'
+
+export type GuideVisualPlacement =
+  | 'overview'
+  | `chapter:${number}`
+  | 'mechanisms'
+  | 'build'
+  | 'example'
+
+export interface GuideVisualStep {
+  label: string
+  detail: string
+}
+
+export interface GuideVisual {
+  id: string
+  kind: GuideVisualKind
+  placement: GuideVisualPlacement
+  title: string
+  summary: string
+  caption: string
+  actionLabel?: string
+  component?: string
+  steps: GuideVisualStep[]
+  observations: string[]
+  asset?: string
+  alt?: string
+  credit?: string
+}
+
 export interface TopicGuide {
   official?: {
     title: string
@@ -51,6 +87,7 @@ export interface TopicGuide {
   buildSteps?: Array<{ title: string; body: string; code?: string }>
   selfCheckQuestion?: string
   selfCheckAnswer?: string
+  visuals?: GuideVisual[]
 }
 
 export interface LessonMarkdownDocument {
@@ -58,5 +95,13 @@ export interface LessonMarkdownDocument {
   track: TrackId
   title: string
   depth: 'foundation' | 'deep'
+  visualIndex?: string
   guide: TopicGuide
+}
+
+export interface VisualMarkdownDocument {
+  lesson: string
+  track: TrackId
+  decision: string
+  visuals: GuideVisual[]
 }

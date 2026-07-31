@@ -3,6 +3,7 @@ id: "torch-01-07"
 track: "torch"
 title: "slice、select 与 narrow：storage_offset 和步长切片"
 depth: "deep"
+visualIndex: "../visuals/torch-01-07.md"
 exampleLanguage: "python"
 readingMinutes: 25
 sourceMinutes: 40
@@ -62,6 +63,7 @@ Tensor narrow(const Tensor& self, int64_t dim, int64_t start, int64_t length) {
 `select(dim,index)`删去一个维度，`narrow(dim,start,length)`保留连续区间，Python basic slice 支持 step。它们都适合把不规则布局继续交给支持 stride 的算子。索引列表、LongTensor、布尔 mask 属于 advanced indexing，官方明确把那条读取路径定义为 copy，切勿以写法相似推断别名。
 
 这门课把 select/narrow/basic slice 合并，因为三者使用同一套 size、stride、offset 合同；把它们分开只会重复边界检查和地址推导。把 advanced indexing 留给下一单元，能让“何时 copy”成为一个可验证的分界。
+
 
 ## 分章正文
 

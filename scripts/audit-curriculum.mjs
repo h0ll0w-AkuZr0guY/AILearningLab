@@ -1,6 +1,9 @@
-import { readFile, readdir } from 'node:fs/promises'
+import { access, readFile, readdir } from 'node:fs/promises'
 import { join, relative } from 'node:path'
-import { parseLessonMarkdown } from '../app/data/lesson-markdown.ts'
+import {
+  parseLessonMarkdown,
+  parseVisualMarkdown
+} from '../app/data/lesson-markdown.ts'
 import { loadCurriculumFromDisk } from './lib/load-curriculum.mjs'
 
 const root = new URL('..', import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1')
@@ -26,6 +29,8 @@ const lessonByTrackAndId = new Map(
 const curatedByTrack = new Map(tracks.map(track => [track.id, new Set()]))
 const seenTitles = new Set()
 const seenIds = new Set()
+const lessonDocumentsByKey = new Map()
+const visualDocumentsByKey = new Map()
 
 const countCjk = value => (value.match(/[\u3400-\u9fff]/g) || []).length
 const nonEmptyLines = value => value.split('\n').filter(line => line.trim()).length
@@ -36,6 +41,9 @@ const lessonFiles = (await listMarkdownFiles(curriculumRoot))
 for (const file of lessonFiles) {
   const relativePath = relative(root, file).replace(/\\/g, '/')
   const raw = await readFile(file, 'utf8')
+  if (/^## 视觉实验$/m.test(raw)) {
+    malformed.push(`${relativePath}: 视觉实验必须移入同模块 visuals/<lesson-id>.md`)
+  }
   if (/\bTODO\b|\{\{[A-Z_]+\}\}/.test(raw)) {
     malformed.push(`${relativePath}: 仍含公共模板占位符`)
   }
@@ -54,6 +62,7 @@ for (const file of lessonFiles) {
     malformed.push(`${relativePath}: ${key} 未出现在课程表`)
     continue
   }
+  lessonDocumentsByKey.set(key, { document, relativePath, curriculumEntry })
 
   if (seenIds.has(key)) malformed.push(`${relativePath}: 课程 id 重复 ${key}`)
   if (seenTitles.has(titleKey)) malformed.push(`${relativePath}: 课程题名重复 ${titleKey}`)
@@ -130,6 +139,137 @@ for (const file of lessonFiles) {
   }
   if (curriculumEntry.lesson.status === 'curated') {
     curatedByTrack.get(document.track).add(document.id)
+  }
+}
+
+const visualFiles = (await listMarkdownFiles(curriculumRoot))
+  .filter(file => file.replace(/\\/g, '/').includes('/visuals/'))
+
+for (const file of visualFiles) {
+  const relativePath = relative(root, file).replace(/\\/g, '/')
+  const raw = await readFile(file, 'utf8')
+  let visualDocument
+  try {
+    visualDocument = parseVisualMarkdown(raw, relativePath)
+  } catch (error) {
+    malformed.push(error.message)
+    continue
+  }
+
+  const key = `${visualDocument.track}:${visualDocument.lesson}`
+  const lessonRecord = lessonDocumentsByKey.get(key)
+  if (!lessonRecord) {
+    malformed.push(`${relativePath}: 找不到对应课程正文 ${key}`)
+    continue
+  }
+  if (visualDocumentsByKey.has(key)) {
+    malformed.push(`${relativePath}: 一个试题只能有一个视觉索引文件 ${key}`)
+    continue
+  }
+  visualDocumentsByKey.set(key, { visualDocument, relativePath })
+
+  const { document, curriculumEntry } = lessonRecord
+  if (curriculumEntry.lesson.status !== 'curated') {
+    malformed.push(`${relativePath}: pending 课题不应提前登记视觉资源`)
+  }
+  const expectedPath = `content/curriculum/${document.track}/${String(curriculumEntry.lesson.moduleOrder).padStart(2, '0')}/visuals/${document.id}.md`
+  if (relativePath !== expectedPath) {
+    malformed.push(`${relativePath}: 视觉索引路径应为 ${expectedPath}`)
+  }
+  const expectedIndex = `../visuals/${document.id}.md`
+  if (document.visualIndex !== expectedIndex) {
+    malformed.push(`${relativePath}: 课程 frontmatter 应登记 visualIndex: "${expectedIndex}"`)
+  }
+  if (visualDocument.decision.replace(/\s+/g, '').length < 24) {
+    malformed.push(`${relativePath}: decision 必须说明视觉解决的具体学习障碍`)
+  }
+
+  const visualIds = new Set()
+  for (const visual of visualDocument.visuals) {
+    if (visualIds.has(visual.id)) {
+      malformed.push(`${relativePath}: 视觉实验 id 重复 ${visual.id}`)
+    }
+    visualIds.add(visual.id)
+    if (!visual.id.startsWith(`${document.id}-`)) {
+      malformed.push(`${relativePath}: 视觉 id ${visual.id} 必须以 ${document.id}- 开头`)
+    }
+    const chapter = visual.placement.match(/^chapter:(\d+)$/)?.[1]
+    if (chapter && Number(chapter) > (document.guide.chapters?.length || 0)) {
+      malformed.push(`${relativePath}: placement ${visual.placement} 超出正文章数`)
+    }
+    if (visual.summary.length < 20) {
+      malformed.push(`${relativePath}: 视觉实验 ${visual.id} 的 summary 过短`)
+    }
+    if (visual.caption.length < 20) {
+      malformed.push(`${relativePath}: 视觉实验 ${visual.id} 的 caption 过短`)
+    }
+    if (!visual.observations.length) {
+      malformed.push(`${relativePath}: 视觉实验 ${visual.id} 缺少观察重点`)
+    }
+    if (visual.kind === 'image') {
+      const assetPrefix = `/visuals/${document.track}/${document.id}/`
+      if (!visual.asset?.startsWith(assetPrefix)) {
+        malformed.push(`${relativePath}: 图片 ${visual.id} 必须存入 ${assetPrefix}`)
+      } else {
+        try {
+          await access(join(root, 'public', visual.asset.replace(/^\/+/, '')))
+        } catch {
+          malformed.push(`${relativePath}: 图片视觉 ${visual.id} 的资源不存在 ${visual.asset}`)
+        }
+      }
+      if (!visual.alt || countCjk(visual.alt) < 12) {
+        malformed.push(`${relativePath}: 图片视觉 ${visual.id} 缺少有效中文 alt`)
+      }
+      if (!visual.credit) {
+        malformed.push(`${relativePath}: 图片视觉 ${visual.id} 缺少生成或来源说明`)
+      }
+    } else {
+      if (visual.steps.length < 3) {
+        malformed.push(`${relativePath}: 视觉实验 ${visual.id} 少于 3 个可交互步骤`)
+      }
+      if (!visual.actionLabel) {
+        malformed.push(`${relativePath}: 视觉实验 ${visual.id} 缺少 actionLabel`)
+      }
+      const labels = new Set()
+      for (const step of visual.steps) {
+        if (labels.has(step.label)) {
+          malformed.push(`${relativePath}: 视觉实验 ${visual.id} 的步骤标签重复 ${step.label}`)
+        }
+        labels.add(step.label)
+        if (step.detail.replace(/\s+/g, '').length < 12) {
+          malformed.push(`${relativePath}: 视觉实验 ${visual.id} 的步骤“${step.label}”解释过短`)
+        }
+      }
+    }
+    if (visual.component) {
+      if (visual.kind !== 'playground') {
+        malformed.push(`${relativePath}: 自定义视觉组件 ${visual.component} 只能用于 playground`)
+      }
+      if (!new RegExp(`^${document.id}/[a-z0-9-]+$`).test(visual.component)) {
+        malformed.push(`${relativePath}: 自定义组件必须位于 ${document.id}/ 下`)
+      } else {
+        try {
+          await access(join(
+            root,
+            'app',
+            'components',
+            'lesson-visuals',
+            ...visual.component.split('/')
+          ) + '.vue')
+        } catch {
+          malformed.push(`${relativePath}: 自定义视觉组件不存在 ${visual.component}`)
+        }
+      }
+    }
+  }
+}
+
+for (const [key, lessonRecord] of lessonDocumentsByKey) {
+  if (lessonRecord.document.visualIndex && !visualDocumentsByKey.has(key)) {
+    malformed.push(`${lessonRecord.relativePath}: visualIndex 指向的视觉索引不存在`)
+  }
+  if (!lessonRecord.document.visualIndex && visualDocumentsByKey.has(key)) {
+    malformed.push(`${lessonRecord.relativePath}: 缺少 visualIndex 双向索引`)
   }
 }
 

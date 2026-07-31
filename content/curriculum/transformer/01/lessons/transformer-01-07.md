@@ -3,6 +3,7 @@ id: "transformer-01-07"
 track: "transformer"
 title: "softmax 性质"
 depth: "foundation"
+visualIndex: "../visuals/transformer-01-07.md"
 exampleLanguage: "python"
 ---
 
@@ -13,6 +14,7 @@ softmax 把一组任意实数转换成和为 1 的正数分布。它先对每个
 直接计算 exp(x) 可能溢出。减去同一行最大值不会改变结果，因为分子分母同时乘了相同常数，却能把最大指数稳定在 exp(0)=1。
 
 axis 决定“哪一组数竞争”。attention score [B,H,T,T] 通常沿最后一维归一化，表示每个 query 在所有 key 上分配权重。
+
 
 ## 可运行示例
 

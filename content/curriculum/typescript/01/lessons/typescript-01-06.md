@@ -3,6 +3,7 @@ id: "typescript-01-06"
 track: "typescript"
 title: "this、arrow、call/apply/bind、new 与 super"
 depth: "deep"
+visualIndex: "../visuals/typescript-01-06.md"
 exampleLanguage: "typescript"
 readingMinutes: 45
 sourceMinutes: 35
@@ -96,6 +97,7 @@ JavaScript 的 this 不是函数定义处某个普通局部变量，也不是永
 arrow、bind 与 new 又分别改写调用协议的不同层。arrow 的 [[ThisMode]] 是 lexical，它根本不执行普通 this 绑定，而是沿词法环境寻找外层 Function Environment 的 this；bind 创建 Bound Function exotic object，把 target、boundThis、boundArguments 存进内部槽；new 走 [[Construct]]，创建实例、传递 NewTarget，并对构造器返回值应用专门规则，构造调用 bound function 时还会忽略 boundThis。
 
 super 同时依赖两个坐标：方法创建时记录的 [[HomeObject]] 决定从哪个原型开始查属性，当前调用的 this 决定 getter、setter 或父方法内部操作哪个实例。把这些机制压成“谁调用 this 就是谁”会在脱离方法、箭头回调、bind 后 new、继承方法复制和 derived constructor 中连续出错。本课用规范记录、V8 builtin 与一个教学运行时把整条链复现出来。
+
 
 ## 分章正文
 

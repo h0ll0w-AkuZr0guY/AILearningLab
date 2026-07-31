@@ -3,6 +3,8 @@ id: "{{LESSON_ID}}"
 track: "{{TRACK_ID}}"
 title: "{{LESSON_TITLE}}"
 depth: "deep"
+# 只有确有视觉索引时才取消下一行注释：
+# visualIndex: "../visuals/{{LESSON_ID}}.md"
 exampleLanguage: "{{EXAMPLE_LANGUAGE}}"
 readingMinutes: {{READING_MINUTES}}
 sourceMinutes: {{SOURCE_MINUTES}}
@@ -17,6 +19,27 @@ reviewMinutes: {{REVIEW_MINUTES}}
 3. 每个事实先核对官方文档和真实上游源码，再写中文解释。
 4. 困难课至少 5 章、5 个复现积木；专家课至少 7 章、6 个复现积木。
 5. 示例必须能运行，自检和面试问题必须给出站内答案。
+6. 每节课都必须做视觉决策，但视觉内容可为空。只有视觉能解决明确的学习障碍时，才复制
+   content/templates/lesson-visuals.md，并在 frontmatter 登记 visualIndex。不要在本课程正文中写视觉块。
+   需要视觉时再选择 kind：
+   - state：对象、绑定、生命周期、队列或状态机的前后变化。
+   - flow：按顺序发生的解析、调度、编译、请求或错误传播。
+   - graph：节点、边、分支、并行、回放、依赖图或消息流。
+   - tensor：shape、stride、内存、矩阵、概率、梯度或复杂度。
+   - playground：属性/参数切换后，用户需要立即看见不同 UI 或运行结果。
+   - image：真实场景、空间类比、历史界面或难以用几何图表达的视觉心智模型。
+7. 选择顺序必须是“可验证的代码原生图 → 可控动画 → 交互演示 → ImageGen”：
+   - 能由数据、节点、shape 或状态精确表达时，使用 state/flow/graph/tensor，不生成位图。
+   - 时间顺序是知识本体时才播放动画；默认静止，必须提供上一步、暂停、下一步和重置。
+   - 参数改变会产生可观察差异时使用 playground；至少设计 3 个有教学意义的状态，不能只换颜色。
+   - ImageGen 只用于类比或场景化，不承载公式、源码、精确拓扑和关键文字。图片必须写中文 alt、来源/模型、
+     事实边界和“哪里只是类比”，并由作者人工核对。
+8. 一个试题可以登记多个视觉，并允许不同 kind；每个视觉都要锚定到最接近的正文位置。
+   每个非图片视觉至少 3 步。步骤格式固定为“- 短标签 | 可验证的状态变化”，标签不能重复；
+   每一步都要能被正文、源码或可运行示例中的证据验证。
+9. 不允许自动循环、闪烁、纯装饰动画或无法暂停的 GIF。颜色之外必须还有文字/位置/形状提示；
+   移动端、键盘和 prefers-reduced-motion 都要可用。
+10. 完整决策树、ImageGen 提示词契约和视觉 PR 验收清单见 docs/VISUAL_LESSON_STANDARD.md。
 -->
 
 ## 官方入口

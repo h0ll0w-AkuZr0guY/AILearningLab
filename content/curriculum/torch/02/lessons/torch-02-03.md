@@ -3,6 +3,7 @@ id: "torch-02-03"
 track: "torch"
 title: "boolean mask"
 depth: "deep"
+visualIndex: "../visuals/torch-02-03.md"
 exampleLanguage: "python"
 readingMinutes: 25
 sourceMinutes: 25
@@ -59,6 +60,7 @@ Tensor _unsafe_masked_index(
 读取 mask 是 gather copy，赋值 `x[mask]=v`是 scatter 写回。mask 与比较表达式常一起出现，例如过滤 padding、丢弃坏样本或更新符合条件的参数；因此必须把读写、长度、梯度和重复逻辑拆开审计。
 
 本课独立于通用高级索引，因为 mask 会携带数据相关的输出长度。这个边界会影响 DataLoader 拼批、torch.compile 图捕获、导出 shape 合同与线上内存预算。
+
 
 ## 分章正文
 

@@ -3,6 +3,7 @@ id: "torch-02-04"
 track: "torch"
 title: "ellipsis None"
 depth: "deep"
+visualIndex: "../visuals/torch-02-04.md"
 exampleLanguage: "python"
 readingMinutes: 25
 sourceMinutes: 25
@@ -61,6 +62,7 @@ if (index.is_ellipsis()) {
 `x[..., -1]`在 rank 改变时仍选最后一维，适合库接口；`x[:, None, :]`常把 `(B,D)`变成 `(B,1,D)`，为 broadcast 或矩阵运算显式准备 axis。两者输出常借用 storage，因而也继承 alias、stride 和原地写风险。
 
 本课把它们合并，因为它们都不消费一个具体数据坐标，却会移动后续索引的维位置。分别背两个语法糖很容易在 `x[..., None, idx]`这类组合中错数维。
+
 
 ## 分章正文
 

@@ -3,6 +3,7 @@ id: "langgraph-01-09"
 track: "langgraph"
 title: "拓扑验证与迁移：孤立节点、循环和 interrupt 兼容"
 depth: "deep"
+visualIndex: "../visuals/langgraph-01-09.md"
 exampleLanguage: "python"
 readingMinutes: 33
 sourceMinutes: 35
@@ -76,6 +77,7 @@ def validate(self, interrupt: Sequence[str] | None = None) -> Self:
 LangGraph 默认让最新部署的图代码作用于现有线程，并不会把每个运行永久钉在启动时的代码版本。好处是修复立即生效，代价是每次节点、State、interrupt 或 Functional 调用序列变化都成为持久协议变更。
 
 本课建立双门禁：静态拓扑验证负责当前图；存量线程审计负责 checkpoint 兼容。迁移先枚举 busy、interrupted、error 线程的 next/tasks/state，再决定双写、兼容节点、排空、分版本图名或一次性数据转换。
+
 
 ## 分章正文
 

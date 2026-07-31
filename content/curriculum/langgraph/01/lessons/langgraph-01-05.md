@@ -3,6 +3,7 @@ id: "langgraph-01-05"
 track: "langgraph"
 title: "节点执行契约：Runnable、同步/异步、返回更新与副作用"
 depth: "deep"
+visualIndex: "../visuals/langgraph-01-05.md"
 exampleLanguage: "python"
 readingMinutes: 35
 sourceMinutes: 55
@@ -89,6 +90,7 @@ LangGraph node 的最小合同是“读取当前 State snapshot，返回 partial
 把 State 视为只读输入非常重要。原地 mutation 没有清晰的 write set，可能绕过 reducer、污染并行兄弟的 snapshot，也让 checkpoint/trace 无法准确记录变化。返回 `{"field": new_value}` 才能进入 channel update 协议。
 
 副作用需要再分一层：可重算纯函数、可安全重试的幂等查询、有成本但可重试的模型调用、不可逆命令。节点合同要为后两类加入 timeout、retry、idempotency key、outbox 或人工确认，不能把所有错误都交给框架默认重试。
+
 
 ## 分章正文
 

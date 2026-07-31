@@ -8,6 +8,8 @@ const lesson = computed(() => getLesson(String(route.params.track), String(route
 if (!track.value || !lesson.value) throw createError({ statusCode: 404, statusMessage: '题目不存在' })
 
 const detail = computed(() => getLessonDetail(track.value!, lesson.value!))
+const visualsAt = (placement: string) =>
+  detail.value.visuals.filter(visual => visual.placement === placement)
 const lessonIndex = computed(() => track.value!.lessons.findIndex(item => item.id === lesson.value!.id))
 const previousLesson = computed(() => track.value!.lessons[lessonIndex.value - 1])
 const nextLesson = computed(() => track.value!.lessons[lessonIndex.value + 1])
@@ -281,6 +283,11 @@ onBeforeUnmount(stopResize)
           </nav>
           <h2>核心解释</h2>
           <p v-for="paragraph in detail.overview" :key="paragraph">{{ paragraph }}</p>
+          <LessonVisualLab
+            v-if="visualsAt('overview').length"
+            :visuals="visualsAt('overview')"
+            :lesson-id="lesson!.id"
+          />
           <section
             v-for="(chapter, chapterIndex) in detail.chapters"
             :id="`chapter-${chapterIndex + 1}`"
@@ -303,11 +310,21 @@ onBeforeUnmount(stopResize)
               <ol><li v-for="(line, lineIndex) in chapter.code.split('\n')" :key="lineIndex"><code>{{ line || ' ' }}</code></li></ol>
             </div>
             <aside v-if="chapter.takeaway" class="chapter-takeaway"><b>这一节带走什么</b><p>{{ chapter.takeaway }}</p></aside>
+            <LessonVisualLab
+              v-if="visualsAt(`chapter:${chapterIndex + 1}`).length"
+              :visuals="visualsAt(`chapter:${chapterIndex + 1}`)"
+              :lesson-id="lesson!.id"
+            />
           </section>
           <h2>运行机制</h2>
           <ol class="mechanism-list">
             <li v-for="(item, index) in detail.mechanisms" :key="item"><span>{{ index + 1 }}</span><p>{{ item }}</p></li>
           </ol>
+          <LessonVisualLab
+            v-if="visualsAt('mechanisms').length"
+            :visuals="visualsAt('mechanisms')"
+            :lesson-id="lesson!.id"
+          />
           <h2>像搭积木一样实现</h2>
           <section v-for="(step, index) in detail.buildSteps" :key="step.title" class="build-step">
             <header><span>{{ String(index + 1).padStart(2, '0') }}</span><h3>{{ step.title }}</h3></header>
@@ -317,11 +334,21 @@ onBeforeUnmount(stopResize)
               <ol><li v-for="(line, lineIndex) in step.code.split('\n')" :key="lineIndex"><code>{{ line || ' ' }}</code></li></ol>
             </div>
           </section>
+          <LessonVisualLab
+            v-if="visualsAt('build').length"
+            :visuals="visualsAt('build')"
+            :lesson-id="lesson!.id"
+          />
           <h2>组合后的可运行示例</h2>
           <div class="code-reader">
             <div class="code-reader-bar"><span>{{ detail.exampleLanguage.toUpperCase() }} · RUNNABLE EXAMPLE</span><button @click="copyText(detail.example, 'example')">{{ copiedId === 'example' ? '已复制 ✓' : '复制代码' }}</button></div>
             <ol><li v-for="(line, lineIndex) in detail.example.split('\n')" :key="lineIndex"><code>{{ line || ' ' }}</code></li></ol>
           </div>
+          <LessonVisualLab
+            v-if="visualsAt('example').length"
+            :visuals="visualsAt('example')"
+            :lesson-id="lesson!.id"
+          />
           <template v-if="detail.variants.length">
             <h2>写法变体与取舍</h2>
             <section class="variant-grid">
