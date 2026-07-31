@@ -4,6 +4,7 @@ track: "python"
 title: "__context__、__cause__ 与 raise from"
 depth: "foundation"
 exampleLanguage: "python"
+visualIndex: "../visuals/python-05-04.md"
 ---
 
 ## 官方入口

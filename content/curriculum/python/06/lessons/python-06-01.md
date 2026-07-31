@@ -4,6 +4,7 @@ track: "python"
 title: "import 语句、模块对象与名称绑定"
 depth: "foundation"
 exampleLanguage: "python"
+visualIndex: "../visuals/python-06-01.md"
 ---
 
 ## 官方入口

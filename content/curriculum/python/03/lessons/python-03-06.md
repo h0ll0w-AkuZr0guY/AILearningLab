@@ -4,6 +4,7 @@ track: "python"
 title: "参数绑定：positional-only、keyword-only、*args 与 **kwargs"
 depth: "foundation"
 exampleLanguage: "python"
+visualIndex: "../visuals/python-03-06.md"
 ---
 
 ## 官方入口

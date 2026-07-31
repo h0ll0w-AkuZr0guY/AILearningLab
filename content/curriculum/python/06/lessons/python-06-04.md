@@ -4,6 +4,7 @@ track: "python"
 title: "PathFinder、sys.path_hooks 与 importer cache"
 depth: "foundation"
 exampleLanguage: "python"
+visualIndex: "../visuals/python-06-04.md"
 ---
 
 ## 官方入口

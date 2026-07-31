@@ -4,6 +4,7 @@ track: "python"
 title: "装饰器求值、应用顺序与带参装饰器"
 depth: "foundation"
 exampleLanguage: "python"
+visualIndex: "../visuals/python-03-07.md"
 ---
 
 ## 官方入口

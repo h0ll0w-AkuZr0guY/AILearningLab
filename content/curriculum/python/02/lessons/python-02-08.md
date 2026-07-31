@@ -4,6 +4,7 @@ track: "python"
 title: "super() 与 cooperative inheritance"
 depth: "foundation"
 exampleLanguage: "python"
+visualIndex: "../visuals/python-02-08.md"
 ---
 
 ## 官方入口

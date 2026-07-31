@@ -4,6 +4,7 @@ track: "python"
 title: "sys.modules 缓存、预插入与失败回滚"
 depth: "foundation"
 exampleLanguage: "python"
+visualIndex: "../visuals/python-06-02.md"
 ---
 
 ## 官方入口

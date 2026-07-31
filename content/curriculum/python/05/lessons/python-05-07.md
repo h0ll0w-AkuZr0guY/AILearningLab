@@ -4,6 +4,7 @@ track: "python"
 title: "with 展开、特殊方法查找与异常抑制"
 depth: "foundation"
 exampleLanguage: "python"
+visualIndex: "../visuals/python-05-07.md"
 ---
 
 ## 官方入口

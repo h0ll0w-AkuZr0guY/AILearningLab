@@ -233,9 +233,11 @@ credit: "OpenAI ImageGen 生成；课程作者审核后作为概念类比使用�
 - **TypeScript / Nuxt**：真实组件和运行结果常适合 playground；结构类型、控制流与模块关系也可能更适合 state、flow 或 graph。
 - **LangGraph / LangChain / Deep Agents**：拓扑常适合 graph；checkpoint 生命周期可用 state，调度与错误传播可用 flow。
 - **PyTorch / Transformer / vLLM / LoRA**：数值变换常适合 tensor；调度、复制与内存生命周期也可能需要 flow 或 state。
-- **Python**：本轮已有深化课程暂不补视觉。未来若某课确有障碍，仍应重新走决策树，而非根据赛道默认生成。
+- **Python**：对象与名称关系优先 graph，生命周期、生成器和取消优先 state，查找、导入与编译管线优先 flow，内存布局和缓存表优先 tensor；需要比较 descriptor、异常控制流或调度条件时使用 playground。
 
 这些只是首选，不替代课题分析。一节课可以有两个视觉块，但每个块必须解决不同学习障碍。
+
+截至 2026-07-31，现有 150 节 curated 课程均已完成一次视觉决策并建立伴随索引。Python 的 102 节使用课程自身“核心机制”作为步骤事实基线，其中 descriptor 优先级、try 控制流矩阵和 asyncio 单轮调度使用独立 playground。后续新增课程仍须逐课判断，当前全覆盖不能演变成强制配额。
 
 ## 8. AI 编写流程
 

@@ -4,6 +4,7 @@ track: "python"
 title: "TypeVar：约束、bound、default 与解算结果"
 depth: "foundation"
 exampleLanguage: "python"
+visualIndex: "../visuals/python-07-02.md"
 ---
 
 ## 官方入口

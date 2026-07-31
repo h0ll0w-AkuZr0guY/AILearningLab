@@ -4,6 +4,7 @@ track: "python"
 title: "异常匹配、层级设计与捕获边界"
 depth: "foundation"
 exampleLanguage: "python"
+visualIndex: "../visuals/python-05-02.md"
 ---
 
 ## 官方入口

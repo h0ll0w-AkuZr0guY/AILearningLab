@@ -4,6 +4,7 @@ track: "python"
 title: "C3 线性化手算与冲突检测"
 depth: "foundation"
 exampleLanguage: "python"
+visualIndex: "../visuals/python-02-07.md"
 ---
 
 ## 官方入口

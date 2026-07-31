@@ -4,6 +4,7 @@ track: "python"
 title: "functools.wraps、__wrapped__ 与签名保真"
 depth: "foundation"
 exampleLanguage: "python"
+visualIndex: "../visuals/python-03-08.md"
 ---
 
 ## 官方入口

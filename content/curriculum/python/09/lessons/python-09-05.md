@@ -4,6 +4,7 @@ track: "python"
 title: "cProfile、pstats 与确定性调用图"
 depth: "foundation"
 exampleLanguage: "python"
+visualIndex: "../visuals/python-09-05.md"
 ---
 
 ## 官方入口

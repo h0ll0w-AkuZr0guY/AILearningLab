@@ -4,6 +4,7 @@ track: "python"
 title: "interpreter frame、dispatch loop 与 eval breaker"
 depth: "foundation"
 exampleLanguage: "python"
+visualIndex: "../visuals/python-10-08.md"
 ---
 
 ## 官方入口

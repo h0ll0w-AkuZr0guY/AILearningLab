@@ -2,7 +2,7 @@
 
 > 本文件是课程重构工作的长期恢复锚点。聊天记录、活动目标或网络状态不可用时，以当前工作树、本文件、课程审计结果和实际页面为准继续工作。
 >
-> 最后更新：2026-07-29
+> 最后更新：2026-07-31
 
 ## 1. 最终目标
 
@@ -312,6 +312,20 @@ expand 与 repeat
 ```
 
 若工作树中该课已经精写，则继续本模块下一个 pending 课题，不依赖上述快照。
+
+截至 2026-07-31 的视觉覆盖复审：
+
+```text
+curated 课程：150
+已有视觉伴随索引：150（100%）
+Python 新增：102 个课程级索引
+Python 类型分布：flow 37 / playground 21 / state 18 / graph 14 / tensor 12
+专属 Python playground：
+  python-02-04 descriptor priority
+  python-05-05 try/except/else/finally matrix
+  python-08-01 event loop turn
+curated 数量保持 150 / 1090；本批只补视觉叙事，不把视觉文件计作新精写课程。
+```
 
 ## 7. 验证命令与完成证据
 

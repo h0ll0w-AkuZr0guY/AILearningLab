@@ -4,6 +4,7 @@ track: "python"
 title: "mypy、pyright 差异与类型回归测试"
 depth: "foundation"
 exampleLanguage: "python"
+visualIndex: "../visuals/python-07-10.md"
 ---
 
 ## 官方入口

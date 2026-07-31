@@ -4,6 +4,7 @@ track: "python"
 title: "contextmanager：单次 yield 与异常回注"
 depth: "foundation"
 exampleLanguage: "python"
+visualIndex: "../visuals/python-04-08.md"
 ---
 
 ## 官方入口

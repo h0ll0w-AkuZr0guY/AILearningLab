@@ -4,6 +4,7 @@ track: "python"
 title: "vectorcall：参数数组、关键字名称与绑定"
 depth: "foundation"
 exampleLanguage: "python"
+visualIndex: "../visuals/python-10-09.md"
 ---
 
 ## 官方入口

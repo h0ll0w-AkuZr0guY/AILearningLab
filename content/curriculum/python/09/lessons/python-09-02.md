@@ -4,6 +4,7 @@ track: "python"
 title: "list、deque 与紧凑/分块存储取舍"
 depth: "foundation"
 exampleLanguage: "python"
+visualIndex: "../visuals/python-09-02.md"
 ---
 
 ## 官方入口

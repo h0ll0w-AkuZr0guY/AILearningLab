@@ -4,6 +4,7 @@ track: "python"
 title: "assembler、jump fixup、exception table 与 code object"
 depth: "foundation"
 exampleLanguage: "python"
+visualIndex: "../visuals/python-10-07.md"
 ---
 
 ## 官方入口

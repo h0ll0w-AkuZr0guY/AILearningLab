@@ -4,6 +4,7 @@ track: "python"
 title: "ExitStack：动态资源、部分获取与所有权转移"
 depth: "foundation"
 exampleLanguage: "python"
+visualIndex: "../visuals/python-05-08.md"
 ---
 
 ## 官方入口

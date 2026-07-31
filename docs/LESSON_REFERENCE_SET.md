@@ -28,6 +28,14 @@
 
 TypeScript 的专属交互参考另见正文 [`typescript-01-10.md`](../content/curriculum/typescript/01/lessons/typescript-01-10.md)、[视觉索引](../content/curriculum/typescript/01/visuals/typescript-01-10.md)和[独立 Vue 组件](../app/components/lesson-visuals/typescript-01-10/event-loop-queues.vue)：它用 playground 展示 task、microtask、渲染机会和 TS/JS 切换。
 
+Python 的机制可视化参考：
+
+- descriptor 优先级：[正文](../content/curriculum/python/02/lessons/python-02-04.md)、[视觉索引](../content/curriculum/python/02/visuals/python-02-04.md)、[独立 Vue 组件](../app/components/lesson-visuals/python-02-04/descriptor-priority.vue)。
+- try 控制流矩阵：[正文](../content/curriculum/python/05/lessons/python-05-05.md)、[视觉索引](../content/curriculum/python/05/visuals/python-05-05.md)、[独立 Vue 组件](../app/components/lesson-visuals/python-05-05/try-flow-matrix.vue)。
+- asyncio 单轮调度：[正文](../content/curriculum/python/08/lessons/python-08-01.md)、[视觉索引](../content/curriculum/python/08/visuals/python-08-01.md)、[独立 Vue 组件](../app/components/lesson-visuals/python-08-01/event-loop-turn.vue)。
+
+三者分别展示查找优先级、控制流分支和队列轮次。贡献者可以复用无课程文案的交互原语，但课程状态、证据说明与组件路径仍按 lesson-id 隔离。
+
 ## ImageGen 概念类比参考
 
 正文：[`transformer-01-07.md`](../content/curriculum/transformer/01/lessons/transformer-01-07.md)<br>

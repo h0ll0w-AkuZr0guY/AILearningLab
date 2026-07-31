@@ -4,6 +4,7 @@ track: "python"
 title: "frame、fast locals 与局部变量同步"
 depth: "foundation"
 exampleLanguage: "python"
+visualIndex: "../visuals/python-03-03.md"
 ---
 
 ## 官方入口

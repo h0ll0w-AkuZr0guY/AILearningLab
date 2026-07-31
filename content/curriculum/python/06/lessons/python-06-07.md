@@ -4,6 +4,7 @@ track: "python"
 title: "绝对/相对导入、__package__ 与 __main__"
 depth: "foundation"
 exampleLanguage: "python"
+visualIndex: "../visuals/python-06-07.md"
 ---
 
 ## 官方入口

@@ -4,6 +4,7 @@ track: "python"
 title: "tracemalloc 快照、对象存活与 RSS 分离"
 depth: "foundation"
 exampleLanguage: "python"
+visualIndex: "../visuals/python-09-07.md"
 ---
 
 ## 官方入口

@@ -4,6 +4,7 @@ track: "python"
 title: "泛型函数推断、overload 与实现签名"
 depth: "foundation"
 exampleLanguage: "python"
+visualIndex: "../visuals/python-07-03.md"
 ---
 
 ## 官方入口

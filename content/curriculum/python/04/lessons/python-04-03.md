@@ -4,6 +4,7 @@ track: "python"
 title: "生成器函数、惰性启动与对象状态"
 depth: "foundation"
 exampleLanguage: "python"
+visualIndex: "../visuals/python-04-03.md"
 ---
 
 ## 官方入口

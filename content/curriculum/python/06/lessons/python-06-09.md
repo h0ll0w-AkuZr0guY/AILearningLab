@@ -4,6 +4,7 @@ track: "python"
 title: "reload、from-import 快照与 monkey patch 可见性"
 depth: "foundation"
 exampleLanguage: "python"
+visualIndex: "../visuals/python-06-09.md"
 ---
 
 ## 官方入口

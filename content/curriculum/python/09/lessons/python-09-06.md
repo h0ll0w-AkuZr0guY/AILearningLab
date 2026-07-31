@@ -4,6 +4,7 @@ track: "python"
 title: "采样 profiler、火焰图与生产诊断"
 depth: "foundation"
 exampleLanguage: "python"
+visualIndex: "../visuals/python-09-06.md"
 ---
 
 ## 官方入口
