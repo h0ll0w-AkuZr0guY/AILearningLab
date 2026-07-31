@@ -78,59 +78,59 @@ granularity: "单点精讲"
 ## langgraph-02-06
 
 title: "消息 ID"
-status: pending
+status: curated
 owner: ""
-difficulty: "中等"
-difficultyReason: "需要同时掌握公开契约、一个主要失败边界和对应实现路径。"
+difficulty: "困难"
+difficultyReason: "需要同时推演消息身份、原位替换、删除失败、回放稳定性与工具消息引用边界。"
 learningValue: "基础必修"
 learningValueScore: 4
-estimatedMinutes: 45
+estimatedMinutes: 90
 granularity: "单点精讲"
 
 ## langgraph-02-07
 
 title: "状态迁移"
-status: pending
+status: curated
 owner: ""
-difficulty: "中等"
-difficultyReason: "需要同时掌握公开契约、一个主要失败边界和对应实现路径。"
+difficulty: "困难"
+difficultyReason: "人工 state 编辑同时涉及 checkpoint 版本、reducer、as_node 因果位置、下一步调度和并发冲突。"
 learningValue: "基础必修"
 learningValueScore: 4
-estimatedMinutes: 45
+estimatedMinutes: 90
 granularity: "单点精讲"
 
 ## langgraph-02-08
 
 title: "不可变思维"
-status: pending
+status: curated
 owner: ""
-difficulty: "中等"
-difficultyReason: "需要同时掌握公开契约、一个主要失败边界和对应实现路径。"
+difficulty: "困难"
+difficultyReason: "需要跨越 Python 引用别名、super-step 隔离、纯 reducer、重试回放和大对象所有权。"
 learningValue: "基础必修"
 learningValueScore: 4
-estimatedMinutes: 45
+estimatedMinutes: 90
 granularity: "单点精讲"
 
 ## langgraph-02-09
 
 title: "schema 演进"
-status: pending
+status: curated
 owner: ""
-difficulty: "中等"
-difficultyReason: "需要同时掌握公开契约、一个主要失败边界和对应实现路径。"
+difficulty: "困难"
+difficultyReason: "恢复旧 checkpoint 要同时处理字段/node 兼容、迁移纯度、在途线程和可回滚部署窗口。"
 learningValue: "基础必修"
 learningValueScore: 4
-estimatedMinutes: 45
+estimatedMinutes: 90
 granularity: "单点精讲"
 
 ## langgraph-02-10
 
 title: "state 校验"
-status: pending
+status: curated
 owner: ""
-difficulty: "中等"
-difficultyReason: "需要同时掌握公开契约、一个主要失败边界和对应实现路径。"
+difficulty: "困难"
+difficultyReason: "需区分图配置、数据形状与业务不变量，并将 schema/reducer 约束连接到运行时错误处置。"
 learningValue: "高频核心"
 learningValueScore: 5
-estimatedMinutes: 45
+estimatedMinutes: 90
 granularity: "单点精讲"

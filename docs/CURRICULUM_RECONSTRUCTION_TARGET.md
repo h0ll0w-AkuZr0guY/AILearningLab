@@ -650,3 +650,21 @@ curated 变化：LangGraph 10 / 132 → 15 / 132；全站 155 / 1090 → 160 / 1
 下一 pending：langgraph-02-06 消息 ID。
 PR：https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/15
 ```
+
+当前自动化五课批次（2026-07-31，待发布）：
+
+```text
+自动化：ailearninglab
+随机候选池：deepagents、langchain、langgraph、lora、nuxt、torch、transformer、typescript、vllm；Python 按规则排除。
+随机选择：LangGraph。
+分支：agent/curriculum-langgraph-langgraph-02-06-to-langgraph-02-10
+curated 变化：LangGraph 15 / 132 → 20 / 132；全站 160 / 1090 → 165 / 1090。
+课程：langgraph-02-06 消息 ID；langgraph-02-07 状态迁移；langgraph-02-08 不可变思维；langgraph-02-09 schema 演进；langgraph-02-10 state 校验。
+粒度：消息身份、checkpoint 因果迁移、Python 别名/回放、持久化兼容和输入/业务验证分别具有独立失败模型，不能合并为“State 进阶”一课。
+源码与文档基线：langchain-ai/langgraph 1.0.5（84023451a2bd5987b1d4df530f4145d503d75ccb）；Graph API、Persistence、Pregel runtime 与 Backward compatibility 精确锚点。
+视觉决策：五个 state/flow 索引依次呈现同 ID 修订、checkpoint 分叉、别名污染、schema drain 与三层校验；无 ImageGen 资产。
+协作署名：@h0ll0w-AkuZr0guY × OpenAI Codex · GPT-5.6 Terra。
+可运行示例：五个 Markdown 内嵌的离线 Python 合同实验，分别覆盖正常与失败断言。
+下一 pending：langgraph-03-01。
+PR：https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/16（draft；本地浏览器与 Pages 验收待完成）。
+```
