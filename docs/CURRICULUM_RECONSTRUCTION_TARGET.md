@@ -613,8 +613,19 @@ PR：https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/11
 范围：产品架构与视觉质量，不新增 curated 课程。
 Python：撤回 102 个批量视觉索引和 3 个旧专属组件；保留首轮正文，等待后续按新规范重构。
 非 Python：升级通用 state / flow / graph / tensor / playground 的信息层次，并为 Pregel barrier、PyTorch stride 增加课程专属可计算实验。
-源码地图：改为源码/官方文档双知识图谱，以 track → module → lesson 为稳定层级；pending 课题也出现，curated 课题补充精确函数与章节叶节点。
+源码地图：PR #12 首轮加入源码/官方文档双通道；后续修正不再把课程层级当成上游资料关系。
 顶部导航：增加 GitHub 仓库身份、main 分支标记和直接入口。
 下一内容 pending：LangChain / batch 与 stream（langchain-01-06）
 PR：https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/12
+```
+
+球状上游资料图谱修正（2026-07-31）：
+
+```text
+分支：codex/spherical-source-graph
+范围：产品信息架构修正，不新增 curated 课程。
+源码地图：改为确定性力导向球状网络；围绕官方仓库的目录、文件、符号，以及官方文档的域名、页面、章节锚点构图。
+课程关系：课程不再充当图谱父节点，只作为源码/文档节点的反向学习入口；路线页与单课页增加资料图谱快捷定位。
+下一内容 pending：LangChain / batch 与 stream（langchain-01-06）
+PR：待创建
 ```

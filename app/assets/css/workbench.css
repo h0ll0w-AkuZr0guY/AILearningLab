@@ -306,6 +306,24 @@
   font-weight: 800;
 }
 
+.official-anchor-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.official-anchor-actions a {
+  padding: 5px 8px;
+  border: 1px solid #cbd5ff;
+  border-radius: 5px;
+  background: #fff;
+}
+
+.official-anchor-actions a + a {
+  border-color: #bae4df;
+  color: #247f79;
+}
+
 .study-plan {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -948,6 +966,28 @@
 
 .lesson-tags {
   margin: 5px 0 4px;
+}
+
+.lesson-resource-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 7px;
+}
+
+.lesson-resource-links a {
+  padding: 2px 7px;
+  border-left: 2px solid #7186e5;
+  background: #f2f4fc;
+  color: #4c62c4;
+  font-family: "DM Mono", Consolas, monospace;
+  font-size: .58rem;
+  font-weight: 800;
+}
+
+.lesson-resource-links a + a {
+  border-left-color: #41b8b2;
+  color: #26817d;
 }
 
 .lesson-sticky .problem-tabs {

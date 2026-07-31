@@ -51,6 +51,30 @@ const sourceIntro = computed(() => detail.value.sourceLabel.startsWith('核心�
   : detail.value.curated
     ? `从 ${detail.value.source.file} 中的 ${detail.value.source.symbol} 开始。先按中文注释追踪入口、参数和主分派，再用下方“沿函数向下读”核对状态、不变量与失败路径。`
     : lesson.value!.sourceFocus)
+const sourceGraphLink = computed(() => ({
+  path: '/source-map',
+  query: {
+    track: track.value!.id,
+    mode: 'source',
+    q: detail.value.source.symbol || detail.value.source.file
+  }
+}))
+const docsGraphNeedle = computed(() => {
+  try {
+    const parsed = new URL(detail.value.official.url)
+    return decodeURIComponent(parsed.hash.slice(1)) || detail.value.official.title
+  } catch {
+    return detail.value.official.title
+  }
+})
+const docsGraphLink = computed(() => ({
+  path: '/source-map',
+  query: {
+    track: track.value!.id,
+    mode: 'docs',
+    q: docsGraphNeedle.value
+  }
+}))
 
 const coach = inject<{
   apiKey: Ref<string>
@@ -267,7 +291,7 @@ onBeforeUnmount(stopResize)
             <span>官方文档精确定位</span>
             <strong>{{ detail.official.title }}</strong>
             <p>{{ detail.official.note }}</p>
-            <a :href="detail.official.url" target="_blank" rel="noreferrer">打开对应章节 ↗</a>
+            <div class="official-anchor-actions"><a :href="detail.official.url" target="_blank" rel="noreferrer">打开对应章节 ↗</a><NuxtLink :to="docsGraphLink">在文档图谱定位 ⤴</NuxtLink></div>
           </aside>
           <section class="study-plan" aria-label="本节时间预算">
             <div><b>{{ detail.studyPlan.readingMinutes }}</b><span>分钟正文</span></div>
@@ -395,6 +419,8 @@ onBeforeUnmount(stopResize)
           <div class="link-pills">
             <a :href="detail.official.url" target="_blank" rel="noreferrer">对应文档章节 ↗</a>
             <a :href="detail.source.url" target="_blank" rel="noreferrer">查看完整源文件 ↗</a>
+            <NuxtLink :to="sourceGraphLink">在源码图谱定位 ⤴</NuxtLink>
+            <NuxtLink :to="docsGraphLink">在文档图谱定位 ⤴</NuxtLink>
           </div>
         </div>
 
