@@ -666,5 +666,5 @@ curated 变化：LangGraph 15 / 132 → 20 / 132；全站 160 / 1090 → 165 / 1
 协作署名：@h0ll0w-AkuZr0guY × OpenAI Codex · GPT-5.6 Terra。
 可运行示例：五个 Markdown 内嵌的离线 Python 合同实验，分别覆盖正常与失败断言。
 下一 pending：langgraph-03-01。
-PR：待创建。
+PR：https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/16（draft；本地浏览器与 Pages 验收待完成）。
 ```
