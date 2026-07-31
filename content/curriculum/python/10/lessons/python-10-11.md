@@ -4,7 +4,6 @@ track: "python"
 title: "端到端源码改造：新增可观测优化并回归"
 depth: "foundation"
 exampleLanguage: "python"
-visualIndex: "../visuals/python-10-11.md"
 ---
 
 ## 官方入口

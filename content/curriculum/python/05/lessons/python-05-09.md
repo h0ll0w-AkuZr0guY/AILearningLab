@@ -4,7 +4,6 @@ track: "python"
 title: "async with、取消与可靠异步清理"
 depth: "foundation"
 exampleLanguage: "python"
-visualIndex: "../visuals/python-05-09.md"
 ---
 
 ## 官方入口

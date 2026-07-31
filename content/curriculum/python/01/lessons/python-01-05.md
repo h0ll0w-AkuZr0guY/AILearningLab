@@ -4,7 +4,6 @@ track: "python"
 title: "小整数缓存与字符串驻留"
 depth: "foundation"
 exampleLanguage: "python"
-visualIndex: "../visuals/python-01-05.md"
 ---
 
 ## 官方入口

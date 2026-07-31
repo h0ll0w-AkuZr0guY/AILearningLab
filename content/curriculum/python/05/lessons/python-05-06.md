@@ -4,7 +4,6 @@ track: "python"
 title: "ExceptionGroup、except* 与并发多失败"
 depth: "foundation"
 exampleLanguage: "python"
-visualIndex: "../visuals/python-05-06.md"
 ---
 
 ## 官方入口

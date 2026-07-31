@@ -4,7 +4,6 @@ track: "python"
 title: "throw、close、GeneratorExit 与清理"
 depth: "foundation"
 exampleLanguage: "python"
-visualIndex: "../visuals/python-04-06.md"
 ---
 
 ## 官方入口

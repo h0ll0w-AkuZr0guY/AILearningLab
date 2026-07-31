@@ -4,7 +4,6 @@ track: "python"
 title: "coroutine、Future、Task 与驱动关系"
 depth: "foundation"
 exampleLanguage: "python"
-visualIndex: "../visuals/python-08-02.md"
 ---
 
 ## 官方入口

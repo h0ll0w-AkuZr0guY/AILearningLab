@@ -4,7 +4,6 @@ track: "python"
 title: "缓存命中、失效、stampede 与内存预算"
 depth: "foundation"
 exampleLanguage: "python"
-visualIndex: "../visuals/python-09-11.md"
 ---
 
 ## 官方入口

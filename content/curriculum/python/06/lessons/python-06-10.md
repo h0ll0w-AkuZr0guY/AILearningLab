@@ -4,7 +4,6 @@ track: "python"
 title: "venv、site、sys.path 初始化与可重建环境"
 depth: "foundation"
 exampleLanguage: "python"
-visualIndex: "../visuals/python-06-10.md"
 ---
 
 ## 官方入口

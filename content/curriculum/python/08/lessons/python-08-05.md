@@ -4,7 +4,6 @@ track: "python"
 title: "await 的协作公平性与事件循环饥饿"
 depth: "foundation"
 exampleLanguage: "python"
-visualIndex: "../visuals/python-08-05.md"
 ---
 
 ## 官方入口

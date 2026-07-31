@@ -4,7 +4,6 @@ track: "python"
 title: "classmethod 与 staticmethod descriptor"
 depth: "foundation"
 exampleLanguage: "python"
-visualIndex: "../visuals/python-02-06.md"
 ---
 
 ## 官方入口

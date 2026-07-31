@@ -4,7 +4,6 @@ track: "python"
 title: "__getattr__ 兜底与递归陷阱"
 depth: "foundation"
 exampleLanguage: "python"
-visualIndex: "../visuals/python-02-03.md"
 ---
 
 ## 官方入口

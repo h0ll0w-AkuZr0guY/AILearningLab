@@ -4,7 +4,6 @@ track: "python"
 title: "try/except/else/finally 的控制流矩阵"
 depth: "foundation"
 exampleLanguage: "python"
-visualIndex: "../visuals/python-05-05.md"
 ---
 
 ## 官方入口

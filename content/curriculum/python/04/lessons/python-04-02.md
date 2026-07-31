@@ -4,7 +4,6 @@ track: "python"
 title: "迭代耗尽、StopIteration 与 PEP 479"
 depth: "foundation"
 exampleLanguage: "python"
-visualIndex: "../visuals/python-04-02.md"
 ---
 
 ## 官方入口

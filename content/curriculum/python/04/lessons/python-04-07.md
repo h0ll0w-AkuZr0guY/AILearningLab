@@ -4,7 +4,6 @@ track: "python"
 title: "yield from 委派状态机与返回值通道"
 depth: "foundation"
 exampleLanguage: "python"
-visualIndex: "../visuals/python-04-07.md"
 ---
 
 ## 官方入口

@@ -9,11 +9,12 @@ decision: "本课存在可被分步观察、操作或数值验证的机制变化
 ### 展开「Pregel super-step：Plan、Execute、Update 与 BSP barrier」的节点与依赖
 
 id: "langgraph-01-03-main"
-kind: "graph"
+kind: "playground"
 placement: "chapter:2"
 summary: "super-step 是理解 LangGraph 并发语义的核心单位。同一轮被选中的节点都从轮次开始时的 channel 快照读取，执行产生的 writes 暂存在任务中。无论一个节点比兄弟快多少，它的结果都不会在当前轮被另一个兄弟读取；所有选中任务结束后，Update barrier 才统一归并。"
 caption: "节点和连线表示依赖关系与当前可观察阶段；真实图中的条件边、并行合并、失败与重放必须回到源码逐项核对。"
 actionLabel: "推进节点状态"
+component: "langgraph-01-03/pregel-superstep"
 
 #### 步骤
 

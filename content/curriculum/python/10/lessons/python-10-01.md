@@ -4,7 +4,6 @@ track: "python"
 title: "仓库地图、pydebug 构建与测试定位"
 depth: "foundation"
 exampleLanguage: "python"
-visualIndex: "../visuals/python-10-01.md"
 ---
 
 ## 官方入口

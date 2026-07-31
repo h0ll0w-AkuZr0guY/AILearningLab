@@ -4,7 +4,6 @@ track: "python"
 title: "异步迭代：__aiter__、__anext__ 与 StopAsyncIteration"
 depth: "foundation"
 exampleLanguage: "python"
-visualIndex: "../visuals/python-04-10.md"
 ---
 
 ## 官方入口

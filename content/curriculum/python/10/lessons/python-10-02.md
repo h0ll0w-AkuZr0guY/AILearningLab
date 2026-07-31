@@ -4,7 +4,6 @@ track: "python"
 title: "tokenizer：编码、缩进与 token 流"
 depth: "foundation"
 exampleLanguage: "python"
-visualIndex: "../visuals/python-10-02.md"
 ---
 
 ## 官方入口

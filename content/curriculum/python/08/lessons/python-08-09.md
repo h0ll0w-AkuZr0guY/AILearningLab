@@ -4,7 +4,6 @@ track: "python"
 title: "Semaphore、Queue 背压、join 与 shutdown"
 depth: "foundation"
 exampleLanguage: "python"
-visualIndex: "../visuals/python-08-09.md"
 ---
 
 ## 官方入口

@@ -4,7 +4,6 @@ track: "python"
 title: "取消请求、CancelledError、cancelling 与 uncancel"
 depth: "foundation"
 exampleLanguage: "python"
-visualIndex: "../visuals/python-08-04.md"
 ---
 
 ## 官方入口

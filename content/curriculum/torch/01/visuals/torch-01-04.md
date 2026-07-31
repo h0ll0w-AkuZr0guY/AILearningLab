@@ -9,11 +9,12 @@ decision: "本课存在可被分步观察、操作或数值验证的机制变化
 ### 把「Stride 地址代数与连续性：从索引公式到 memory_format」落到可见张量
 
 id: "torch-01-04-main"
-kind: "tensor"
+kind: "playground"
 placement: "chapter:2"
 summary: "stride 是把多维坐标压到一维 Storage 的系数。它与线性代数中的基向量很像：每个维度前进一步，相当于在物理元素序号上加一个固定向量。理解这个地址代数后，transpose、slice、expand、diagonal 和 view 的行为都能手算，而不再靠记 API。"
 caption: "格子按阶段追踪 shape、数值、stride、storage 或计算边界；精确结论必须继续用维度、数值和断言验证。"
 actionLabel: "播放张量变化"
+component: "torch-01-04/stride-address-lab"
 
 #### 步骤
 

@@ -4,7 +4,6 @@ track: "python"
 title: "to_thread、run_in_executor、ContextVar 与 GIL"
 depth: "foundation"
 exampleLanguage: "python"
-visualIndex: "../visuals/python-08-10.md"
 ---
 
 ## 官方入口

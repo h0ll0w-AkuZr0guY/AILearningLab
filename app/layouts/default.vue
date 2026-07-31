@@ -129,7 +129,20 @@ provide('coach-config', { apiKey, endpoint, model, open: () => { showCoach.value
         <NuxtLink to="/projects">综合项目</NuxtLink>
         <NuxtLink to="/source-map">源码地图</NuxtLink>
       </nav>
-      <button class="coach-button" :class="{ connected: apiKey }" @click="showCoach = true"><i />{{ apiKey ? 'AI 已配置' : '配置 AI' }}</button>
+      <div class="nav-actions">
+        <a
+          class="repo-index"
+          href="https://github.com/h0ll0w-AkuZr0guY/AILearningLab"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="在 GitHub 打开 AILearningLab 仓库"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .9a11.3 11.3 0 0 0-3.6 22c.6.1.8-.2.8-.5v-2.2c-3.3.7-4-1.4-4-1.4-.5-1.4-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.6 0-1.2.4-2.3 1.2-3.1-.1-.3-.5-1.6.1-3.1 0 0 1-.3 3.1 1.2a10.8 10.8 0 0 1 5.7 0c2.2-1.5 3.1-1.2 3.1-1.2.6 1.5.2 2.8.1 3.1.8.8 1.2 1.9 1.2 3.1 0 4.3-2.8 5.3-5.5 5.6.4.4.8 1.1.8 2.1v3.1c0 .3.2.6.8.5A11.3 11.3 0 0 0 12 .9Z" /></svg>
+          <span><small>GITHUB REPOSITORY</small><b>AILearningLab</b></span>
+          <em>main</em>
+        </a>
+        <button class="coach-button" :class="{ connected: apiKey }" @click="showCoach = true"><i />{{ apiKey ? 'AI 已配置' : '配置 AI' }}</button>
+      </div>
     </header>
     <slot />
     <div v-if="showCoach" class="coach-modal-mask" @click.self="showCoach = false">

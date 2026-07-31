@@ -316,15 +316,15 @@ expand 与 repeat
 截至 2026-07-31 的视觉覆盖复审：
 
 ```text
-curated 课程：150
-已有视觉伴随索引：150（100%）
-Python 新增：102 个课程级索引
-Python 类型分布：flow 37 / playground 21 / state 18 / graph 14 / tensor 12
-专属 Python playground：
-  python-02-04 descriptor priority
-  python-05-05 try/except/else/finally matrix
-  python-08-01 event loop turn
-curated 数量保持 150 / 1090；本批只补视觉叙事，不把视觉文件计作新精写课程。
+全站 curated：155
+当前视觉规范覆盖：非 Python 53 / 53
+TypeScript：13 / 13
+LangGraph：10 / 10
+Transformer：10 / 10
+PyTorch：15 / 15
+LangChain：5 / 5
+Python：102 篇首轮正文保留，视觉索引撤回；该路线需按当前长课、证据和视觉决策规范逐模块重构。
+视觉文件不计入 curated 数量；“覆盖”只表示存在经过决策的伴随索引，不表示每课使用同一种媒介。
 ```
 
 ## 7. 验证命令与完成证据
@@ -604,4 +604,17 @@ curated 变化：0 / 120 → 5 / 120（4.2%）
 可运行示例：examples/langchain/01–05 五个离线合同实验。
 下一 pending：batch 与 stream（langchain-01-06）
 PR：https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/11
+```
+
+当前视觉与资料图谱重构（2026-07-31）：
+
+```text
+分支：codex/knowledge-graph-visuals
+范围：产品架构与视觉质量，不新增 curated 课程。
+Python：撤回 102 个批量视觉索引和 3 个旧专属组件；保留首轮正文，等待后续按新规范重构。
+非 Python：升级通用 state / flow / graph / tensor / playground 的信息层次，并为 Pregel barrier、PyTorch stride 增加课程专属可计算实验。
+源码地图：改为源码/官方文档双知识图谱，以 track → module → lesson 为稳定层级；pending 课题也出现，curated 课题补充精确函数与章节叶节点。
+顶部导航：增加 GitHub 仓库身份、main 分支标记和直接入口。
+下一内容 pending：LangChain / batch 与 stream（langchain-01-06）
+PR：https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/12
 ```

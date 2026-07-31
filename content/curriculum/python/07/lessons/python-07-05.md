@@ -4,7 +4,6 @@ track: "python"
 title: "ABC 名义子类型、register 与 __subclasshook__"
 depth: "foundation"
 exampleLanguage: "python"
-visualIndex: "../visuals/python-07-05.md"
 ---
 
 ## 官方入口

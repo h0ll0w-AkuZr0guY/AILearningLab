@@ -4,7 +4,6 @@ track: "python"
 title: "create_task 生命周期、强引用与 eager start"
 depth: "foundation"
 exampleLanguage: "python"
-visualIndex: "../visuals/python-08-03.md"
 ---
 
 ## 官方入口

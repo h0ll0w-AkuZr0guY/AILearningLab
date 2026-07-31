@@ -4,7 +4,6 @@ track: "python"
 title: "ParamSpec、Concatenate 与装饰器签名"
 depth: "foundation"
 exampleLanguage: "python"
-visualIndex: "../visuals/python-07-07.md"
 ---
 
 ## 官方入口

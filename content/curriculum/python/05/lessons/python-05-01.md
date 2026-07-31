@@ -4,7 +4,6 @@ track: "python"
 title: "异常对象、traceback 链与处理器生命周期"
 depth: "foundation"
 exampleLanguage: "python"
-visualIndex: "../visuals/python-05-01.md"
 ---
 
 ## 官方入口

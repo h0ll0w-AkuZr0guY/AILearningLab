@@ -4,7 +4,6 @@ track: "python"
 title: "sys.meta_path 与 MetaPathFinder"
 depth: "foundation"
 exampleLanguage: "python"
-visualIndex: "../visuals/python-06-03.md"
 ---
 
 ## 官方入口

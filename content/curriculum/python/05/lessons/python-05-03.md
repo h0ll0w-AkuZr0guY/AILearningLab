@@ -4,7 +4,6 @@ track: "python"
 title: "raise、bare raise 与 traceback 保真"
 depth: "foundation"
 exampleLanguage: "python"
-visualIndex: "../visuals/python-05-03.md"
 ---
 
 ## 官方入口

@@ -16,6 +16,7 @@ corepack pnpm dev
 - 优质课参考：`docs/LESSON_REFERENCE_SET.md`
 - 单课格式说明：`docs/CONTRIBUTING_LESSONS.md`
 - 视觉实验标准：`docs/VISUAL_LESSON_STANDARD.md`
+- 源码与官方文档图谱：`docs/SOURCE_KNOWLEDGE_GRAPH.md`
 - 课程路线与模块目录：`content/curriculum/<track>/track.md`、`content/curriculum/<track>/<module>/catalog.md`
 - 课程拆分目标：`docs/CURRICULUM_RECONSTRUCTION_TARGET.md`
 - 页面或构建贡献：相关 Vue、TypeScript、脚本及现有 CSS 约定
@@ -53,6 +54,8 @@ corepack pnpm curriculum:new <track-id> <lesson-id>
 保持内容层与渲染层分离。课程正文进入 `lessons/<lesson-id>.md`，可选视觉文字进入同模块 `visuals/<lesson-id>.md`，类型、解析和索引进入 `app/data`，页面交互进入 Vue，视觉规则进入 CSS。涉及响应式布局、复制、答案展开或导航时，附桌面与窄屏浏览器证据。
 
 课程插图、动画和演示先遵循 `docs/VISUAL_LESSON_STANDARD.md`。视觉可为空；有明确教学价值时，正文只登记 `visualIndex`，视觉索引通过 `placement` 动态插入固定叙事锚点。一个试题可以拥有多个不同 kind。只有通用渲染器无法表达真实交互时，才在 `app/components/lesson-visuals/<lesson-id>/` 新建组件。ImageGen 资产必须进入 `public/visuals/<track>/<lesson-id>/`，同时提交中文 alt、生成/来源说明和类比边界。
+
+源码/文档图谱不维护第二份课程清单。新增路线或模块时填写 `track.md` 的 `source`、`docs`，以及 `catalog.md` 的 `sourceScope`、`officialScope`，图谱便会出现目录节点；课程深化后，正文中的精确源码与官方章节会自动成为已核验叶节点。不得为 pending 课题编造函数路径来填满图谱。
 
 ### 修改脚本、构建或部署
 
