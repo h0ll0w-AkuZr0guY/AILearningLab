@@ -632,3 +632,21 @@ PR：https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/12
 下一内容 pending：LangChain / batch 与 stream（langchain-01-06）
 PR：https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/13
 ```
+
+当前自动化五课批次（2026-07-31，待发布）：
+
+```text
+自动化：ailearninglab
+随机候选池：deepagents、langchain、langgraph、lora、nuxt、torch、transformer、typescript、vllm；Python 按规则排除。
+随机选择：LangGraph（随机原始值 1456515371）。
+分支：agent/curriculum-langgraph-langgraph-02-01-to-langgraph-02-05
+curated 变化：LangGraph 10 / 132 → 15 / 132；全站 155 / 1090 → 160 / 1090。
+课程：langgraph-02-01 TypedDict state；langgraph-02-02 MessagesState；langgraph-02-03 Annotated reducer；langgraph-02-04 append 与 replace；langgraph-02-05 自定义 reducer。
+粒度：将 schema、消息身份、通用聚合、字段时间语义和领域 reducer 分开，避免把“字段存在”“按 ID 修订”与“并发合并”混为一课。
+源码与文档基线：langchain-ai/langgraph b2926a0ff9589c28c7e01fe7cdbb337b86d5a4b4；Graph API 的 State、MessagesState 与 Reducers 精确锚点。
+视觉决策：五个课程级 state/flow 索引分别演示 schema 投影、消息 ID upsert、并行归并、append/replace 时间语义和版本冲突；无 ImageGen 资产。
+协作署名：@h0ll0w-AkuZr0guY × OpenAI Codex · GPT-5.6 Terra。
+可运行示例：examples/langgraph/11–15 五个离线合同实验。
+下一 pending：langgraph-02-06 消息 ID。
+PR：https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/15
+```

@@ -18,7 +18,7 @@ planningStatus: established
 ## langgraph-02-01
 
 title: "TypedDict state"
-status: pending
+status: curated
 owner: ""
 difficulty: "中等"
 difficultyReason: "需要同时掌握公开契约、一个主要失败边界和对应实现路径。"
@@ -30,7 +30,7 @@ granularity: "单点精讲"
 ## langgraph-02-02
 
 title: "MessagesState"
-status: pending
+status: curated
 owner: ""
 difficulty: "中等"
 difficultyReason: "需要同时掌握公开契约、一个主要失败边界和对应实现路径。"
@@ -42,7 +42,7 @@ granularity: "单点精讲"
 ## langgraph-02-03
 
 title: "Annotated reducer"
-status: pending
+status: curated
 owner: ""
 difficulty: "困难"
 difficultyReason: "涉及多个运行阶段或相互作用的不变量，需要借助反例和源码调用链建立心智模型。"
@@ -54,7 +54,7 @@ granularity: "单点精讲"
 ## langgraph-02-04
 
 title: "append 与 replace"
-status: pending
+status: curated
 owner: ""
 difficulty: "中等"
 difficultyReason: "需要同时掌握公开契约、一个主要失败边界和对应实现路径。"
@@ -66,7 +66,7 @@ granularity: "单点精讲"
 ## langgraph-02-05
 
 title: "自定义 reducer"
-status: pending
+status: curated
 owner: ""
 difficulty: "困难"
 difficultyReason: "涉及多个运行阶段或相互作用的不变量，需要借助反例和源码调用链建立心智模型。"
