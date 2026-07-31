@@ -627,5 +627,5 @@ PR：https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/12
 源码地图：改为确定性力导向球状网络；围绕官方仓库的目录、文件、符号，以及官方文档的域名、页面、章节锚点构图。
 课程关系：课程不再充当图谱父节点，只作为源码/文档节点的反向学习入口；路线页与单课页增加资料图谱快捷定位。
 下一内容 pending：LangChain / batch 与 stream（langchain-01-06）
-PR：待创建
+PR：https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/13
 ```
