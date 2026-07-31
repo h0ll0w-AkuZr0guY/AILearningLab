@@ -616,5 +616,5 @@ Python：撤回 102 个批量视觉索引和 3 个旧专属组件；保留首轮
 源码地图：改为源码/官方文档双知识图谱，以 track → module → lesson 为稳定层级；pending 课题也出现，curated 课题补充精确函数与章节叶节点。
 顶部导航：增加 GitHub 仓库身份、main 分支标记和直接入口。
 下一内容 pending：LangChain / batch 与 stream（langchain-01-06）
-PR：待创建
+PR：https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/12
 ```
