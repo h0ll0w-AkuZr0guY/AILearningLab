@@ -55,7 +55,7 @@ corepack pnpm curriculum:new <track-id> <lesson-id>
 
 课程插图、动画和演示先遵循 `docs/VISUAL_LESSON_STANDARD.md`。视觉可为空；有明确教学价值时，正文只登记 `visualIndex`，视觉索引通过 `placement` 动态插入固定叙事锚点。一个试题可以拥有多个不同 kind。只有通用渲染器无法表达真实交互时，才在 `app/components/lesson-visuals/<lesson-id>/` 新建组件。ImageGen 资产必须进入 `public/visuals/<track>/<lesson-id>/`，同时提交中文 alt、生成/来源说明和类比边界。
 
-源码/文档图谱不维护第二份课程清单。新增路线或模块时填写 `track.md` 的 `source`、`docs`，以及 `catalog.md` 的 `sourceScope`、`officialScope`，图谱便会出现目录节点；课程深化后，正文中的精确源码与官方章节会自动成为已核验叶节点。不得为 pending 课题编造函数路径来填满图谱。
+源码/文档图谱不维护第二份课程清单，也不把课程模块当成图谱层级。`track.md` 提供官方根入口，`catalog.md` 的 `sourceScope` 只贡献真实仓库路径；课程深化后，正文中的精确源码与官方章节会升级对应文件、符号、页面或锚点，并建立反向学习入口。不得为 pending 课题编造函数或章节来填满图谱。
 
 ### 修改脚本、构建或部署
 
