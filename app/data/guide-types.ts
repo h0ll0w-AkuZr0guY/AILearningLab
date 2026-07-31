@@ -61,6 +61,16 @@ export interface GuideVisual {
   credit?: string
 }
 
+export interface GuideContribution {
+  title: string
+  at: string
+  human: string
+  ai: string
+  summary: string
+  pr?: string
+  commit?: string
+}
+
 export interface TopicGuide {
   official?: {
     title: string
@@ -88,6 +98,7 @@ export interface TopicGuide {
   selfCheckQuestion?: string
   selfCheckAnswer?: string
   visuals?: GuideVisual[]
+  contributions?: GuideContribution[]
 }
 
 export interface LessonMarkdownDocument {

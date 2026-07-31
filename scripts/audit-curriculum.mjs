@@ -34,6 +34,7 @@ const visualDocumentsByKey = new Map()
 
 const countCjk = value => (value.match(/[\u3400-\u9fff]/g) || []).length
 const nonEmptyLines = value => value.split('\n').filter(line => line.trim()).length
+const withoutContributionLog = value => value.replace(/\n## 更新日志\n[\s\S]*$/, '')
 
 const lessonFiles = (await listMarkdownFiles(curriculumRoot))
   .filter(file => file.replace(/\\/g, '/').includes('/lessons/'))
@@ -120,7 +121,7 @@ for (const file of lessonFiles) {
     if (sourceCodeLines < (expert ? 20 : 14)) {
       malformed.push(`${relativePath}: 真实源码节选仅 ${sourceCodeLines} 行`)
     }
-    if (countCjk(raw) < minCjk) {
+    if (countCjk(withoutContributionLog(raw)) < minCjk) {
       malformed.push(`${relativePath}: 中文内容不足 ${minCjk} 字`)
     }
 

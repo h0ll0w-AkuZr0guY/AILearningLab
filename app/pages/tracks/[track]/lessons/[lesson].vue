@@ -21,6 +21,7 @@ const feedback = ref('')
 const reviewing = ref(false)
 const splitPercent = ref(47)
 const isDragging = ref(false)
+const workspaceOpen = ref(false)
 const showAssistant = ref(false)
 const assistantQuestion = ref('')
 const assistantAnswer = ref('')
@@ -256,18 +257,32 @@ onBeforeUnmount(stopResize)
 </script>
 
 <template>
-  <main class="problem-app" :style="{ '--lesson-left': `${splitPercent}%` }">
+  <main
+    class="problem-app"
+    :class="workspaceOpen ? 'workspace-open' : 'workspace-closed'"
+    :style="{ '--lesson-left': `${splitPercent}%` }"
+  >
       <section class="problem-left" aria-label="课程正文">
         <header class="lesson-sticky">
           <div class="lesson-toolbar">
             <NuxtLink class="back" :to="`/tracks/${track?.id}`">← {{ track?.name }}</NuxtLink>
-            <nav class="compact-switcher" aria-label="题目切换">
-              <NuxtLink v-if="previousLesson" :to="lessonHref(previousLesson.id)" title="上一题">‹</NuxtLink>
-              <span v-else>‹</span>
-              <b>{{ lessonIndex + 1 }} / {{ track?.lessons.length }}</b>
-              <NuxtLink v-if="nextLesson" :to="lessonHref(nextLesson.id)" title="下一题">›</NuxtLink>
-              <span v-else>›</span>
-            </nav>
+            <div class="lesson-toolbar-actions">
+              <button
+                class="workspace-toggle"
+                aria-controls="lesson-code-workspace"
+                :aria-expanded="workspaceOpen"
+                @click="workspaceOpen = !workspaceOpen"
+              >
+                {{ workspaceOpen ? '收起代码工作区' : '展开代码工作区' }}
+              </button>
+              <nav class="compact-switcher" aria-label="题目切换">
+                <NuxtLink v-if="previousLesson" :to="lessonHref(previousLesson.id)" title="上一题">‹</NuxtLink>
+                <span v-else>‹</span>
+                <b>{{ lessonIndex + 1 }} / {{ track?.lessons.length }}</b>
+                <NuxtLink v-if="nextLesson" :to="lessonHref(nextLesson.id)" title="下一题">›</NuxtLink>
+                <span v-else>›</span>
+              </nav>
+            </div>
           </div>
           <div class="sticky-title-row"><h1>{{ lesson?.title }}</h1><span class="difficulty">LESSON {{ String(lesson?.order).padStart(3, '0') }}</span></div>
           <div class="lesson-assessment" :title="lesson?.difficultyReason">
@@ -451,9 +466,32 @@ onBeforeUnmount(stopResize)
           <div class="callout"><b>回答评分尺</b><p>先给结论，再推演机制，随后给源码函数、可运行代码或指标证据，最后说明适用边界和替代方案。</p></div>
           <div class="link-pills"><a :href="lesson?.interviewSource" target="_blank" rel="noreferrer">公开面经题型线索 ↗</a></div>
         </div>
+
+        <details v-if="detail.contributions.length" class="lesson-contributions">
+          <summary>
+            <span class="contribution-label">最近贡献</span>
+            <b>{{ detail.contributions[0]?.human }} × {{ detail.contributions[0]?.ai }}</b>
+            <small>{{ detail.contributions[0]?.at }} · {{ detail.contributions[0]?.summary }}</small>
+            <i aria-hidden="true">展开全部 ⌄</i>
+          </summary>
+          <ol>
+            <li v-for="entry in detail.contributions" :key="`${entry.at}-${entry.title}`">
+              <header>
+                <div><strong>{{ entry.title }}</strong><span>{{ entry.at }}</span></div>
+                <em>{{ entry.human }} × {{ entry.ai }}</em>
+              </header>
+              <p>{{ entry.summary }}</p>
+              <div v-if="entry.pr || entry.commit" class="contribution-evidence">
+                <a v-if="entry.pr" :href="entry.pr" target="_blank" rel="noreferrer">Pull Request ↗</a>
+                <code v-if="entry.commit">{{ entry.commit }}</code>
+              </div>
+            </li>
+          </ol>
+        </details>
       </section>
 
       <div
+        v-if="workspaceOpen"
         class="split-handle"
         role="separator"
         aria-label="调整课程正文和代码工作区宽度"
@@ -464,13 +502,14 @@ onBeforeUnmount(stopResize)
         @keydown="resizeByKeyboard"
       ><i /></div>
 
-      <section class="problem-right">
+      <section v-if="workspaceOpen" id="lesson-code-workspace" class="problem-right">
         <div class="editor-bar">
           <b><i />{{ workspaceFilename }}</b>
           <div class="editor-bar-tools">
             <span>{{ track?.symbol }} · {{ lesson?.module }}</span>
             <button @click="copyText(code, 'workspace')">{{ copiedId === 'workspace' ? '已复制 ✓' : '复制' }}</button>
             <button @click="resetWorkspace">重置示例</button>
+            <button @click="workspaceOpen = false">收起</button>
           </div>
         </div>
         <div class="workspace-editor">

@@ -1,5 +1,6 @@
 import type {
   GuideChapter,
+  GuideContribution,
   GuideVisual,
   GuideVisualKind,
   GuideVisualPlacement,
@@ -200,6 +201,22 @@ const parseBuildSteps = (source: string) => splitHeadings(source, 3)
     }
   })
 
+const parseContributions = (
+  source: string,
+  filePath: string
+): GuideContribution[] => splitHeadings(source, 3).map((block, index) => {
+  const meta = fields(beforeHeading(block.body, 4))
+  return {
+    title: block.title,
+    at: requiredString(meta.at, `更新日志 ${index + 1} at`, filePath),
+    human: requiredString(meta.human, `更新日志 ${index + 1} human`, filePath),
+    ai: requiredString(meta.ai, `更新日志 ${index + 1} ai`, filePath),
+    summary: requiredString(meta.summary, `更新日志 ${index + 1} summary`, filePath),
+    pr: optionalString(meta.pr),
+    commit: optionalString(meta.commit)
+  }
+})
+
 const VISUAL_KINDS = new Set<GuideVisualKind>([
   'state',
   'flow',
@@ -309,7 +326,8 @@ export function parseLessonMarkdown(
     buildSteps: parseBuildSteps(section(sections, '搭积木复现')),
     selfCheckQuestion: optionalString(section(selfCheck, '问题')),
     selfCheckAnswer: optionalString(section(selfCheck, '站内答案')),
-    visuals: []
+    visuals: [],
+    contributions: parseContributions(section(sections, '更新日志'), filePath)
   }
 
   return {

@@ -108,3 +108,24 @@ reviewMinutes: 15
 页面仍需要类型、稳定索引、重复检测和构建期错误。TypeScript 层只完成解析与组装，不存放路线、模块、课题目录或单课正文。Vite 通过 `import.meta.glob(..., { eager: true, query: '?raw' })` 在构建期收集 Markdown；新增目录和文件会自动进入索引，无需手写 import。
 
 设计依据可参考 [Vite Glob Import](https://vite.dev/guide/features.html#glob-import) 与 [Vite Raw Asset Import](https://vite.dev/guide/assets.html#importing-asset-as-string)。
+
+## 更新日志与署名
+
+单课正文在最后使用 `## 更新日志` 保存贡献历史，最新记录放在最上面。页面默认只露出最近一次“人类 × AI”协作对、时间与摘要；完整历史由读者主动展开，因此不会打断正文，也不参与章节目录、阅读时间和内容密度统计。
+
+```markdown
+## 更新日志
+
+### 修正 checkpoint 恢复边界并增加故障实验
+
+at: "2026-07-31T15:10:00+08:00"
+human: "@your-name"
+ai: "OpenAI Codex · GPT-5.6 Sol"
+summary: "区分 pending writes 与外部副作用窗口，增加崩溃恢复实验。"
+pr: "https://github.com/owner/repository/pull/123"
+commit: "abcdef1"
+```
+
+`human` 始终记录发起或负责贡献的人类，`ai` 始终记录真实协作模型。纯人工写 `未使用 AI`；模型版本无法从可靠证据确认时写 `旧版本未记录`。外部贡献者使用自己的 AI 提交 PR 时，署名应是该贡献者与其 AI 的协作对，不能只写仓库所有者或只写模型。
+
+模板只固定交付结构，不固定叙事语气。课程可以采用案例驱动、源码调用链、苏格拉底问答、公式推导、UI 实验或搭积木实现等风格；机器契约章节、第一方证据、失败路径、站内答案、视觉决策和验证门禁仍必须齐全。
