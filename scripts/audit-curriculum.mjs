@@ -291,12 +291,17 @@ if (moduleDocuments.length !== tracks.reduce((sum, track) => sum + track.modules
 
 const rows = tracks.map(track => {
   const curated = curatedByTrack.get(track.id).size
+  const visualized = [...curatedByTrack.get(track.id)]
+    .filter(lessonId => visualDocumentsByKey.has(`${track.id}:${lessonId}`))
+    .length
   return {
     track: track.name,
     lessons: track.lessons.length,
     curated,
+    visualized,
     pending: track.lessons.length - curated,
-    coverage: `${(curated / track.lessons.length * 100).toFixed(1)}%`
+    coverage: `${(curated / track.lessons.length * 100).toFixed(1)}%`,
+    visualCoverage: curated ? `${(visualized / curated * 100).toFixed(1)}%` : '—'
   }
 })
 
@@ -305,11 +310,13 @@ const totals = rows.reduce(
   (sum, row) => ({
     lessons: sum.lessons + row.lessons,
     curated: sum.curated + row.curated,
+    visualized: sum.visualized + row.visualized,
     pending: sum.pending + row.pending
   }),
-  { lessons: 0, curated: 0, pending: 0 }
+  { lessons: 0, curated: 0, visualized: 0, pending: 0 }
 )
 console.log(`全站：${totals.curated}/${totals.lessons} 已精写，${totals.pending} 待完成`)
+console.log(`视觉：${totals.visualized}/${totals.curated} 篇精写课程已建立伴随索引`)
 
 if (malformed.length) {
   console.error('\n内容结构错误：')

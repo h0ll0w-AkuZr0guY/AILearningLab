@@ -4,6 +4,7 @@ track: "python"
 title: "弱引用与 finalizer"
 depth: "foundation"
 exampleLanguage: "python"
+visualIndex: "../visuals/python-01-08.md"
 ---
 
 ## 官方入口

@@ -4,6 +4,7 @@ track: "python"
 title: "Protocol 结构子类型与 runtime_checkable 边界"
 depth: "foundation"
 exampleLanguage: "python"
+visualIndex: "../visuals/python-07-04.md"
 ---
 
 ## 官方入口

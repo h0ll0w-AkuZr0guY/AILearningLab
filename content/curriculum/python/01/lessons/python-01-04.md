@@ -4,6 +4,7 @@ track: "python"
 title: "可变对象的别名风险"
 depth: "foundation"
 exampleLanguage: "python"
+visualIndex: "../visuals/python-01-04.md"
 ---
 
 ## 官方入口

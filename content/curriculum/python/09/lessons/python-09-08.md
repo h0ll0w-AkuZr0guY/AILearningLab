@@ -4,6 +4,7 @@ track: "python"
 title: "dis、inline cache 与 specializing interpreter"
 depth: "foundation"
 exampleLanguage: "python"
+visualIndex: "../visuals/python-09-08.md"
 ---
 
 ## 官方入口

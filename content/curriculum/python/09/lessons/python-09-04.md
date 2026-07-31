@@ -4,6 +4,7 @@ track: "python"
 title: "可重复基准：timeit、pyperf、噪声与效应量"
 depth: "foundation"
 exampleLanguage: "python"
+visualIndex: "../visuals/python-09-04.md"
 ---
 
 ## 官方入口

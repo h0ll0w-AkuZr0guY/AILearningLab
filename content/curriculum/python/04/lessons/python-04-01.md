@@ -4,6 +4,7 @@ track: "python"
 title: "Iterable、Iterator 与 __getitem__ 兼容路径"
 depth: "foundation"
 exampleLanguage: "python"
+visualIndex: "../visuals/python-04-01.md"
 ---
 
 ## 官方入口

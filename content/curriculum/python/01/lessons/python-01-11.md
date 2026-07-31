@@ -4,6 +4,7 @@ track: "python"
 title: "对象生命周期实验"
 depth: "foundation"
 exampleLanguage: "python"
+visualIndex: "../visuals/python-01-11.md"
 ---
 
 ## 官方入口

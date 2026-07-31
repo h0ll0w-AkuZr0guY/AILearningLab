@@ -4,6 +4,7 @@ track: "python"
 title: "compiler unit、basic block 与 CFG"
 depth: "foundation"
 exampleLanguage: "python"
+visualIndex: "../visuals/python-10-06.md"
 ---
 
 ## 官方入口

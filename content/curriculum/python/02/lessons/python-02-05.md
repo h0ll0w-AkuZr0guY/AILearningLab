@@ -4,6 +4,7 @@ track: "python"
 title: "函数 descriptor、绑定方法与 self 注入"
 depth: "foundation"
 exampleLanguage: "python"
+visualIndex: "../visuals/python-02-05.md"
 ---
 
 ## 官方入口

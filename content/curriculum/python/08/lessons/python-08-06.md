@@ -4,6 +4,7 @@ track: "python"
 title: "gather 的结果、异常与取消矩阵"
 depth: "foundation"
 exampleLanguage: "python"
+visualIndex: "../visuals/python-08-06.md"
 ---
 
 ## 官方入口

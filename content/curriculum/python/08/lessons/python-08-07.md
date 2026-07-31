@@ -4,6 +4,7 @@ track: "python"
 title: "TaskGroup 结构化并发与 ExceptionGroup"
 depth: "foundation"
 exampleLanguage: "python"
+visualIndex: "../visuals/python-08-07.md"
 ---
 
 ## 官方入口

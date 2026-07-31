@@ -4,6 +4,7 @@ track: "python"
 title: "pyproject、build frontend/backend 与 wheel"
 depth: "foundation"
 exampleLanguage: "python"
+visualIndex: "../visuals/python-06-11.md"
 ---
 
 ## 官方入口

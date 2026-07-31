@@ -4,6 +4,7 @@ track: "python"
 title: "PyObject 头部与 ob_type"
 depth: "foundation"
 exampleLanguage: "python"
+visualIndex: "../visuals/python-01-01.md"
 ---
 
 ## 官方入口

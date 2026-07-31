@@ -4,6 +4,7 @@ track: "python"
 title: "暂停帧：指令指针、值栈与异常状态"
 depth: "foundation"
 exampleLanguage: "python"
+visualIndex: "../visuals/python-04-04.md"
 ---
 
 ## 官方入口

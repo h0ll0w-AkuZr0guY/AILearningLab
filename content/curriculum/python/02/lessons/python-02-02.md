@@ -4,6 +4,7 @@ track: "python"
 title: "object.__getattribute__ 完整查找链"
 depth: "foundation"
 exampleLanguage: "python"
+visualIndex: "../visuals/python-02-02.md"
 ---
 
 ## 官方入口

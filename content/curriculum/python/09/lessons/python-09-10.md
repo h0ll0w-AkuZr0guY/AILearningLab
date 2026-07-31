@@ -4,6 +4,7 @@ track: "python"
 title: "multiprocessing 序列化、启动方式与共享内存"
 depth: "foundation"
 exampleLanguage: "python"
+visualIndex: "../visuals/python-09-10.md"
 ---
 
 ## 官方入口

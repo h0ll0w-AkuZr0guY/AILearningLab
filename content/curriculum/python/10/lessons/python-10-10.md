@@ -4,6 +4,7 @@ track: "python"
 title: "specialization：counter、guard、cache 与 deopt"
 depth: "foundation"
 exampleLanguage: "python"
+visualIndex: "../visuals/python-10-10.md"
 ---
 
 ## 官方入口

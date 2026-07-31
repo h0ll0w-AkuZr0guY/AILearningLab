@@ -4,6 +4,7 @@ track: "python"
 title: "TypedDict：Required、NotRequired、ReadOnly 与演进"
 depth: "foundation"
 exampleLanguage: "python"
+visualIndex: "../visuals/python-07-08.md"
 ---
 
 ## 官方入口

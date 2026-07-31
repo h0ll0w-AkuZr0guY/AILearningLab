@@ -4,6 +4,7 @@ track: "python"
 title: "asyncio debug、任务栈与泄漏诊断"
 depth: "foundation"
 exampleLanguage: "python"
+visualIndex: "../visuals/python-08-11.md"
 ---
 
 ## 官方入口

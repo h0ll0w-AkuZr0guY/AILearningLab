@@ -4,6 +4,7 @@ track: "python"
 title: "event loop 的 ready/timer 队列与单轮调度"
 depth: "foundation"
 exampleLanguage: "python"
+visualIndex: "../visuals/python-08-01.md"
 ---
 
 ## 官方入口

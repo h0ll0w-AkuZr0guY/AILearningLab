@@ -4,6 +4,7 @@ track: "python"
 title: "GIL、释放点、free-threading 与线程安全"
 depth: "foundation"
 exampleLanguage: "python"
+visualIndex: "../visuals/python-09-09.md"
 ---
 
 ## 官方入口

@@ -4,6 +4,7 @@ track: "python"
 title: "symbol table：local、global、free 与 cell"
 depth: "foundation"
 exampleLanguage: "python"
+visualIndex: "../visuals/python-10-05.md"
 ---
 
 ## 官方入口

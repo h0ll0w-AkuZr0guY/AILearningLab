@@ -61,6 +61,9 @@ const assetUrl = (asset?: string) => {
 const customVisual = (visual: GuideVisual) =>
   visual.component ? visualComponents[visual.component] : undefined
 
+const compactGraphLabel = (label: string) =>
+  label.length > 10 ? `${label.slice(0, 9)}…` : label
+
 const graphPoint = (index: number, total: number) => {
   const columns = Math.min(4, Math.max(1, total))
   const row = Math.floor(index / columns)
@@ -172,9 +175,10 @@ onBeforeUnmount(() => {
               @keydown.enter.prevent="setActive(visual, index)"
               @keydown.space.prevent="setActive(visual, index)"
             >
+              <title>{{ step.detail }}</title>
               <circle r="34" />
               <text text-anchor="middle" dominant-baseline="middle">{{ index + 1 }}</text>
-              <text class="graph-label" text-anchor="middle" y="54">{{ step.label }}</text>
+              <text class="graph-label" text-anchor="middle" y="54">{{ compactGraphLabel(step.label) }}</text>
             </g>
           </svg>
         </div>
@@ -350,6 +354,7 @@ onBeforeUnmount(() => {
   font-size: .78rem;
   line-height: 1.4;
   margin-top: 7px;
+  overflow-wrap: anywhere;
 }
 
 .visual-flow-stage button.active,

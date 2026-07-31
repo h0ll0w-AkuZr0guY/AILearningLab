@@ -4,6 +4,7 @@ track: "python"
 title: "closure cell、cellvars 与 freevars"
 depth: "foundation"
 exampleLanguage: "python"
+visualIndex: "../visuals/python-03-04.md"
 ---
 
 ## 官方入口

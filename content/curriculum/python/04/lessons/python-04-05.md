@@ -4,6 +4,7 @@ track: "python"
 title: "send 注入值与生成器预激"
 depth: "foundation"
 exampleLanguage: "python"
+visualIndex: "../visuals/python-04-05.md"
 ---
 
 ## 官方入口

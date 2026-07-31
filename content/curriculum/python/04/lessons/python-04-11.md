@@ -4,6 +4,7 @@ track: "python"
 title: "异步生成器的背压、取消与 aclose"
 depth: "foundation"
 exampleLanguage: "python"
+visualIndex: "../visuals/python-04-11.md"
 ---
 
 ## 官方入口

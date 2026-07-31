@@ -4,6 +4,7 @@ track: "python"
 title: "名称绑定与 rebinding"
 depth: "foundation"
 exampleLanguage: "python"
+visualIndex: "../visuals/python-01-03.md"
 ---
 
 ## 官方入口

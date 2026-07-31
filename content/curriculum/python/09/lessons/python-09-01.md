@@ -4,6 +4,7 @@ track: "python"
 title: "复杂度模型、常数项与真实工作负载"
 depth: "foundation"
 exampleLanguage: "python"
+visualIndex: "../visuals/python-09-01.md"
 ---
 
 ## 官方入口
