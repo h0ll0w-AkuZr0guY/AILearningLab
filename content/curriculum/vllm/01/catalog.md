@@ -7,7 +7,7 @@ goal: "从 prefill/decode、吞吐/延迟、显存/带宽建立服务决策模�
 lab: "计算不同请求形态下的 token 吞吐预算。"
 interview: "为什么 decode 常常受 memory bandwidth 限制？"
 officialScope: "https://docs.vllm.ai/"
-sourceScope: "vllm/core/scheduler.py"
+sourceScope: "vllm/v1/core/sched/scheduler.py"
 planningStatus: established
 ---
 
@@ -17,8 +17,8 @@ planningStatus: established
 
 ## vllm-01-01
 
-title: "prefill decode"
-status: pending
+title: "prefill 与 decode：V1 调度器为什么取消了阶段划分"
+status: curated
 owner: ""
 difficulty: "中等"
 difficultyReason: "需要同时掌握公开契约、一个主要失败边界和对应实现路径。"
@@ -29,8 +29,8 @@ granularity: "单点精讲"
 
 ## vllm-01-02
 
-title: "TTFT TPOT"
-status: pending
+title: "TTFT 与 TPOT：四段区间如何从事件时间戳算出来"
+status: curated
 owner: ""
 difficulty: "中等"
 difficultyReason: "需要同时掌握公开契约、一个主要失败边界和对应实现路径。"
@@ -41,8 +41,8 @@ granularity: "单点精讲"
 
 ## vllm-01-03
 
-title: "batching tradeoff"
-status: pending
+title: "batching 权衡：token 预算、并发上限与抢占代价"
+status: curated
 owner: ""
 difficulty: "中等"
 difficultyReason: "需要同时掌握公开契约、一个主要失败边界和对应实现路径。"
@@ -53,8 +53,8 @@ granularity: "单点精讲"
 
 ## vllm-01-04
 
-title: "GPU occupancy"
-status: pending
+title: "显存占用：gpu_memory_utilization 到底以什么为基数"
+status: curated
 owner: ""
 difficulty: "中等"
 difficultyReason: "需要同时掌握公开契约、一个主要失败边界和对应实现路径。"
@@ -65,8 +65,8 @@ granularity: "单点精讲"
 
 ## vllm-01-05
 
-title: "memory bandwidth"
-status: pending
+title: "显存带宽：decode 为什么算不满 GPU"
+status: curated
 owner: ""
 difficulty: "中等"
 difficultyReason: "需要同时掌握公开契约、一个主要失败边界和对应实现路径。"

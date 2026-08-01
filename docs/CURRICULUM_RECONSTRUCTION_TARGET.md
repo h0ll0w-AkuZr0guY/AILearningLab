@@ -296,20 +296,21 @@ rg -n "完整课题标题" content/curriculum/<track>
 截至 2026-08-01 最近一次内容审计：
 
 ```text
-全站：170 / 1090 已精写，920 待完成
+全站：175 / 1090 已精写，915 待完成
 Python：102 / 102
 TypeScript：13 / 114
 LangGraph：20 / 132
 Transformer：10 / 120
 PyTorch：20 / 120
 LangChain：5 / 120
+vLLM：5 / 92
 ```
 
 当前应继续的课题是：
 
 ```text
-PyTorch / torch-03-01
-requires_grad（模块 02「索引与广播」10 / 10 已全部精写，下一模块入口为 03 · Autograd 图与反向传播）
+vLLM / vllm-01-06
+request shape（模块 01「推理服务的性能模型」前五课 vllm-01-01 ~ vllm-01-05 已全部精写并上线，下一 pending 入口为 vllm-01-06；PyTorch 的下一入口仍为 torch-03-01 requires_grad）
 ```
 
 若工作树中该课已经精写，则继续本模块下一个 pending 课题，不依赖上述快照。
@@ -317,13 +318,14 @@ requires_grad（模块 02「索引与广播」10 / 10 已全部精写，下一�
 截至 2026-08-01 的视觉覆盖复审：
 
 ```text
-全站 curated：170
-当前视觉规范覆盖：非 Python 68 / 68
+全站 curated：175
+当前视觉规范覆盖：非 Python 73 / 73
 TypeScript：13 / 13
 LangGraph：20 / 20
 Transformer：10 / 10
 PyTorch：20 / 20
 LangChain：5 / 5
+vLLM：5 / 5
 Python：102 篇首轮正文保留，视觉索引撤回；该路线需按当前长课、证据和视觉决策规范逐模块重构。
 视觉文件不计入 curated 数量；“覆盖”只表示存在经过决策的伴随索引，不表示每课使用同一种媒介。
 ```
@@ -688,4 +690,21 @@ curated 变化：PyTorch 15 / 120 → 20 / 120；全站 165 / 1090 → 170 / 109
 下一 pending：torch-03-01 requires_grad（模块 02 已 10 / 10 完成）。
 PR：https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/17（已 squash 合并为 05e634c2dfe9ebd31d824f0c54db677301b765d9，远程分支已删除，Pages 部署 run 30686165035 成功）。
 线上校验：五个 URL 均 HTTP 200，标题、分章、视觉块、署名与 v2.13.0 基线齐全。
+```
+
+当前自动化五课批次（2026-08-01，vLLM，待发布）：
+
+```text
+自动化：ailearninglab
+恢复：发现上一触发已认领 vllm 模块 01 的 vllm-01-01 ~ vllm-01-05（catalog 已改题名并 claimed、sourceScope 已更新为 vllm/v1/core/sched/scheduler.py），但零提交、无正文；按恢复规则只补齐该批，不新增第 6 课。
+分支：agent/curriculum-vllm-vllm-01-01-to-vllm-01-05
+curated 变化：vLLM 0 / 92 → 5 / 92；全站 170 / 1090 → 175 / 1090。
+课程：vllm-01-01 prefill 与 decode：V1 调度器为什么取消了阶段划分；vllm-01-02 TTFT 与 TPOT：四段区间如何从事件时间戳算出来；vllm-01-03 batching 权衡：token 预算、并发上限与抢占代价；vllm-01-04 显存占用：gpu_memory_utilization 到底以什么为基数；vllm-01-05 显存带宽：decode 为什么算不满 GPU。
+粒度：五课分别对应调度语义、延迟指标、批预算与抢占、显存基数、带宽受限五个互不重叠的失败模型；原目录 vllm-01-01「prefill decode」与 vllm-01-02「TTFT TPOT」是名词堆叠，按真实机制改写为可独立学习的课题，vllm-01-03/04/05 沿用原 pending 并扩展为完整论证，未模板化凑数。
+源码与文档基线：vllm-project/vllm v0.26.0（568afb3a13806beb53bb2e6bd518269357b237c0，2026-07-27 发布）；引用符号 Scheduler.schedule（scheduler.py L425-530）、_preempt_request（L1212-1234）、waiting 接纳与抢占选择（L571-700）、Request.num_tokens_with_spec（v1/request.py L271）、RequestStatsAccumulator.update_from_finished_request（v1/metrics/stats.py L457-495）、request_memory（v1/worker/utils.py L425-445）、GPUWorker.determine_available_memory（v1/worker/gpu_worker.py L448-615）、get_kv_cache_configs（v1/core/kv_cache_utils.py L2036 起）、MHA.get_read_bytes_breakdown（v1/metrics/perf.py L471-513）；官方锚点分别指向 V1 blog 调度器一节、usage/metrics 的 General Metrics 与 MFU 一节、features/per_request_metrics 的 Response Format、configuration/engine_args 的 SchedulerConfig 与 CacheConfig、benchmarking/cli。
+视觉决策：五个课程级索引依次为 flow（预算分配与切块）、flow（事件时间线四区间）、state（抢占生命周期）、tensor（显存预算三租户）、tensor（decode/prefill 算术强度对比）；均为可验证数字步骤，无 ImageGen 资产。
+协作署名：@h0ll0w-AkuZr0guY × WorkBuddy · Hy3。
+可运行示例：examples/vllm/01–05 五个离线合同实验（统一预算、延迟区间、抢占与重算、显存基数、roofline），全部通过且各自包含正常与失败路径断言。
+下一 pending：vllm-01-06 request shape。
+PR：https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/18
 ```
