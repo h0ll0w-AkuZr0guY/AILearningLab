@@ -19,6 +19,7 @@ logs
 references/
 .fleet
 .idea
+.workbuddy/
 
 # Local env files
 .env
