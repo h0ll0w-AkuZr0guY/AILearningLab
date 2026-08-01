@@ -703,7 +703,7 @@ curated 变化：vLLM 0 / 92 → 5 / 92；全站 170 / 1090 → 175 / 1090。
 粒度：五课分别对应调度语义、延迟指标、批预算与抢占、显存基数、带宽受限五个互不重叠的失败模型；原目录 vllm-01-01「prefill decode」与 vllm-01-02「TTFT TPOT」是名词堆叠，按真实机制改写为可独立学习的课题，vllm-01-03/04/05 沿用原 pending 并扩展为完整论证，未模板化凑数。
 源码与文档基线：vllm-project/vllm v0.26.0（568afb3a13806beb53bb2e6bd518269357b237c0，2026-07-27 发布）；引用符号 Scheduler.schedule（scheduler.py L425-530）、_preempt_request（L1212-1234）、waiting 接纳与抢占选择（L571-700）、Request.num_tokens_with_spec（v1/request.py L271）、RequestStatsAccumulator.update_from_finished_request（v1/metrics/stats.py L457-495）、request_memory（v1/worker/utils.py L425-445）、GPUWorker.determine_available_memory（v1/worker/gpu_worker.py L448-615）、get_kv_cache_configs（v1/core/kv_cache_utils.py L2036 起）、MHA.get_read_bytes_breakdown（v1/metrics/perf.py L471-513）；官方锚点分别指向 V1 blog 调度器一节、usage/metrics 的 General Metrics 与 MFU 一节、features/per_request_metrics 的 Response Format、configuration/engine_args 的 SchedulerConfig 与 CacheConfig、benchmarking/cli。
 视觉决策：五个课程级索引依次为 flow（预算分配与切块）、flow（事件时间线四区间）、state（抢占生命周期）、tensor（显存预算三租户）、tensor（decode/prefill 算术强度对比）；均为可验证数字步骤，无 ImageGen 资产。
-协作署名：@h0ll0w-AkuZr0guY × WorkBuddy · Hy3。
+协作署名：@h0ll0w-AkuZr0guY × WorkBuddy · DeepSeek-V4-Flash（本次自动化 model_id 为 deepseek-v4-flash，按实际运行模型署名）。
 可运行示例：examples/vllm/01–05 五个离线合同实验（统一预算、延迟区间、抢占与重算、显存基数、roofline），全部通过且各自包含正常与失败路径断言。
 本地检查：curriculum:audit 通过（vLLM 5/92、视觉 5/5、全站 175/1090）；五个示例全部 PASS；pnpm 11.17.0 --frozen-lockfile 无漂移；nuxt generate EXIT=0（2214 路由、2234 文件）；git diff --check 干净；敏感信息扫描 0 命中；构建产物均在 .gitignore。
 浏览器验收：CDP 驱动 Chrome headless 对五页完成标题、官方锚点、v0.26.0 源码链接与复制、全部答案展开、上一题/下一题、长标题、视觉卡片单步推进与观察任务、键盘可聚焦、reduced-motion 仿真、375px 窄屏与控制台零错误验收，全部通过。

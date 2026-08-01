@@ -113,7 +113,7 @@ AI 在写课前必须按顺序完成：
 
 at: "2026-07-31T14:30:00+08:00"
 human: "@contributor"
-ai: "OpenAI Codex · GPT-5.6 Terra"
+ai: "WorkBuddy · DeepSeek-V4-Flash"
 summary: "重写地址代数章节，增加可计算 stride 实验并补充两个失败断言。"
 pr: "https://github.com/owner/repository/pull/123"
 commit: "abcdef1"
@@ -123,7 +123,7 @@ commit: "abcdef1"
 
 - 最新记录放在最上面；历史记录是审计证据，禁止改写、压缩或删除。
 - `human` 写发起、审核或负责本次贡献的人类姓名/GitHub handle。通过自己的 AI 发起 PR 的外部贡献者，human 仍写该贡献者。
-- `ai` 写实际使用的产品与模型，例如 `OpenAI Codex · GPT-5.6 Terra`。纯人工贡献写 `未使用 AI`；旧记录无法确认模型时写 `OpenAI Codex · 旧版本未记录`，禁止猜测。
+- `ai` 写实际使用的产品与模型：产品统一写 WorkBuddy，模型名以本次实际运行环境为准（例如 `WorkBuddy · DeepSeek-V4-Flash`），禁止虚构或套用其它批次的产品名。纯人工贡献写 `未使用 AI`；旧记录无法确认模型时写 `旧版本未记录`，禁止猜测。
 - 自动化批次使用当前认证的 GitHub 用户或明确的课程 owner 作为 human，使用本次真实运行模型作为 ai。模型只负责部分工作时仍保留同一协作对，并在 summary 说明人工复核范围。
 - `at` 使用带时区的完整时间；`summary` 只描述本次实际变化；有 PR/commit 时填写可核验证据。
 - 小型错别字可合并成一条记录，但只要课程文件发生实质变化就必须追加日志。视觉文件的改变也记录在对应课程正文日志中。
