@@ -670,7 +670,7 @@ curated 变化：LangGraph 15 / 132 → 20 / 132；全站 160 / 1090 → 165 / 1
 PR：https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/16（已 squash 合并为 de97775，Pages 部署 run 30624292986 成功）。
 ```
 
-当前自动化五课批次（2026-08-01，待发布）：
+最近一次自动化五课批次（2026-08-01，已上线）：
 
 ```text
 自动化：ailearninglab
@@ -684,6 +684,8 @@ curated 变化：PyTorch 15 / 120 → 20 / 120；全站 165 / 1090 → 170 / 109
 视觉决策：五个课程级索引依次为 tensor（重复下标覆盖 vs 累加分叉）、flow（原地写的三道门）、tensor（type promotion 三桶归并）、flow（方程降解成 bmm 的五个阶段）、flow（一次 add_ 的键集合并与逐层清位）；均为可计算实验，无 ImageGen 资产。
 协作署名：@h0ll0w-AkuZr0guY × OpenAI Codex · GPT-5.6 Terra。
 可运行示例：examples/torch/16_index_put_accumulate.py、17_inplace_constraints.py、18_type_promotion.py、19_einsum_lowering.py、20_dispatch_keyset.py，五个脚本均在本机 torch 2.13.0+cpu 上通过，且各自同时包含正常路径与失败路径断言。
+本地检查：curriculum:audit 通过；五个示例全部 PASS；pnpm install --frozen-lockfile 无漂移；nuxt generate EXIT=0（2235 个文件、11 条轨道全量预渲染、0 error）；git diff --check 干净；密钥扫描 0 命中；dist/.output/.nuxt/node_modules/.pnpm-store 均已忽略。
 下一 pending：torch-03-01 requires_grad（模块 02 已 10 / 10 完成）。
-PR：https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/17
+PR：https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/17（已 squash 合并为 05e634c2dfe9ebd31d824f0c54db677301b765d9，远程分支已删除，Pages 部署 run 30686165035 成功）。
+线上校验：五个 URL 均 HTTP 200，标题、分章、视觉块、署名与 v2.13.0 基线齐全。
 ```
