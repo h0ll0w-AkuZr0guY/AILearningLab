@@ -22,7 +22,8 @@ curated：vLLM 10/11 → 11/11（100%）；全站 180/195 → 181/195；视觉 7
 浏览器验收：CDP 驱动 Chrome headless 完成标题（h1 长标题）、官方锚点（#online-benchmark 卡片链接）、v0.26.0 源码链接与行区间、复制按钮、答案展开、上一题/下一题、视觉 7 步单步/上一步/重置/键盘可聚焦/窄屏/reduced-motion、控制台零错误；headTitle=null 与正文段落 Markdown 链接不渲染为 <a> 为全站既有行为（与已上线 vllm-01-07/01-10 一致）。
 下一 pending：vLLM 模块 01 已 11/11 完成，vLLM 路线 100% curated 退出候选池；下一批可从 LangChain（7 pending）或 TypeScript（established 7 pending）中随机选择。
 分支：agent/curriculum-vllm-vllm-01-11
-PR：https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/25（已 squash 合并为 d4ad90b633da8e58bdc7232b614a138d02beb472，远程分支已删除；Pages 部署与线上验收待本批继续完成）
+PR：https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/25（已 squash 合并为 d4ad90b633da8e58bdc7232b614a138d02beb472，远程分支已删除；回写 ba9e9ba 推送后 Pages 部署 run 30699413050 成功）
+线上验收：https://h0ll0w-akuzr0guy.github.io/AILearningLab/tracks/vllm/lessons/vllm-01-11 浏览器层 10/10 通过（h1 长标题、官方锚点、v0.26.0 源码链接与行区间、BenchmarkMetrics/goodput 符号、答案按钮、7 个导航链接、视觉单步按钮、署名、资料图谱入口、控制台零错误）。
 ```
 
 ## 1. 最终目标
