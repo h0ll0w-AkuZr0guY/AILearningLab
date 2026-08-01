@@ -19,6 +19,7 @@ corepack pnpm dev
 - 源码与官方文档图谱：`docs/SOURCE_KNOWLEDGE_GRAPH.md`
 - 课程路线与模块目录：`content/curriculum/<track>/track.md`、`content/curriculum/<track>/<module>/catalog.md`
 - 课程拆分目标：`docs/CURRICULUM_RECONSTRUCTION_TARGET.md`
+- 课程质量检阅标准：`docs/CURRICULUM_REVIEW_STANDARD.md`
 - 页面或构建贡献：相关 Vue、TypeScript、脚本及现有 CSS 约定
 
 ## 选择贡献类型
@@ -179,6 +180,15 @@ git diff --check
 还必须逐个运行五课新增的可执行示例，检查敏感信息与忽略规则，并在本地浏览器验收五页的标题、官方锚点、真实源码、复制、全部答案、上一题/下一题、长标题、分栏、视觉交互、键盘、窄屏、reduced motion 和控制台。
 
 发布从最新 `origin/main` 创建独立分支与 draft PR。PR URL 回写恢复文档后，复核 diff 只包含本批文件，再标记 ready。只有本地验证与可用 GitHub checks 全部通过、PR 无冲突且权限足够时，才能 squash merge 并删除远端内容分支。合并后等待 Pages 工作流成功，并在线复验五个课程 URL 的正文、源码、答案与本批实际包含的视觉交互。部署或线上验收失败时保留证据并停止，不开始下一批。
+
+## 课程质量检阅
+
+存量深化课程需要定期检阅，方法与判定标准见 `docs/CURRICULUM_REVIEW_STANDARD.md`。要点：
+
+- 检阅至少覆盖：内容证据（官方锚点、源码版本固定、更新日志、署名纪律）、视觉异常与充分性、时间预算校准、状态与深度匹配。
+- 自动化批次每次开工前对目标及相邻路线做轻量检阅；每完成 5 个批次或用户要求时做全站检阅。
+- 发现的问题按 P1（规则偏差）/P2（历史欠账）/P3（建议优化）记录到恢复文档的检阅节，修复一项划掉一项。
+- **修改任何专题都必须遵守「课程更新日志与人类 × AI 署名」：追加新记录，禁止覆盖或删除历史记录。**
 
 ## 本地检查
 

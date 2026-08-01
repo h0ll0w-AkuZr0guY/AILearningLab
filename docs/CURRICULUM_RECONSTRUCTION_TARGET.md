@@ -711,3 +711,20 @@ curated 变化：vLLM 0 / 92 → 5 / 92；全站 170 / 1090 → 175 / 1090。
 PR：https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/18（已 squash 合并为 4b121c910072b3135b013b1deea8c9a49af0ee3c，远程分支已删除，Pages 部署 run 30691037221 成功）。
 线上校验：五个 URL 均 HTTP 200，标题、源码 tab（v0.26.0 锚点）、署名、视觉卡片、答案与导航齐全。
 ```
+
+存量课程质量检阅（2026-08-01，覆盖 73 篇非 Python curated）：
+
+```text
+范围：TypeScript 13 / LangGraph 20 / Transformer 10 / PyTorch 20 / LangChain 5 / vLLM 5（Python 102 按既定规则除外）。
+方法：脚本化采集（审计 + 正文密度 + 源码 URL 版本 + 视觉块统计）+ 人工复核；规则落盘见 docs/CURRICULUM_REVIEW_STANDARD.md。
+内容证据：
+- 正常：全部 deep 课满足官方锚点（页面有子锚点的均带 #）、四段时间合计 = estimatedMinutes、无占位符与跨课复制。
+- P1：TypeScript 13 课源码 URL 指向 v8 `main`/`refs/heads/main` 可变分支（部分缺 #L 行区间），需逐课联网核验 tag/commit 与行区间后修复。
+- P1：Transformer 10 课为 depth: foundation 首轮短文（无官方入口/真实源码/分章/时间预算/更新日志）却被标记 curated，且与 Python 豁免处理不一致；待用户确认后决定状态调整或纳入深化批次重写。
+- P2：52 篇 curated 课缺 `## 更新日志`（typescript 13、langgraph-01 10、torch 14、transformer 10、langchain 5），属更新日志规则生效前的历史欠账；按下一次实质修改时补录（有 Git/PR 证据）处理。
+- P3：langchain-01-04/05（reference.langchain.com API 页）、vllm-01-01（vllm.ai blog）官方 URL 无 # 锚点，属页面无子锚点的可接受情形，note 已说明。
+视觉：73 篇全部有伴随索引；非图片视觉均 ≥3 步、有观察重点、placement 合法、无失效组件/空索引/装饰图；72 篇各 1 块、transformer-01-07 双块（tensor+image）合规；单块均锚定正文明确学习障碍，充分性判定规则已落盘。无异常。
+时间预算：全部 deep 课四段合计 = estimatedMinutes；阅读密度 typescript 72-110、langgraph-01 73-88、torch 73-136、langchain 91-105、vllm 158-233 字/分钟；代码密度高的课密度低属正常，vllm 阅读时间偏紧但可接受；无严重失真，未批量改动。
+署名：检阅未修改任何专题正文，无新增课程日志；vllm 五课 ai 字段为 WorkBuddy · DeepSeek-V4-Flash，历史批次 Hy3 记录保留为审计事实。
+队列：P1 TypeScript 源码版本固定（13 课）；P1 Transformer 状态与深度（10 课，待用户决策）；P2 更新日志补录（52 课）。
+```
