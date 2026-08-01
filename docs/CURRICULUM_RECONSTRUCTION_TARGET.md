@@ -692,11 +692,11 @@ PR：https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/17（已 squash 合�
 线上校验：五个 URL 均 HTTP 200，标题、分章、视觉块、署名与 v2.13.0 基线齐全。
 ```
 
-当前自动化五课批次（2026-08-01，vLLM，待发布）：
+当前自动化五课批次（2026-08-01，vLLM，已上线）：
 
 ```text
 自动化：ailearninglab
-恢复：发现上一触发已认领 vllm 模块 01 的 vllm-01-01 ~ vllm-01-05（catalog 已改题名并 claimed、sourceScope 已更新为 vllm/v1/core/sched/scheduler.py），但零提交、无正文；按恢复规则只补齐该批，不新增第 6 课。
+恢复：发现上一触发已认领 vLLM 模块 01 的 vllm-01-01 ~ vllm-01-05（catalog 已改题名并 claimed、sourceScope 已更新为 vllm/v1/core/sched/scheduler.py），但零提交、无正文；按恢复规则只补齐该批，不新增第 6 课。
 分支：agent/curriculum-vllm-vllm-01-01-to-vllm-01-05
 curated 变化：vLLM 0 / 92 → 5 / 92；全站 170 / 1090 → 175 / 1090。
 课程：vllm-01-01 prefill 与 decode：V1 调度器为什么取消了阶段划分；vllm-01-02 TTFT 与 TPOT：四段区间如何从事件时间戳算出来；vllm-01-03 batching 权衡：token 预算、并发上限与抢占代价；vllm-01-04 显存占用：gpu_memory_utilization 到底以什么为基数；vllm-01-05 显存带宽：decode 为什么算不满 GPU。
@@ -705,6 +705,9 @@ curated 变化：vLLM 0 / 92 → 5 / 92；全站 170 / 1090 → 175 / 1090。
 视觉决策：五个课程级索引依次为 flow（预算分配与切块）、flow（事件时间线四区间）、state（抢占生命周期）、tensor（显存预算三租户）、tensor（decode/prefill 算术强度对比）；均为可验证数字步骤，无 ImageGen 资产。
 协作署名：@h0ll0w-AkuZr0guY × WorkBuddy · Hy3。
 可运行示例：examples/vllm/01–05 五个离线合同实验（统一预算、延迟区间、抢占与重算、显存基数、roofline），全部通过且各自包含正常与失败路径断言。
+本地检查：curriculum:audit 通过（vLLM 5/92、视觉 5/5、全站 175/1090）；五个示例全部 PASS；pnpm 11.17.0 --frozen-lockfile 无漂移；nuxt generate EXIT=0（2214 路由、2234 文件）；git diff --check 干净；敏感信息扫描 0 命中；构建产物均在 .gitignore。
+浏览器验收：CDP 驱动 Chrome headless 对五页完成标题、官方锚点、v0.26.0 源码链接与复制、全部答案展开、上一题/下一题、长标题、视觉卡片单步推进与观察任务、键盘可聚焦、reduced-motion 仿真、375px 窄屏与控制台零错误验收，全部通过。
 下一 pending：vllm-01-06 request shape。
-PR：https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/18
+PR：https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/18（已 squash 合并为 4b121c910072b3135b013b1deea8c9a49af0ee3c，远程分支已删除，Pages 部署 run 30691037221 成功）。
+线上校验：五个 URL 均 HTTP 200，标题、源码 tab（v0.26.0 锚点）、署名、视觉卡片、答案与导航齐全。
 ```
