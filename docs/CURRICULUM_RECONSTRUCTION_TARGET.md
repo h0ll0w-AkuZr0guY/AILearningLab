@@ -4,6 +4,27 @@
 >
 > 最后更新：2026-08-01
 
+## 0. 当前自动化五课批次（2026-08-01，vLLM 尾批次恢复，待发布）
+
+```text
+自动化：ailearninglab（批次 7）
+触发类型：恢复批次。开工检查发现工作树存在 vllm-01-11 的完整未提交内容（catalog 已改 curated + 正文 + 视觉 + 示例，18:35 产生，即批次 6 合并后上次触发遗留），且远端无内容分支、无开放 PR、最近 Actions 全部成功；按恢复规则只完成该课，不写五课。
+随机选择：无（恢复批次）。候选池现状：vLLM 已 100% curated 退出；LangChain 7 pending 可形成五课、TypeScript 7 pending（established 模块 1+6？按 established 过滤后 7）；Python 永久排除。
+curated：vLLM 10/11 → 11/11（100%）；全站 180/195 → 181/195；视觉 78 → 79（非 Python）。
+课程：vllm-01-11 服务基线：vllm bench serve 如何生成、保存并回归对比一份性能基线。
+粒度：vllm-01-11「service baseline」是模块 01 最后一个 pending，为 vLLM 尾批次唯一课题；基准测试与指标口径（01-07/01-09 持续观测）分离为离散验收+回归对比，负载参数不可比是独立失败模型。
+源码基线：vllm-project/vllm v0.26.0（568afb3a13806beb53bb2e6bd518269357b237c0）；引用 vllm/benchmarks/serve.py 的 BenchmarkMetrics（L321-354）、calculate_metrics（L556-735，goodput 判定 L622-645）、结果 JSON 组装（L1140-1250）、save_to_pytorch_benchmark_format（L1400-1433）。
+官方基线：Benchmark CLI · Online Benchmark / Load Pattern Configuration 锚点；--goodput/--request-rate/--burstiness/--max-concurrency/--save-result/--save-detailed 均已联网核验（--goodput 在 CLI 文档未列出但 serve.py argparse 与 check_goodput_args 真实存在）。
+视觉决策：flow 7 步——让五个请求走完服务基线的聚合管线（成功/失败分流、goodput 三 SLO 判定、吞吐分母 dur_s）；无 ImageGen 资产。
+协作署名：@h0ll0w-AkuZr0guY × WorkBuddy · DeepSeek-V4-Flash（本次 model_id deepseek-v4-flash）。
+可运行示例：examples/vllm/11_service_baseline.py（5 组正常/失败断言全部通过）。
+本地检查：curriculum:audit 通过（vLLM 11/11、视觉 11/11、全站 181/195）；示例 PASS；pnpm 11.17.0 --frozen-lockfile 无漂移；nuxt generate EXIT=0（420 路由、全站预渲染）；git diff --check 干净；敏感信息扫描 0 命中；构建产物均在 .gitignore。
+浏览器验收：CDP 驱动 Chrome headless 完成标题（h1 长标题）、官方锚点（#online-benchmark 卡片链接）、v0.26.0 源码链接与行区间、复制按钮、答案展开、上一题/下一题、视觉 7 步单步/上一步/重置/键盘可聚焦/窄屏/reduced-motion、控制台零错误；headTitle=null 与正文段落 Markdown 链接不渲染为 <a> 为全站既有行为（与已上线 vllm-01-07/01-10 一致）。
+下一 pending：vLLM 模块 01 已 11/11 完成，vLLM 路线 100% curated 退出候选池；下一批可从 LangChain（7 pending）或 TypeScript（established 7 pending）中随机选择。
+分支：agent/curriculum-vllm-vllm-01-11
+PR：https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/25
+```
+
 ## 1. 最终目标
 
 逐课程、逐模块、逐课题完成以下 10 条技术路线的深度内容重构：
@@ -296,22 +317,21 @@ rg -n "完整课题标题" content/curriculum/<track>
 截至 2026-08-01 最近一次内容审计：
 
 ```text
-全站：175 / 195 已精写，20 待完成（PR #22 已清理 86 个模板占位 catalog，全站课题从 1096 收敛到 195）
+全站：181 / 195 已精写，14 待完成（vllm-01-11 已认领并精写，vLLM 11/11 100%）
 Python：102 / 102
 TypeScript：13 / 20
 LangGraph：20 / 20
 Transformer：10 / 10
 PyTorch：20 / 20
 LangChain：5 / 12
-vLLM：5 / 11
+vLLM：11 / 11（100% 完成，退出候选池）
 Nuxt / Deep Agents / LoRA：全部模块 draft（0 课题，草案阶段不计入候选池）
 ```
 
 当前应继续的课题是：
 
 ```text
-vLLM / vllm-01-06
-请求形状（模块 01「推理服务的性能模型」前五课 vllm-01-01 ~ vllm-01-05 已全部精写并上线，下一 pending 入口为 vllm-01-06；PyTorch 的下一入口仍为 torch-03-01 requires_grad）
+LangChain / langchain-01-06（模块 01 已有 5 课精写，下一 pending 入口为 langchain-01-06 batch 与 stream；vLLM 已 100% curated，下一批可在 LangChain 与 TypeScript established 模块间随机选择）
 ```
 
 若工作树中该课已经精写，则继续本模块下一个 pending 课题，不依赖上述快照。
@@ -319,14 +339,14 @@ vLLM / vllm-01-06
 截至 2026-08-01 的视觉覆盖复审：
 
 ```text
-全站 curated：175
-当前视觉规范覆盖：非 Python 73 / 73
+全站 curated：181
+当前视觉规范覆盖：非 Python 79 / 79
 TypeScript：13 / 13
 LangGraph：20 / 20
 Transformer：10 / 10
 PyTorch：20 / 20
 LangChain：5 / 5
-vLLM：5 / 5
+vLLM：11 / 11
 Python：102 篇首轮正文保留，视觉索引撤回；该路线需按当前长课、证据和视觉决策规范逐模块重构。
 视觉文件不计入 curated 数量；“覆盖”只表示存在经过决策的伴随索引，不表示每课使用同一种媒介。
 ```
@@ -760,4 +780,17 @@ PR：https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/23（已 squash 合�
 - P2：langchain-01-01 ~ 01-05 五篇缺 `## 更新日志`（历史欠账，规则要求下一次实质修改时补录，本批不修改 langchain 课程，不阻塞）。
 视觉：10 篇全部有伴随索引；非图片视觉均 ≥3 步、有观察重点、placement 合法；无异常。
 队列：新增 P2 LangChain 更新日志补录（5 课）；原队列 P1 TypeScript 源码版本固定（13 课）、P1 Transformer 状态与深度（10 课，待用户决策）、P2 更新日志补录（52 课）保持不变。
+```
+
+启动前存量检阅（2026-08-01，批次 7 恢复开工前）：
+
+```text
+范围：目标路线 vLLM 模块 01（11 篇 curated，含本批 vllm-01-11）+ 相邻路线 LangChain 模块 01（5 篇 curated），共 16 篇。
+方法：脚本化采集（scripts/review-quick.mjs：审计 + 正文 CJK 密度 + 源码 URL 版本固定 + 视觉块统计）+ 人工复核；规则依据 docs/CURRICULUM_REVIEW_STANDARD.md 第 2-4 节。
+内容证据：
+- 正常：16 篇均满足四段时间合计 = estimatedMinutes；vllm 11 篇密度 149-213 字/分、源码固定 v0.26.0 tag 且带行区间、视觉 5-7 步且有观察重点；langchain 5 篇密度 90-104 字/分（API 参数密集属可接受）、源码固定 commit。
+- P3 例外：vllm-01-01 官方 URL 为 vllm.ai blog 单页无子锚点、langchain-01-04/05 为 reference.langchain.com API 页无子锚点（note 已说明约束，可接受）。
+- P2：langchain-01-01 ~ 01-05 五篇缺 `## 更新日志`（历史欠账，规则要求下一次实质修改时补录；本批不修改 langchain 课程，不阻塞）。
+视觉：16 篇全部有伴随索引；非图片视觉均 ≥3 步、有观察重点、placement 合法；无异常。
+队列：新增 P2 LangChain 更新日志补录（5 课，保持不变）；原队列 P1 TypeScript 源码版本固定（13 课）、P1 Transformer 状态与深度（10 课，待用户决策）、P2 更新日志补录（52 课）保持不变。
 ```

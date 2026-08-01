@@ -137,11 +137,11 @@ granularity: "单点精讲"
 
 ## vllm-01-11
 
-title: "service baseline"
-status: pending
+title: "服务基线：vllm bench serve 如何生成、保存并回归对比一份性能基线"
+status: curated
 owner: ""
 difficulty: "中等"
-difficultyReason: "需要同时掌握公开契约、一个主要失败边界和对应实现路径。"
+difficultyReason: "需要把 BenchmarkMetrics 的吞吐/延迟字段、goodput 判定与负载参数（request-rate/burstiness/max-concurrency）串成一条可复现的服务基线，并理解结果 JSON 与 pytorch 格式保存如何支撑回归对比。"
 learningValue: "基础必修"
 learningValueScore: 4
 estimatedMinutes: 45
