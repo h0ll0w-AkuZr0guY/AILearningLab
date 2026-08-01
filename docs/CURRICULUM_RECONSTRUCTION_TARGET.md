@@ -2,7 +2,7 @@
 
 > 本文件是课程重构工作的长期恢复锚点。聊天记录、活动目标或网络状态不可用时，以当前工作树、本文件、课程审计结果和实际页面为准继续工作。
 >
-> 最后更新：2026-07-31
+> 最后更新：2026-08-01
 
 ## 1. 最终目标
 
@@ -293,35 +293,36 @@ rg -n "完整课题标题" content/curriculum/<track>
 8. 打开对应页面做 DOM 与截图验收。
 9. 完成一个模块后运行 `corepack pnpm generate`。
 
-截至 2026-07-30 最近一次内容审计：
+截至 2026-08-01 最近一次内容审计：
 
 ```text
-全站：150 / 1090 已精写，940 待完成
+全站：170 / 1090 已精写，920 待完成
 Python：102 / 102
 TypeScript：13 / 114
-LangGraph：10 / 132
+LangGraph：20 / 132
 Transformer：10 / 120
-PyTorch：15 / 120
+PyTorch：20 / 120
+LangChain：5 / 120
 ```
 
 当前应继续的课题是：
 
 ```text
-PyTorch / torch-02-06
-expand 与 repeat
+PyTorch / torch-03-01
+requires_grad（模块 02「索引与广播」10 / 10 已全部精写，下一模块入口为 03 · Autograd 图与反向传播）
 ```
 
 若工作树中该课已经精写，则继续本模块下一个 pending 课题，不依赖上述快照。
 
-截至 2026-07-31 的视觉覆盖复审：
+截至 2026-08-01 的视觉覆盖复审：
 
 ```text
-全站 curated：155
-当前视觉规范覆盖：非 Python 53 / 53
+全站 curated：170
+当前视觉规范覆盖：非 Python 68 / 68
 TypeScript：13 / 13
-LangGraph：10 / 10
+LangGraph：20 / 20
 Transformer：10 / 10
-PyTorch：15 / 15
+PyTorch：20 / 20
 LangChain：5 / 5
 Python：102 篇首轮正文保留，视觉索引撤回；该路线需按当前长课、证据和视觉决策规范逐模块重构。
 视觉文件不计入 curated 数量；“覆盖”只表示存在经过决策的伴随索引，不表示每课使用同一种媒介。
@@ -666,5 +667,23 @@ curated 变化：LangGraph 15 / 132 → 20 / 132；全站 160 / 1090 → 165 / 1
 协作署名：@h0ll0w-AkuZr0guY × OpenAI Codex · GPT-5.6 Terra。
 可运行示例：五个 Markdown 内嵌的离线 Python 合同实验，分别覆盖正常与失败断言。
 下一 pending：langgraph-03-01。
-PR：https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/16（draft；本地浏览器与 Pages 验收待完成）。
+PR：https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/16（已 squash 合并为 de97775，Pages 部署 run 30624292986 成功）。
+```
+
+当前自动化五课批次（2026-08-01，待发布）：
+
+```text
+自动化：ailearninglab
+随机候选池：deepagents、langchain、langgraph、lora、nuxt、torch、transformer、typescript、vllm；Python 已 102 / 102 且按规则永久排除。
+随机选择：PyTorch。
+分支：agent/curriculum-torch-torch-02-06-to-torch-02-10
+curated 变化：PyTorch 15 / 120 → 20 / 120；全站 165 / 1090 → 170 / 1090。
+课程：torch-02-06 index_put_ 与索引赋值；torch-02-07 in-place 约束；torch-02-08 type promotion；torch-02-09 einsum；torch-02-10 operator dispatch。
+粒度：原目录的 torch-02-06「expand 与 repeat」与模块 01 已精写的 torch-01-08 完全重题，按合并规则并入 torch-01-08，空出的最终课题改为「索引写回」，它是 torch-02-02 高级索引「读」路径的对偶「写」路径且全站无覆盖；其余四课分别对应写回约束、dtype 归并、方程降解与 kernel 选择四套互不重叠的失败模型，不能合并为「张量操作进阶」。torch-02-10 只讲「一次调用如何选出 kernel」这一语义层，DispatchKey 全量枚举与自定义算子注册留给模块 10。
+源码与文档基线：pytorch/pytorch v2.13.0（cf30153c4c131c8164ee7798e5022d810682e2cb）；引用符号 _index_put_impl_（TensorAdvancedIndexing.cpp L962-1025）、has_internal_overlap（MemoryOverlap.cpp L11-54）、combine_categories/result_type（TypeProperties.cpp L83-146）、sumproduct_pair（Linear.cpp L166-273）、computeDispatchKeySet（DispatchKeyExtractor.h L24-47）；官方文档锚点分别指向 Tensor.index_put_、Autograd mechanics 的 in-place 小节、Type promotion 文档、torch.einsum 与 Extending torch native API。
+视觉决策：五个课程级索引依次为 tensor（重复下标覆盖 vs 累加分叉）、flow（原地写的三道门）、tensor（type promotion 三桶归并）、flow（方程降解成 bmm 的五个阶段）、flow（一次 add_ 的键集合并与逐层清位）；均为可计算实验，无 ImageGen 资产。
+协作署名：@h0ll0w-AkuZr0guY × OpenAI Codex · GPT-5.6 Terra。
+可运行示例：examples/torch/16_index_put_accumulate.py、17_inplace_constraints.py、18_type_promotion.py、19_einsum_lowering.py、20_dispatch_keyset.py，五个脚本均在本机 torch 2.13.0+cpu 上通过，且各自同时包含正常路径与失败路径断言。
+下一 pending：torch-03-01 requires_grad（模块 02 已 10 / 10 完成）。
+PR：https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/17
 ```
