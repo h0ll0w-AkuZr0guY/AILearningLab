@@ -2,8 +2,8 @@
 track: "typescript"
 id: "typescript-01"
 order: 1
-title: "01 · JavaScript 运行时地基"
-goal: "先掌握 ECMAScript 的值、引用、环境记录、对象内部方法和 Job，再讨论 TypeScript 能证明什么。"
+title: "01 · 值、对象与执行模型"
+goal: "从 JS 的值类型、对象内部结构、闭包和 this 建立最小的运行时心智模型；为后续类型系统的学习提供规范依据。"
 lab: "写出一组对象、闭包、this、Promise 与模块的可运行反例，并用规范算法解释结果。"
 interview: "TS 为什么无法消除所有 JavaScript 运行时风险？"
 officialScope: "https://www.typescriptlang.org/docs/"
@@ -11,7 +11,9 @@ sourceScope: "src/compiler/parser.ts"
 planningStatus: established
 ---
 
-# 01 · JavaScript 运行时地基
+# 01 · 值、对象与执行模型
+
+<!-- 审计重构方向（2026-08-01）：推荐学习路径为 01-01→01-02→01-05→01-06→01-10 第一轮核心五课；其余 8 课在后续模块按需回溯。完整方案见 docs/CURRICULUM_AUDIT_2026-08-01.md #1。 -->
 
 本文件是模块级课程目录，也是认领入口。增删、拆分或合并课题时先修改这里；正文文件只承载已经进入精写阶段的单课内容。
 
