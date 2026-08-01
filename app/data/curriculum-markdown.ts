@@ -227,7 +227,7 @@ export function parseModuleMarkdown(raw: string, path: string): ModuleMarkdownDo
     }
   })
 
-  if (!topics.length) throw new Error(`${path}: 模块目录没有课题`)
+  if (!topics.length && planningStatus !== 'draft') throw new Error(`${path}: 模块目录没有课题；草案模块允许零课题`)
   return {
     path,
     track: currentTrack,
