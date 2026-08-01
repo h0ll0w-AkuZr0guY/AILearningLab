@@ -296,21 +296,22 @@ rg -n "完整课题标题" content/curriculum/<track>
 截至 2026-08-01 最近一次内容审计：
 
 ```text
-全站：175 / 1090 已精写，915 待完成
+全站：175 / 195 已精写，20 待完成（PR #22 已清理 86 个模板占位 catalog，全站课题从 1096 收敛到 195）
 Python：102 / 102
-TypeScript：13 / 114
-LangGraph：20 / 132
-Transformer：10 / 120
-PyTorch：20 / 120
-LangChain：5 / 120
-vLLM：5 / 92
+TypeScript：13 / 20
+LangGraph：20 / 20
+Transformer：10 / 10
+PyTorch：20 / 20
+LangChain：5 / 12
+vLLM：5 / 11
+Nuxt / Deep Agents / LoRA：全部模块 draft（0 课题，草案阶段不计入候选池）
 ```
 
 当前应继续的课题是：
 
 ```text
 vLLM / vllm-01-06
-request shape（模块 01「推理服务的性能模型」前五课 vllm-01-01 ~ vllm-01-05 已全部精写并上线，下一 pending 入口为 vllm-01-06；PyTorch 的下一入口仍为 torch-03-01 requires_grad）
+请求形状（模块 01「推理服务的性能模型」前五课 vllm-01-01 ~ vllm-01-05 已全部精写并上线，下一 pending 入口为 vllm-01-06；PyTorch 的下一入口仍为 torch-03-01 requires_grad）
 ```
 
 若工作树中该课已经精写，则继续本模块下一个 pending 课题，不依赖上述快照。
@@ -727,4 +728,35 @@ PR：https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/18（已 squash 合�
 时间预算：全部 deep 课四段合计 = estimatedMinutes；阅读密度 typescript 72-110、langgraph-01 73-88、torch 73-136、langchain 91-105、vllm 158-233 字/分钟；代码密度高的课密度低属正常，vllm 阅读时间偏紧但可接受；无严重失真，未批量改动。
 署名：检阅未修改任何专题正文，无新增课程日志；vllm 五课 ai 字段为 WorkBuddy · DeepSeek-V4-Flash，历史批次 Hy3 记录保留为审计事实。
 队列：P1 TypeScript 源码版本固定（13 课）；P1 Transformer 状态与深度（10 课，待用户决策）；P2 更新日志补录（52 课）。
+```
+
+当前自动化五课批次（2026-08-01，vLLM 模块 01 深化，待发布）：
+
+```text
+自动化：ailearninglab
+随机候选池：deepagents、langchain、langgraph、lora、nuxt、torch、transformer、typescript、vllm；Python 按规则排除；Nuxt/DeepAgents/LoRA 全 draft 不计入；LangGraph/Transformer/PyTorch 已 100% curated 退出。
+随机选择：vLLM（随机原始值 0.6204672842306511，index 1）。
+分支：agent/curriculum-vllm-vllm-01-06-to-vllm-01-10
+curated 变化：vLLM 5 / 11 → 10 / 11；全站 175 / 195 → 180 / 195。
+课程：vllm-01-06 请求形状（prompt 长度、max_tokens、priority 与到达时间如何决定一次调度的账本）；vllm-01-07 SLO 与 goodput（TTFT/TPOT/E2EL 目标如何在负载验收中被度量）；vllm-01-08 等待队列（FCFS 与 priority 队列、抢占回队与 skipped waiting）；vllm-01-09 吞吐与延迟指标（prompt/generation token、TTFT/TPOT 直方图与 e2e 延迟的口径）；vllm-01-10 容量模型（KV cache 块数、watermark 与并发上限如何共同决定服务能力）。
+粒度：原目录 vllm-01-06「request shape」、vllm-01-07「SLO」、vllm-01-08「queueing」、vllm-01-09「throughput metric」、vllm-01-10「capacity model」为名词堆叠，按真实机制改写为可独立学习的课题；五课分别覆盖请求字段模型、SLO 统计口径、队列数据结构、指标事件因果链、容量方程五套互不重叠的失败模型。vllm-01-11 service baseline 保留为下一 pending。
+源码与文档基线：vllm-project/vllm v0.26.0（568afb3a13806beb53bb2e6bd518269357b237c0，2026-07-27 发布）；引用符号 Request.__init__/__lt__/num_tokens_with_spec（vllm/v1/request.py L59-341）、FCFSRequestQueue/PriorityRequestQueue/create_request_queue（vllm/v1/core/sched/request_queue.py L13-207）、Scheduler 双队列与 peek/pop/prepend（vllm/v1/core/sched/scheduler.py L183-185、L667-706、L1233、L1974-1986、L2118）、IterationStats.update_from_output/update_from_finished_request（vllm/v1/metrics/stats.py L349-529）、get_kv_cache_configs（vllm/v1/core/kv_cache_utils.py L2036-2175）；官方锚点分别指向 engine_args 的 SchedulerConfig/CacheConfig、usage/metrics 的 General Metrics、features/per_request_metrics 的 Response Format、benchmarking/cli 的 Load Pattern Configuration、usage/v1_guide 的调度策略。
+视觉决策：五个课程级索引依次为 flow（请求排序与欠账追平）、flow（goodput 三门槛判定）、state（双队列内部次序对比）、flow（事件时间戳五区间）、tensor（KV 块池占用与并发上限）；均为可计算步骤，无 ImageGen 资产。
+协作署名：@h0ll0w-AkuZr0guY × WorkBuddy · DeepSeek-V4-Flash（本批自动化 model_id 为 deepseek-v4-flash，按实际运行模型署名）。
+可运行示例：examples/vllm/06–10 五个离线合同实验（请求形状、SLO/goodput、等待队列、吞吐指标、容量模型），全部通过且各自包含正常与失败路径断言。
+本地检查：curriculum:audit 通过（vLLM 10/11、视觉 10/10、全站 180/195）；五个示例全部 PASS；pnpm 11.17.0 --frozen-lockfile 无漂移；nuxt generate EXIT=0（420 路由、全站预渲染）；git diff --check 干净；敏感信息扫描 0 命中；构建产物均在 .gitignore。
+下一 pending：vllm-01-11 service baseline（模块 01 仅剩 1 个 pending）。
+PR：https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/23
+```
+
+启动前存量检阅（2026-08-01，批次 6 开工前）：
+
+```text
+范围：目标路线 vLLM 模块 01（5 篇 curated）+ 相邻路线 LangChain 模块 01（5 篇 curated），共 10 篇。
+方法：脚本化采集（审计 + 正文密度 + 源码 URL 版本 + 视觉块统计）+ 人工复核；规则依据 docs/CURRICULUM_REVIEW_STANDARD.md 第 2-4 节。
+内容证据：
+- 正常：10 篇均满足官方锚点（vllm-01-01 为 vllm.ai blog 单页、langchain-01-04/05 为 reference.langchain.com API 页，属页面无子锚点的 P3 例外，note 已说明）、源码固定 tag/commit 且带行区间、四段时间合计 = estimatedMinutes、视觉 ≥3 步且有观察重点。
+- P2：langchain-01-01 ~ 01-05 五篇缺 `## 更新日志`（历史欠账，规则要求下一次实质修改时补录，本批不修改 langchain 课程，不阻塞）。
+视觉：10 篇全部有伴随索引；非图片视觉均 ≥3 步、有观察重点、placement 合法；无异常。
+队列：新增 P2 LangChain 更新日志补录（5 课）；原队列 P1 TypeScript 源码版本固定（13 课）、P1 Transformer 状态与深度（10 课，待用户决策）、P2 更新日志补录（52 课）保持不变。
 ```
