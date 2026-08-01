@@ -730,7 +730,7 @@ PR：https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/18（已 squash 合�
 队列：P1 TypeScript 源码版本固定（13 课）；P1 Transformer 状态与深度（10 课，待用户决策）；P2 更新日志补录（52 课）。
 ```
 
-当前自动化五课批次（2026-08-01，vLLM 模块 01 深化，待发布）：
+当前自动化五课批次（2026-08-01，vLLM 模块 01 深化，已上线）：
 
 ```text
 自动化：ailearninglab
@@ -745,8 +745,9 @@ curated 变化：vLLM 5 / 11 → 10 / 11；全站 175 / 195 → 180 / 195。
 协作署名：@h0ll0w-AkuZr0guY × WorkBuddy · DeepSeek-V4-Flash（本批自动化 model_id 为 deepseek-v4-flash，按实际运行模型署名）。
 可运行示例：examples/vllm/06–10 五个离线合同实验（请求形状、SLO/goodput、等待队列、吞吐指标、容量模型），全部通过且各自包含正常与失败路径断言。
 本地检查：curriculum:audit 通过（vLLM 10/11、视觉 10/10、全站 180/195）；五个示例全部 PASS；pnpm 11.17.0 --frozen-lockfile 无漂移；nuxt generate EXIT=0（420 路由、全站预渲染）；git diff --check 干净；敏感信息扫描 0 命中；构建产物均在 .gitignore。
+浏览器验收：CDP 驱动 Chrome headless 对五页完成标题、官方锚点、v0.26.0 源码链接与复制、全部答案展开、上一题/下一题、视觉卡片单步推进与观察任务、键盘可聚焦、reduced-motion 仿真、375px 窄屏与控制台零错误验收，全部通过。
 下一 pending：vllm-01-11 service baseline（模块 01 仅剩 1 个 pending）。
-PR：https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/23
+PR：https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/23（已 squash 合并为 ee1a38e1703f8c23bc8bb3609b47179728507263，远程分支已删除）
 ```
 
 启动前存量检阅（2026-08-01，批次 6 开工前）：
