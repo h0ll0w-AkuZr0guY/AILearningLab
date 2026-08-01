@@ -77,23 +77,23 @@ granularity: "单点精讲"
 
 ## vllm-01-06
 
-title: "request shape"
-status: pending
+title: "请求形状：prompt 长度、max_tokens、priority 与到达时间如何决定一次调度的账本"
+status: curated
 owner: ""
-difficulty: "简单"
-difficultyReason: "核心规则较少，可通过一个最小实验直接观察，适合与相邻基础概念合并学习。"
+difficulty: "中等"
+difficultyReason: "需要把 Request 对象的一组字段（prompt 长度、max_tokens、priority、arrival_time、num_tokens_with_spec）映射到调度器的欠账与排序决策，并区分请求级字段与实例级配置的边界。"
 learningValue: "基础必修"
 learningValueScore: 4
-estimatedMinutes: 25
-granularity: "合并基础课"
+estimatedMinutes: 45
+granularity: "单点精讲"
 
 ## vllm-01-07
 
-title: "SLO"
-status: pending
+title: "SLO 与 goodput：TTFT/TPOT/E2EL 目标如何在负载验收中被度量"
+status: curated
 owner: ""
 difficulty: "中等"
-difficultyReason: "需要同时掌握公开契约、一个主要失败边界和对应实现路径。"
+difficultyReason: "需要同时掌握 per-request metrics 的五个字段口径、goodput 的达标判定与负载生成参数（request-rate/burstiness/max-concurrency）之间的相互作用。"
 learningValue: "基础必修"
 learningValueScore: 4
 estimatedMinutes: 45
@@ -101,11 +101,11 @@ granularity: "单点精讲"
 
 ## vllm-01-08
 
-title: "queueing"
-status: pending
+title: "等待队列：FCFS 与 priority 队列、抢占回队与 skipped waiting"
+status: curated
 owner: ""
 difficulty: "中等"
-difficultyReason: "需要同时掌握公开契约、一个主要失败边界和对应实现路径。"
+difficultyReason: "需要同时掌握 deque 与 heap 两种队列的插入/弹出/回队语义、waiting 与 skipped_waiting 的选择规则，以及抢占后 prepend 的次序。"
 learningValue: "基础必修"
 learningValueScore: 4
 estimatedMinutes: 45
@@ -113,11 +113,11 @@ granularity: "单点精讲"
 
 ## vllm-01-09
 
-title: "throughput metric"
-status: pending
+title: "吞吐与延迟指标：prompt/generation token、TTFT/TPOT 直方图与 e2e 延迟的口径"
+status: curated
 owner: ""
 difficulty: "中等"
-difficultyReason: "需要同时掌握公开契约、一个主要失败边界和对应实现路径。"
+difficultyReason: "需要区分计数器、仪表与直方图三类指标，并把 request 级时间戳事件（QUEUED/SCHEDULED/NEW_TOKENS）换算成四段区间与 TPOT 均值。"
 learningValue: "基础必修"
 learningValueScore: 4
 estimatedMinutes: 45
@@ -125,11 +125,11 @@ granularity: "单点精讲"
 
 ## vllm-01-10
 
-title: "capacity model"
-status: pending
+title: "容量模型：KV cache 块数、watermark 与并发上限如何共同决定服务能力"
+status: curated
 owner: ""
 difficulty: "中等"
-difficultyReason: "需要同时掌握公开契约、一个主要失败边界和对应实现路径。"
+difficultyReason: "需要把 gpu_memory_utilization、block_size、max_num_seqs、watermark 与 max_model_len 组合成可计算的容量方程，并解释 capacity-bound 与 prefill-bound 两种受限态。"
 learningValue: "基础必修"
 learningValueScore: 4
 estimatedMinutes: 45
