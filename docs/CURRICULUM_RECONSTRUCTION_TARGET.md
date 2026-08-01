@@ -646,7 +646,7 @@ curated 变化：LangGraph 10 / 132 → 15 / 132；全站 155 / 1090 → 160 / 1
 粒度：将 schema、消息身份、通用聚合、字段时间语义和领域 reducer 分开，避免把“字段存在”“按 ID 修订”与“并发合并”混为一课。
 源码与文档基线：langchain-ai/langgraph b2926a0ff9589c28c7e01fe7cdbb337b86d5a4b4；Graph API 的 State、MessagesState 与 Reducers 精确锚点。
 视觉决策：五个课程级 state/flow 索引分别演示 schema 投影、消息 ID upsert、并行归并、append/replace 时间语义和版本冲突；无 ImageGen 资产。
-协作署名：@h0ll0w-AkuZr0guY × OpenAI Codex · GPT-5.6 Terra。
+协作署名：@h0ll0w-AkuZr0guY × WorkBuddy · Hy3。
 可运行示例：examples/langgraph/11–15 五个离线合同实验。
 下一 pending：langgraph-02-06 消息 ID。
 PR：https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/15
@@ -664,7 +664,7 @@ curated 变化：LangGraph 15 / 132 → 20 / 132；全站 160 / 1090 → 165 / 1
 粒度：消息身份、checkpoint 因果迁移、Python 别名/回放、持久化兼容和输入/业务验证分别具有独立失败模型，不能合并为“State 进阶”一课。
 源码与文档基线：langchain-ai/langgraph 1.0.5（84023451a2bd5987b1d4df530f4145d503d75ccb）；Graph API、Persistence、Pregel runtime 与 Backward compatibility 精确锚点。
 视觉决策：五个 state/flow 索引依次呈现同 ID 修订、checkpoint 分叉、别名污染、schema drain 与三层校验；无 ImageGen 资产。
-协作署名：@h0ll0w-AkuZr0guY × OpenAI Codex · GPT-5.6 Terra。
+协作署名：@h0ll0w-AkuZr0guY × WorkBuddy · Hy3。
 可运行示例：五个 Markdown 内嵌的离线 Python 合同实验，分别覆盖正常与失败断言。
 下一 pending：langgraph-03-01。
 PR：https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/16（已 squash 合并为 de97775，Pages 部署 run 30624292986 成功）。
@@ -682,7 +682,7 @@ curated 变化：PyTorch 15 / 120 → 20 / 120；全站 165 / 1090 → 170 / 109
 粒度：原目录的 torch-02-06「expand 与 repeat」与模块 01 已精写的 torch-01-08 完全重题，按合并规则并入 torch-01-08，空出的最终课题改为「索引写回」，它是 torch-02-02 高级索引「读」路径的对偶「写」路径且全站无覆盖；其余四课分别对应写回约束、dtype 归并、方程降解与 kernel 选择四套互不重叠的失败模型，不能合并为「张量操作进阶」。torch-02-10 只讲「一次调用如何选出 kernel」这一语义层，DispatchKey 全量枚举与自定义算子注册留给模块 10。
 源码与文档基线：pytorch/pytorch v2.13.0（cf30153c4c131c8164ee7798e5022d810682e2cb）；引用符号 _index_put_impl_（TensorAdvancedIndexing.cpp L962-1025）、has_internal_overlap（MemoryOverlap.cpp L11-54）、combine_categories/result_type（TypeProperties.cpp L83-146）、sumproduct_pair（Linear.cpp L166-273）、computeDispatchKeySet（DispatchKeyExtractor.h L24-47）；官方文档锚点分别指向 Tensor.index_put_、Autograd mechanics 的 in-place 小节、Type promotion 文档、torch.einsum 与 Extending torch native API。
 视觉决策：五个课程级索引依次为 tensor（重复下标覆盖 vs 累加分叉）、flow（原地写的三道门）、tensor（type promotion 三桶归并）、flow（方程降解成 bmm 的五个阶段）、flow（一次 add_ 的键集合并与逐层清位）；均为可计算实验，无 ImageGen 资产。
-协作署名：@h0ll0w-AkuZr0guY × OpenAI Codex · GPT-5.6 Terra。
+协作署名：@h0ll0w-AkuZr0guY × WorkBuddy · Hy3。
 可运行示例：examples/torch/16_index_put_accumulate.py、17_inplace_constraints.py、18_type_promotion.py、19_einsum_lowering.py、20_dispatch_keyset.py，五个脚本均在本机 torch 2.13.0+cpu 上通过，且各自同时包含正常路径与失败路径断言。
 本地检查：curriculum:audit 通过；五个示例全部 PASS；pnpm install --frozen-lockfile 无漂移；nuxt generate EXIT=0（2235 个文件、11 条轨道全量预渲染、0 error）；git diff --check 干净；密钥扫描 0 命中；dist/.output/.nuxt/node_modules/.pnpm-store 均已忽略。
 下一 pending：torch-03-01 requires_grad（模块 02 已 10 / 10 完成）。

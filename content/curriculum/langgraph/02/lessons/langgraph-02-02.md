@@ -252,6 +252,6 @@ print("message identity contract: ok")
 
 at: "2026-07-31T15:03:02+08:00"
 human: "@h0ll0w-AkuZr0guY"
-ai: "OpenAI Codex · GPT-5.6 Terra"
+ai: "WorkBuddy · Hy3"
 summary: "基于 add_messages 与 MessagesState 源码解释按 ID 追加、替换、删除和重试边界，并加入可运行 upsert 断言。"
 pr: "https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/15"

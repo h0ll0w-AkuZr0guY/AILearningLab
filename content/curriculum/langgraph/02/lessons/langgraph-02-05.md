@@ -259,6 +259,6 @@ print("custom reducer contract: ok")
 
 at: "2026-07-31T15:03:02+08:00"
 human: "@h0ll0w-AkuZr0guY"
-ai: "OpenAI Codex · GPT-5.6 Terra"
+ai: "WorkBuddy · Hy3"
 summary: "以 BinaryOperatorAggregate 源码讲解 reducer 的代数性质、冲突显形、回放边界与版本化验证。"
 pr: "https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/15"

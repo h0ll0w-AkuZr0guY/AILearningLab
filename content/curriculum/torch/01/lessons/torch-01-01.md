@@ -369,6 +369,6 @@ assert meta.numel() == 12
 
 at: "2026-07-31T14:27:43+08:00"
 human: "h0ll0w-AkuZr0guY"
-ai: "OpenAI Codex · GPT-5"
+ai: "WorkBuddy · Hy3"
 summary: "为课程页接入默认只显示最近贡献、可展开完整历史的人类 × AI 协作日志；本次没有改写课程正文。"
 pr: "https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/14"

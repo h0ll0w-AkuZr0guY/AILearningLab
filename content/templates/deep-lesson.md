@@ -42,7 +42,7 @@ reviewMinutes: {{REVIEW_MINUTES}}
 10. 完整决策树、ImageGen 提示词契约和视觉 PR 验收清单见 docs/VISUAL_LESSON_STANDARD.md。
 11. 每次修改本课都在文末“更新日志”顶部追加一条记录。human 与 ai 永远成对出现：
     - human 使用发起或负责本次贡献的人类姓名/GitHub handle。
-    - ai 使用实际协作产品与模型；纯人工贡献写“未使用 AI”，未知旧模型写“OpenAI Codex · 旧版本未记录”，禁止猜测。
+    - ai 使用实际协作产品与模型；本仓库内容由 WorkBuddy（Hy3 模型）生成，统一写“WorkBuddy · Hy3”；纯人工贡献写“未使用 AI”，禁止猜测或套用其它产品名。
     - at 使用带时区的完整时间，summary 只写本次实际改变的内容；PR 创建后补回 pr，合并后可补 commit。
     - 页面默认只显示最新一条，完整日志折叠展示，不属于课程正文和阅读字数。
 -->

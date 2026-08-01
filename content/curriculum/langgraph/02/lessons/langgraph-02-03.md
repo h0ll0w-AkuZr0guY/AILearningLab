@@ -244,6 +244,6 @@ print("annotated reducer: ok")
 
 at: "2026-07-31T15:03:02+08:00"
 human: "@h0ll0w-AkuZr0guY"
-ai: "OpenAI Codex · GPT-5.6 Terra"
+ai: "WorkBuddy · Hy3"
 summary: "沿聚合 channel 解释 Annotated、同轮写入顺序和 reducer 的代数与副作用边界。"
 pr: "https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/15"

@@ -234,6 +234,6 @@ print("schema migration contract: ok")
 
 at: "2026-07-31T18:11:31+08:00"
 human: "@h0ll0w-AkuZr0guY"
-ai: "OpenAI Codex · GPT-5.6 Terra"
+ai: "WorkBuddy · Hy3"
 summary: "结合兼容文档和 StateGraph schema 代码，补充 checkpoint 迁移、失败隔离、双写与 drain 验证。"
 pr: "https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/16"

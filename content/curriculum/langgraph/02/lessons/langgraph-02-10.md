@@ -246,6 +246,6 @@ print("state validation contract: ok")
 
 at: "2026-07-31T18:11:31+08:00"
 human: "@h0ll0w-AkuZr0guY"
-ai: "OpenAI Codex · GPT-5.6 Terra"
+ai: "WorkBuddy · Hy3"
 summary: "以 StateGraph channel 注册路径区分图结构、数据 schema 与业务不变量，并补充可运行失败断言。"
 pr: "https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/16"

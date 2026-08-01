@@ -225,6 +225,6 @@ print("immutability contract: ok")
 
 at: "2026-07-31T18:11:31+08:00"
 human: "@h0ll0w-AkuZr0guY"
-ai: "OpenAI Codex · GPT-5.6 Terra"
+ai: "WorkBuddy · Hy3"
 summary: "以 StateGraph 部分更新合同讲解别名、纯 reducer、重试污染和大状态的所有权取舍。"
 pr: "https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/16"

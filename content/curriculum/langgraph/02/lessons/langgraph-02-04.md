@@ -241,6 +241,6 @@ print("append versus replace: ok")
 
 at: "2026-07-31T15:03:02+08:00"
 human: "@h0ll0w-AkuZr0guY"
-ai: "OpenAI Codex · GPT-5.6 Terra"
+ai: "WorkBuddy · Hy3"
 summary: "以 LastValue 并发保护解释字段级 append、replace、仲裁与显式重置边界。"
 pr: "https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/15"

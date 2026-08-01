@@ -120,7 +120,7 @@ reviewMinutes: 15
 
 at: "2026-07-31T15:10:00+08:00"
 human: "@your-name"
-ai: "OpenAI Codex · GPT-5.6 Sol"
+ai: "WorkBuddy · Hy3"
 summary: "区分 pending writes 与外部副作用窗口，增加崩溃恢复实验。"
 pr: "https://github.com/owner/repository/pull/123"
 commit: "abcdef1"

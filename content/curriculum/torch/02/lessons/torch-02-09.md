@@ -273,7 +273,7 @@ else:
 
 at: "2026-08-01T11:04:00+08:00"
 human: "@h0ll0w-AkuZr0guY"
-ai: "OpenAI Codex · GPT-5.6 Terra"
+ai: "WorkBuddy · Hy3"
 summary: "基于 PyTorch v2.13.0 的 Linear.cpp sumproduct_pair 精写 einsum 降解链：隐式输出的字典序规则、操作数内重复下标的 diagonal 化简、省略号批量维广播、四类维度分类到 bmm 的完整流水线、opt_einsum 缺席时的从左到右退化，以及四类报错的定位方法。"
 pr: "https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/17"
 commit: "05e634c2dfe9ebd31d824f0c54db677301b765d9"
