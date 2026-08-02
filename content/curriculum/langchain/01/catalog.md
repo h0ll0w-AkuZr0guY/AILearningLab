@@ -78,7 +78,7 @@ granularity: "单点精讲"
 ## langchain-01-06
 
 title: "batch 与 stream"
-status: pending
+status: curated
 owner: ""
 difficulty: "中等"
 difficultyReason: "需要同时掌握公开契约、一个主要失败边界和对应实现路径。"
@@ -90,7 +90,7 @@ granularity: "单点精讲"
 ## langchain-01-07
 
 title: "config 传播"
-status: pending
+status: curated
 owner: ""
 difficulty: "中等"
 difficultyReason: "需要同时掌握公开契约、一个主要失败边界和对应实现路径。"
@@ -102,7 +102,7 @@ granularity: "单点精讲"
 ## langchain-01-08
 
 title: "callback 事件"
-status: pending
+status: curated
 owner: ""
 difficulty: "中等"
 difficultyReason: "需要同时掌握公开契约、一个主要失败边界和对应实现路径。"
@@ -114,7 +114,7 @@ granularity: "单点精讲"
 ## langchain-01-09
 
 title: "序列化边界"
-status: pending
+status: curated
 owner: ""
 difficulty: "中等"
 difficultyReason: "需要同时掌握公开契约、一个主要失败边界和对应实现路径。"
@@ -126,7 +126,7 @@ granularity: "单点精讲"
 ## langchain-01-10
 
 title: "错误语义"
-status: pending
+status: curated
 owner: ""
 difficulty: "中等"
 difficultyReason: "需要同时掌握公开契约、一个主要失败边界和对应实现路径。"
