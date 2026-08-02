@@ -27,6 +27,7 @@ Python 的旧版目录将大量互相依赖的机制拆成 102 篇 foundation �
 - 模块 01 与模块 02 各五篇课程已按当前完整契约重写并通过普通审计。
 - 余下课程全部 `pending`；它们必须逐课使用第一方资料重写，而不能从旧短文机械扩写。
 - 最新完成批次为 `python-02-01` 至 `python-02-05`：属性主路径、descriptor 优先级、函数绑定、C3/super、对象形状演化。下一 pending 是模块 03 的 `python-03-01` 至 `python-03-05`。
+- 当前恢复分支为 `agent/curriculum-python-full-reconstruction`，发布入口为 [PR #26](https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/26)。本次确认允许 pending 作为明确 TODO 存在，不以全站 strict audit 作为该 PR 的创建门槛。
 
 压缩依据是独立失败模型和可验证边界：对象头、比较/hash、循环可达性、静态复用、序列布局彼此不能合并；属性读取、descriptor、绑定和 MRO 共享同一解析链；生成器、异常、异步协议、导入、类型、并发、诊断和解释器执行链分别形成更高层的完整学习闭环。
 
