@@ -146,7 +146,7 @@ commit: "abcdef1"
 
 1. 枚举 `content/curriculum/*/track.md`，以目录名和 frontmatter 中的稳定 track id 为准。
 2. 结合各模块 `catalog.md` 与 `corepack pnpm run curriculum:audit` 判断 pending 数量。
-3. 永久排除 track id 为 `python` 的路线；不得维护另一份允许列表。
+3. 不对任何 track id 设置永久排除或固定优先级。Python 当前已 100% curated，因此自然没有 pending；若未来目录重新出现真实 pending，它与 Java、Go 或其他新路线一样回到普通候选池。不得维护另一份允许列表。
 4. 已经 100% curated 的路线自动退出候选池。后来加入仓库的 Java 或其他路线，只要具有合法 `track.md`、模块目录和 pending 课题，就自动进入候选池。
 5. 正常批次从能够形成五个真实最终课题的候选中随机选择一门。若某路线只剩不足五个 pending，先依据官方资料判断能否合理拆分；不能为了凑数拆分时，将其报告为尾批次并继续选择其他路线，不伪造课题。
 
