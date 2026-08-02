@@ -15,7 +15,7 @@ planningStatus: established
 
 ## python-03-01
 title: "函数对象与执行环境：code、globals、defaults、frame 与局部变量"
-status: pending
+status: curated
 owner: ""
 difficulty: "专家"
 difficultyReason: "函数定义时环境、调用时 frame、默认值和局部变量同步处在不同时间点。"
@@ -26,7 +26,7 @@ granularity: "合并讲解"
 
 ## python-03-02
 title: "闭包与参数绑定：cell、freevar、late binding 与调用签名"
-status: pending
+status: curated
 owner: ""
 difficulty: "专家"
 difficultyReason: "名称解析层级、cell 共享、默认参数快照和 positional/keyword 绑定需要同时推演。"
@@ -37,7 +37,7 @@ granularity: "合并讲解"
 
 ## python-03-03
 title: "装饰器合同：求值顺序、带参工厂、__wrapped__ 与签名保真"
-status: pending
+status: curated
 owner: ""
 difficulty: "困难"
 difficultyReason: "装饰发生在定义期，调用发生在运行期；透明包装还要维护 introspection 边界。"
@@ -48,7 +48,7 @@ granularity: "单点精讲"
 
 ## python-03-04
 title: "迭代与生成器：惰性启动、StopIteration、send、throw 与 close"
-status: pending
+status: curated
 owner: ""
 difficulty: "专家"
 difficultyReason: "迭代协议、暂停帧、PEP 479、异常注入和 GeneratorExit 形成完整状态机。"
@@ -59,7 +59,7 @@ granularity: "合并讲解"
 
 ## python-03-05
 title: "委派与资源作用域：yield from、contextmanager 与返回值通道"
-status: pending
+status: curated
 owner: ""
 difficulty: "专家"
 difficultyReason: "委派会转交 send/throw/close，contextmanager 又把异常送回 yield 点，失败路径不可拆开。"

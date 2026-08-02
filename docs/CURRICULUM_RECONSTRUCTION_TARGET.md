@@ -6,7 +6,7 @@
 
 | 路线 | 最终课题 | curated | pending | 说明 |
 | --- | ---: | ---: | ---: | --- |
-| Python | 41 | 10 | 31 | 已从 102 篇首轮短文压缩为 8 个模块的最终课题。 |
+| Python | 41 | 41 | 0 | 已从 102 篇首轮短文压缩为 8 个模块的最终课题，并完成全量深化。 |
 | TypeScript | 20 | 13 | 7 | 已有课程需要修复源码版本与历史日志。 |
 | LangGraph | 20 | 20 | 0 | 已完成当前目录。 |
 | Transformer | 10 | 10 | 0 | 现有 foundation 短文的状态与深度不匹配，等待重构决定。 |
@@ -25,9 +25,8 @@ Python 的旧版目录将大量互相依赖的机制拆成 102 篇 foundation �
 
 - 8 个 established 模块，41 个最终课题。
 - 模块 01 与模块 02 各五篇课程已按当前完整契约重写并通过普通审计。
-- 余下课程全部 `pending`；它们必须逐课使用第一方资料重写，而不能从旧短文机械扩写。
-- 最新完成批次为 `python-02-01` 至 `python-02-05`：属性主路径、descriptor 优先级、函数绑定、C3/super、对象形状演化。下一 pending 是模块 03 的 `python-03-01` 至 `python-03-05`。
-- 当前恢复分支为 `agent/curriculum-python-full-reconstruction`，发布入口为 [PR #26](https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/26)。本次确认允许 pending 作为明确 TODO 存在，不以全站 strict audit 作为该 PR 的创建门槛。
+- 模块 01 与模块 02 的课程已先行完成；其余 31 个最终课题在本次全量深化批次中完成，Python 不再有 pending。
+- 上一批 `python-02-01` 至 `python-02-05` 已合并为 [PR #26](https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/26)；本批发布信息记录在下方的全量收口节。
 
 压缩依据是独立失败模型和可验证边界：对象头、比较/hash、循环可达性、静态复用、序列布局彼此不能合并；属性读取、descriptor、绑定和 MRO 共享同一解析链；生成器、异常、异步协议、导入、类型、并发、诊断和解释器执行链分别形成更高层的完整学习闭环。
 
@@ -75,3 +74,15 @@ Python 的旧版目录将大量互相依赖的机制拆成 102 篇 foundation �
 ## 自动深化任务
 
 已配置的 `AILearningLab 课程深化与发布` 自动任务优先完成 Python 的 31 个 pending 终题，之后按照 established 模块的动态候选池继续其他路线。它使用与手动批次相同的恢复、证据、审计、PR、合并与 Pages 门禁；调度只是唤醒来源，不能放宽质量标准。
+
+## Python 31 课全量收口批次（2026-08-02）
+
+- 路线与计数：Python `10/41 → 41/41`；全站普通审计 `89/134 → 120/134`。本批一次完成模块 03 至模块 08 的 31 个最终课题，保留 TypeScript 7 个与 LangChain 7 个 pending 作为后续 TODO。
+- 课题：`python-03-01` 函数对象与执行环境、`python-03-02` 闭包与参数绑定、`python-03-03` 装饰器合同、`python-03-04` 迭代与生成器、`python-03-05` 委派与资源作用域；`python-04-01` 异常控制流、`python-04-02` 异常因果与多失败、`python-04-03` 同步资源管理、`python-04-04` await 协议、`python-04-05` 异步资源生命周期；`python-05-01` import 主路径、`python-05-02` 包边界、`python-05-03` 可重建发布、`python-05-04` 注解与泛型、`python-05-05` 结构化 API 契约；`python-06-01` 事件循环与 Task、`python-06-02` 取消与截止时间、`python-06-03` 并发收敛、`python-06-04` 背压与资源上限、`python-06-05` 跨执行边界；`python-07-01` 数据结构与复杂度、`python-07-02` 可重复基准、`python-07-03` CPU 诊断、`python-07-04` 内存诊断、`python-07-05` 解释器与并行性能；`python-08-01` 源码工作台、`python-08-02` 从文本到 AST、`python-08-03` 从名称到 code object、`python-08-04` 执行一条调用、`python-08-05` 自适应解释器、`python-08-06` 端到端源码改造。
+- 拆分/合并理由：按函数执行、异常/资源协议、导入/类型发布、异步调度、性能证据与 CPython 执行链的独立失败模型拆分；每课保留可单独运行的主路径、失败路径和版本边界，没有为凑数拆分，也没有把互不兼容的状态机合并。
+- 证据版本：官方 Python 文档按 3.14 章节锚点核验；CPython 源码统一固定到 `v3.14.6` tag、真实文件、符号和行区间；示例均位于 `examples/python/` 并逐个运行。
+- 视觉决策：31 课均建立独立 `visuals/<lesson-id>.md`，按文字仍不可见的状态迁移、调用流、对象图、张量/缓存关系和可操作实验选择 `state`、`flow`、`graph`、`tensor` 或 `playground`；每个索引含双向 `visualIndex`、固定 placement、5 步观察重点及键盘/窄屏/reduced-motion 约束。
+- 署名协作对：`human: @h0ll0w-AkuZr0guY`；`ai: WorkBuddy · DeepSeek-V4-Flash`。每课更新日志只追加本批记录，历史记录保持不变。
+- 启动检阅：目标路线模块 03–08 的 CJK 密度、官方锚点、固定源码、视觉步骤、时间和更新日志均通过；相邻 TypeScript 模块 01 的历史源码版本/更新日志欠账及两课密度偏低已记录为 P1/P2，不阻塞本批授课。
+- 发布：分支 `agent/curriculum-python-03-01-to-python-08-06`；PR 创建后回写 URL，合并后回写 commit SHA。Pages 部署与 31 个线上页面验收结果在发布完成后补录。
+- 下一 pending：Python 无 pending；全站下一候选为 TypeScript 7 个或 LangChain 7 个，按动态候选池和五课批次规则选择。

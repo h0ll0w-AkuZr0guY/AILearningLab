@@ -15,7 +15,7 @@ planningStatus: established
 
 ## python-06-01
 title: "事件循环与 Task：ready/timer 队列、Future、强引用和调度公平性"
-status: pending
+status: curated
 owner: ""
 difficulty: "专家"
 difficultyReason: "循环轮次、回调队列、任务驱动和弱引用生命周期共同决定一个 await 何时恢复。"
@@ -26,7 +26,7 @@ granularity: "合并讲解"
 
 ## python-06-02
 title: "取消与截止时间：CancelledError、cancelling、uncancel、timeout、wait_for 与 shield"
-status: pending
+status: curated
 owner: ""
 difficulty: "专家"
 difficultyReason: "取消计数、传播方向、超时包装和屏蔽作用域都有不同的失败与清理结果。"
@@ -37,7 +37,7 @@ granularity: "合并讲解"
 
 ## python-06-03
 title: "并发收敛：gather、TaskGroup、ExceptionGroup 与部分成功策略"
-status: pending
+status: curated
 owner: ""
 difficulty: "专家"
 difficultyReason: "兄弟任务取消、异常聚合、结果顺序和恢复策略不能由单个 await 规则推导。"
@@ -48,7 +48,7 @@ granularity: "合并讲解"
 
 ## python-06-04
 title: "背压与资源上限：Queue、Semaphore、join、shutdown 与生产者所有权"
-status: pending
+status: curated
 owner: ""
 difficulty: "困难"
 difficultyReason: "队列容量、任务计数、消费者失败和关闭协议共同决定是否泄漏或永久等待。"
@@ -59,7 +59,7 @@ granularity: "合并讲解"
 
 ## python-06-05
 title: "跨执行边界：to_thread、executor、ContextVar、GIL 与 multiprocessing 数据所有权"
-status: pending
+status: curated
 owner: ""
 difficulty: "专家"
 difficultyReason: "线程、进程、上下文传播、序列化和自由线程构建具有完全不同的共享内存合同。"
