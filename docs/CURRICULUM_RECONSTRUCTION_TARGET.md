@@ -93,4 +93,4 @@ Python 的旧版目录将大量互相依赖的机制拆成 102 篇 foundation �
 - 纠正：原批次日志中的 `WorkBuddy · DeepSeek-V4-Flash` 不是本次对话的真实运行身份；本次会话由 Codex Desktop 执行，用户确认精确模型为 `OpenAI Codex · GPT-5.6 Luna`。历史记录保留，41 节课各自只在日志顶部追加纠正记录。
 - 防错规则：新增 [`docs/PR_SIGNATURE_CONFIRMATION.md`](PR_SIGNATURE_CONFIRMATION.md)。以后必须优先读取当前 session/interface 的真实身份；接口未暴露完整 `model_id` 时，PR 前展示确认表并取得用户明确确认，不能从仓库历史、模板示例、自动化默认值或“最新模型”推断。
 - 自动任务：`AILearningLab 课程深化与发布` 已同步上述署名门禁，并将运行模型配置为 `gpt-5.6-luna`；每批、每次会话和模型切换都重新确认。
-- 纠正 PR：待创建，创建后回写本节及 41 节最新日志；合并后补充 commit 与 Pages 验收证据。
+- 纠正 PR：[PR #28](https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/28) 已创建为 draft；URL 已回写本节及 41 节最新日志。合并后补充 commit 与 Pages 验收证据。
