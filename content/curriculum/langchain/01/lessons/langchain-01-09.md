@@ -304,4 +304,5 @@ assert json.dumps(serialized)
 at: "2026-08-02T20:41:41+08:00"
 human: "@h0ll0w-AkuZr0guY"
 ai: "Codex · gpt-5.6-luna"
+pr: "https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/31"
 summary: "新增 dumpd、load、allowlist、escaped dict 与执行配置风险课程，配套固定源码、失败断言和 flow 视觉索引。"

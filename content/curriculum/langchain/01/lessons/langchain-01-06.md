@@ -290,4 +290,5 @@ else:
 at: "2026-08-02T20:41:41+08:00"
 human: "@h0ll0w-AkuZr0guY"
 ai: "Codex · gpt-5.6-luna"
+pr: "https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/31"
 summary: "新增 batch、batch_as_completed 与 stream 的顺序、失败和 chunk 合并课程，配套源码证据、示例和 flow 视觉索引。"

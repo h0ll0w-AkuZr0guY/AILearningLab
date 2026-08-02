@@ -304,4 +304,5 @@ assert bad["callbacks"] == ["root", "child"]
 at: "2026-08-02T20:41:41+08:00"
 human: "@h0ll0w-AkuZr0guY"
 ai: "Codex · gpt-5.6-luna"
+pr: "https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/31"
 summary: "新增 Runnable config 的双通道模型、字段级合并、运行身份边界、示例和 state 视觉索引。"

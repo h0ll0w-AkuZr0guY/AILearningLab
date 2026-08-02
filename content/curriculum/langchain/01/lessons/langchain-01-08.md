@@ -310,4 +310,5 @@ assert all(event[1] != "double" for event in failed.events)
 at: "2026-08-02T20:41:41+08:00"
 human: "@h0ll0w-AkuZr0guY"
 ai: "Codex · gpt-5.6-luna"
+pr: "https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/31"
 summary: "新增 callback 的 start、end、error、父子追踪与 handler 取舍课程，配套源码证据、示例和 flow 视觉索引。"

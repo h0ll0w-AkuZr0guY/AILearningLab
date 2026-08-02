@@ -315,4 +315,5 @@ assert calls["writes"] == 1
 at: "2026-08-02T20:41:41+08:00"
 human: "@h0ll0w-AkuZr0guY"
 ai: "Codex · gpt-5.6-luna"
+pr: "https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/31"
 summary: "新增 transport、parser、auth、cancel 的错误语义、有限修复、源码证据、失败示例和 flow 视觉索引。"
