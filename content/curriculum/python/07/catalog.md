@@ -15,7 +15,7 @@ planningStatus: established
 
 ## python-07-01
 title: "数据结构与复杂度：list、deque、dict、set 的工作负载选择"
-status: pending
+status: curated
 owner: ""
 difficulty: "困难"
 difficultyReason: "渐进复杂度、容量布局、探测冲突和操作分布必须回到具体工作负载。"
@@ -26,7 +26,7 @@ granularity: "合并讲解"
 
 ## python-07-02
 title: "可重复基准：timeit、pyperf、预热、噪声、效应量与回归阈值"
-status: pending
+status: curated
 owner: ""
 difficulty: "困难"
 difficultyReason: "解释器预热、操作系统噪声和统计置信度决定数字是否能支持工程决策。"
@@ -37,7 +37,7 @@ granularity: "单点精讲"
 
 ## python-07-03
 title: "CPU 诊断：cProfile 调用图、采样栈、flame graph 与 I/O 盲区"
-status: pending
+status: curated
 owner: ""
 difficulty: "困难"
 difficultyReason: "确定性统计和采样观测存在不同偏差，阻塞 I/O 又可能不在 Python 调用图中。"
@@ -48,7 +48,7 @@ granularity: "合并讲解"
 
 ## python-07-04
 title: "内存诊断：tracemalloc、gc、对象图、free list 与 RSS 的证据分层"
-status: pending
+status: curated
 owner: ""
 difficulty: "专家"
 difficultyReason: "分配点、对象可达性、解释器缓存和操作系统驻留内存的因果链不相同。"
@@ -59,7 +59,7 @@ granularity: "合并讲解"
 
 ## python-07-05
 title: "解释器与并行性能：dis、inline cache、specialization、GIL 与 free-threading 边界"
-status: pending
+status: curated
 owner: ""
 difficulty: "专家"
 difficultyReason: "字节码特化、失特化、GIL 释放点和构建模式必须与测量证据一起解释。"

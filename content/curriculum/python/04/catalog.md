@@ -15,7 +15,7 @@ planningStatus: established
 
 ## python-04-01
 title: "异常控制流：匹配、traceback、raise、else 与 finally 的完成矩阵"
-status: pending
+status: curated
 owner: ""
 difficulty: "专家"
 difficultyReason: "捕获、重抛、return、break 与 finally 会竞争同一个控制流出口。"
@@ -26,7 +26,7 @@ granularity: "合并讲解"
 
 ## python-04-02
 title: "异常因果与多失败：__context__、raise from、ExceptionGroup 与 except*"
-status: pending
+status: curated
 owner: ""
 difficulty: "专家"
 difficultyReason: "隐式因果、显式因果、抑制上下文和按子组处理并发失败必须精确区分。"
@@ -37,7 +37,7 @@ granularity: "合并讲解"
 
 ## python-04-03
 title: "同步资源管理：with 展开、异常抑制、ExitStack 与所有权转移"
-status: pending
+status: curated
 owner: ""
 difficulty: "困难"
 difficultyReason: "__enter__/__exit__ 的返回值、部分获取失败和动态资源栈涉及不同的责任边界。"
@@ -48,7 +48,7 @@ granularity: "合并讲解"
 
 ## python-04-04
 title: "await 协议：coroutine、awaitable、Future 与 async iterator 的驱动关系"
-status: pending
+status: curated
 owner: ""
 difficulty: "专家"
 difficultyReason: "语言 await、__await__ 迭代器、Future 回调与 StopAsyncIteration 的错误边界相互嵌套。"
@@ -59,7 +59,7 @@ granularity: "合并讲解"
 
 ## python-04-05
 title: "异步资源生命周期：async with、async generator、背压、取消与 aclose"
-status: pending
+status: curated
 owner: ""
 difficulty: "专家"
 difficultyReason: "取消可以在 yield、await 和清理段注入，资源释放必须覆盖所有离开路径。"
