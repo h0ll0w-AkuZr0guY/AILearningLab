@@ -84,5 +84,5 @@ Python 的旧版目录将大量互相依赖的机制拆成 102 篇 foundation �
 - 视觉决策：31 课均建立独立 `visuals/<lesson-id>.md`，按文字仍不可见的状态迁移、调用流、对象图、张量/缓存关系和可操作实验选择 `state`、`flow`、`graph`、`tensor` 或 `playground`；每个索引含双向 `visualIndex`、固定 placement、5 步观察重点及键盘/窄屏/reduced-motion 约束。
 - 署名协作对：`human: @h0ll0w-AkuZr0guY`；`ai: WorkBuddy · DeepSeek-V4-Flash`。每课更新日志只追加本批记录，历史记录保持不变。
 - 启动检阅：目标路线模块 03–08 的 CJK 密度、官方锚点、固定源码、视觉步骤、时间和更新日志均通过；相邻 TypeScript 模块 01 的历史源码版本/更新日志欠账及两课密度偏低已记录为 P1/P2，不阻塞本批授课。
-- 发布：分支 `agent/curriculum-python-03-01-to-python-08-06`；PR 创建后回写 URL，合并后回写 commit SHA。Pages 部署与 31 个线上页面验收结果在发布完成后补录。
+- 发布：分支 `agent/curriculum-python-03-01-to-python-08-06`；[PR #27](https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/27) 已创建为 draft，回写至 31 个课程日志；合并后再回写 commit SHA。Pages 部署与 31 个线上页面验收结果在发布完成后补录。
 - 下一 pending：Python 无 pending；全站下一候选为 TypeScript 7 个或 LangChain 7 个，按动态候选池和五课批次规则选择。
