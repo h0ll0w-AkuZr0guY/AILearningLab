@@ -86,3 +86,11 @@ Python 的旧版目录将大量互相依赖的机制拆成 102 篇 foundation �
 - 启动检阅：目标路线模块 03–08 的 CJK 密度、官方锚点、固定源码、视觉步骤、时间和更新日志均通过；相邻 TypeScript 模块 01 的历史源码版本/更新日志欠账及两课密度偏低已记录为 P1/P2，不阻塞本批授课。
 - 发布：分支 `agent/curriculum-python-03-01-to-python-08-06`；[PR #27](https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/27) 已创建为 draft，回写至 31 个课程日志；合并后再回写 commit SHA。Pages 部署与 31 个线上页面验收结果在发布完成后补录。
 - 下一 pending：Python 无 pending；全站下一候选为 TypeScript 7 个或 LangChain 7 个，按动态候选池和五课批次规则选择。
+
+## Python PR #26/#27 署名纠正（本次修正）
+
+- 范围：只纠正本自动化实际提交的 Python PR #26 与 #27，合计 41 节课程；其他路线和其他历史 PR 不改。
+- 纠正：原批次日志中的 `WorkBuddy · DeepSeek-V4-Flash` 不是本次对话的真实运行身份；本次会话由 Codex Desktop 执行，用户确认精确模型为 `OpenAI Codex · GPT-5.6 Luna`。历史记录保留，41 节课各自只在日志顶部追加纠正记录。
+- 防错规则：新增 [`docs/PR_SIGNATURE_CONFIRMATION.md`](PR_SIGNATURE_CONFIRMATION.md)。以后必须优先读取当前 session/interface 的真实身份；接口未暴露完整 `model_id` 时，PR 前展示确认表并取得用户明确确认，不能从仓库历史、模板示例、自动化默认值或“最新模型”推断。
+- 自动任务：`AILearningLab 课程深化与发布` 已同步上述署名门禁，并将运行模型配置为 `gpt-5.6-luna`；每批、每次会话和模型切换都重新确认。
+- 纠正 PR：待创建，创建后回写本节及 41 节最新日志；合并后补充 commit 与 Pages 验收证据。

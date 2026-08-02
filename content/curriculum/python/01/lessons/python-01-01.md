@@ -318,6 +318,13 @@ assert head_size == ctypes.sizeof(ctypes.c_ssize_t) + ctypes.sizeof(ctypes.c_voi
 
 ## 更新日志
 
+### 署名纠正：Python PR #26/#27 的真实运行身份
+
+at: "2026-08-02T19:48:47+08:00"
+human: "@h0ll0w-AkuZr0guY"
+ai: "OpenAI Codex · GPT-5.6 Luna"
+summary: "纠正本课在 Python PR #26/#27 中误用的历史自动化署名；正文、源码证据、示例、视觉与原有日志均保持不变，并补充 PR 前运行身份确认门禁。"
+
 ### 按深度协议全面重写
 
 at: "2026-08-01T21:00:00+08:00"
