@@ -206,7 +206,19 @@ const clearStandardAnswer = () => {
 }
 
 const copyText = async (value: string, id: string) => {
-  await navigator.clipboard.writeText(value)
+  try {
+    await navigator.clipboard.writeText(value)
+  } catch {
+    const fallback = document.createElement('textarea')
+    fallback.value = value
+    fallback.setAttribute('readonly', '')
+    fallback.style.cssText = 'position:fixed;opacity:0;pointer-events:none'
+    document.body.appendChild(fallback)
+    fallback.select()
+    const copied = document.execCommand('copy')
+    fallback.remove()
+    if (!copied) throw new Error('当前浏览器拒绝复制到剪贴板')
+  }
   copiedId.value = id
   window.setTimeout(() => {
     if (copiedId.value === id) copiedId.value = ''
