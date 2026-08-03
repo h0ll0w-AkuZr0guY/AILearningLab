@@ -470,4 +470,5 @@ try {
 at: "2026-08-03T12:14:48+08:00"
 human: "@h0ll0w-AkuZr0guY"
 ai: "Codex Desktop · gpt-5.6-luna"
+pr: "https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/34"
 summary: "补齐 Node 条件 exports、CJS namespace、require(esm) 异步边界与双 loader 缓存身份的源码证据、示例、失败断言和 flow 视觉索引。"
