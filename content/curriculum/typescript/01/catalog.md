@@ -172,11 +172,10 @@ learningValue: "进阶关键"
 learningValueScore: 5
 estimatedMinutes: 170
 granularity: "拆分专题"
-
 ## typescript-01-14
 
 title: "Node ESM/CJS 互操作、解析与缓存边界"
-status: pending
+status: curated
 owner: ""
 difficulty: "专家"
 difficultyReason: "需要同时处理 package type/exports、URL identity、同步 require 约束、CJS namespace 包装、named export 静态分析与两套 cache 的差异。"
