@@ -377,4 +377,5 @@ print("mini LangChain core: ok")
 at: "2026-08-03T22:15:00+08:00"
 human: "@h0ll0w-AkuZr0guY"
 ai: "Codex Desktop · gpt-5.6-luna"
+pr: "https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/36"
 summary: "补齐 callable 归一化、顺序组合、batch 失败保位、stream 缓冲边界，并加入可运行 mini 核心和 flow 视觉索引。"

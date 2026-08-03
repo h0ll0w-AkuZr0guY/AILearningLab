@@ -361,4 +361,5 @@ print("sync/async contract: ok")
 at: "2026-08-03T22:15:00+08:00"
 human: "@h0ll0w-AkuZr0guY"
 ai: "Codex Desktop · gpt-5.6-luna"
+pr: "https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/36"
 summary: "补齐 invoke/ainvoke 的分派模型、线程池回退、原生异步、失败与取消边界，并加入双路径示例和 flow 视觉索引。"

@@ -133,7 +133,7 @@ Python 的旧版目录将大量互相依赖的机制拆成 102 篇 foundation �
 - 视觉决策：`langchain-01-11` 用 flow 展示同步入口、executor 回退、原生 `afunc`、sequence 等待和入口失败；`langchain-01-12` 用 flow 展示 callable 归一化、顺序组合、batch 保位、stream 缓冲和失败传播。两者都只使用通用静态实验，不新增专属组件或图片；视觉索引暂未写入，因为目录仍为 claimed。
 - 署名确认：当前 thread id 为 `019fc7e2-fcf0-7b10-8556-9a24c36f6cca`，产品为 `Codex Desktop`，模型为用户明确确认的 `gpt-5.6-luna`，runtime model id 仍未暴露；human 为认证 GitHub 用户 `@h0ll0w-AkuZr0guY`。用户于本次会话明确回复“确认以上署名并允许创建 PR”，确认时间记录为 `2026-08-03T22:23:41+08:00`；范围仅本批两课及其 catalog、正文、视觉、示例和恢复记录。
 - 浏览器门禁：生成服务可由本地 PowerShell/curl 返回 HTTP 200，但 Codex in-app Browser 对回环地址返回 `ERR_CONNECTION_REFUSED`/`ERR_EMPTY_RESPONSE`，按浏览器规则未改用 file URL、其他控制面或伪造交互证据。当前仅本地浏览器交互项未验证，线上 Pages 验收仍为发布后硬门禁。
-- 分支与恢复：`agent/curriculum-langchain-langchain-01-11-to-langchain-01-12` 已从最新 `origin/main` 创建；当前没有 PR、PR URL、合并 commit、Pages run 或线上验收记录。下一步为只提交本批文件创建 draft PR，随后等待 checks/权限、标记 ready、squash merge、Pages 和线上验收。下一合法 pending：LangChain 完成本批后无 established pending；TypeScript draft 模块的 6 个课题仍不认领。
+- 分支与恢复：`agent/curriculum-langchain-langchain-01-11-to-langchain-01-12` 已从最新 `origin/main` 创建；内容提交为 `c07761b`，draft [PR #36](https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/36) 已创建，PR URL 已回写两课日志，待 metadata push 后复核 diff、checks、ready、squash merge、Pages 和线上验收。下一合法 pending：LangChain 完成本批后无 established pending；TypeScript draft 模块的 6 个课题仍不认领。
 
 ### 下一能力模块规划：langchain-02 Provider 与模型适配层（仅规划，不认领）
 
