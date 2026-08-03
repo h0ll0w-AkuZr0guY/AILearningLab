@@ -7,7 +7,7 @@ goal: "建立 Message、Model、Prompt、Runnable 的最小抽象，并理解为
 lab: "手写 BaseMessage、ChatModel 和可串联 Runnable。"
 interview: "为什么消息对象比裸字符串更适合 Agent 系统？"
 officialScope: "https://docs.langchain.com/oss/python/langchain/overview"
-sourceScope: "libs/core/langchain_core/messages"
+sourceScope: "libs/core/langchain_core/messages、libs/core/langchain_core/runnables、libs/core/tests/unit_tests/runnables"
 planningStatus: established
 ---
 
@@ -38,7 +38,6 @@ learningValue: "基础必修"
 learningValueScore: 4
 estimatedMinutes: 45
 granularity: "单点精讲"
-
 ## langchain-01-03
 
 title: "ChatModel 输入输出"
@@ -138,8 +137,7 @@ granularity: "单点精讲"
 ## langchain-01-11
 
 title: "同步异步双接口"
-status: pending
-owner: ""
+status: curated
 difficulty: "中等"
 difficultyReason: "需要同时掌握公开契约、一个主要失败边界和对应实现路径。"
 learningValue: "基础必修"
@@ -150,8 +148,7 @@ granularity: "单点精讲"
 ## langchain-01-12
 
 title: "最小核心复现"
-status: pending
-owner: ""
+status: curated
 difficulty: "中等"
 difficultyReason: "需要同时掌握公开契约、一个主要失败边界和对应实现路径。"
 learningValue: "基础必修"

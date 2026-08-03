@@ -7,7 +7,7 @@
 | 路线 | 最终课题 | curated | pending | 说明 |
 | --- | ---: | ---: | ---: | --- |
 | Python | 41 | 41 | 0 | 已从 102 篇首轮短文压缩为 8 个模块的最终课题，并完成全量深化。 |
-| TypeScript | 20 | 13 | 7 | 已有课程需要修复源码版本与历史日志。 |
+| TypeScript | 20 | 14 | 6 | 已有课程需要修复源码版本与历史日志。 |
 | LangGraph | 20 | 20 | 0 | 已完成当前目录。 |
 | Transformer | 10 | 10 | 0 | 现有 foundation 短文的状态与深度不匹配，等待重构决定。 |
 | PyTorch | 20 | 20 | 0 | 已完成当前目录。 |
@@ -121,3 +121,30 @@ Python 的旧版目录将大量互相依赖的机制拆成 102 篇 foundation �
 - 视觉决策：正文之后仍难以追踪“同一 package name 如何依次经过条件解析、格式桥接和两张 cache 身份表”，已使用静止默认 `flow` 视觉，5 步展示 request kind → exports target → CJS/ESM facade → namespace/async failure → cache owner；不使用图片或专属组件。线上已复验单步、播放后暂停、重置、窄屏与 reduced motion CSS；原生 button 控件保留键盘语义，浏览器工具的 Enter 事件未改变步骤，未把该次事件伪记为独立推进证据。
 - 署名确认：当前 session/interface 元数据披露产品来源 `Codex Desktop`、模型 `gpt-5.6-luna`、session id `019fc5c7-a3b8-7872-b4d3-1226ea6dac8d`；无独立 runtime model id 字段，记录为 `未暴露（接口仅暴露 model 字段）`。用户已明确回复“确认以上署名并允许创建 PR”，确认范围为本批 `typescript-01-14` 及其 catalog、正文、视觉索引、示例和恢复记录；human 为认证 GitHub 用户 `@h0ll0w-AkuZr0guY`，日志写法为 `Codex Desktop · gpt-5.6-luna`，未修改其他路线、历史日志、缓存和构建产物。
 - 发布状态：已创建并 ready [PR #34](https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/34)；仓库未配置 PR checks，`gh pr checks` 返回 no checks reported，本地冻结安装、审计、示例、生成、diff、敏感信息、构建产物和浏览器门禁均通过。PR 已 squash 合并为 `21db3c7ddb2479b36d986707ca2f4d579ba56f8a`，远端内容分支已删除，commit 已回写课程日志；`codex` 与 `codex-automation` 标签在仓库中不存在，未强行创建。Pages 运行 [30784649839](https://github.com/h0ll0w-AkuZr0guY/AILearningLab/actions/runs/30784649839) 成功。线上验收 URL 为 [typescript-01-14](https://h0ll0w-akuzr0guy.github.io/AILearningLab/tracks/typescript/lessons/typescript-01-14/)，已确认标题、源码/文档入口、上下题、答案、代码复制、视觉状态、窄屏、reduced motion CSS 和控制台。下一 pending 为 LangChain `langchain-01-11`、`langchain-01-12`；未认领的 TypeScript draft 模块课题不纳入本批。
+ - 发布状态：已创建并 ready [PR #34](https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/34)；仓库未配置 PR checks，`gh pr checks` 返回 no checks reported，本地冻结安装、审计、示例、生成、diff、敏感信息、构建产物和浏览器门禁均通过。PR 已 squash 合并为 `21db3c7ddb2479b36d986707ca2f4d579ba56f8a`，远端内容分支已删除，commit 已回写课程日志；`codex` 与 `codex-automation` 标签在仓库中不存在，未强行创建。Pages 运行 [30784649839](https://github.com/h0ll0w-AkuZr0guY/AILearningLab/actions/runs/30784649839) 成功。线上验收 URL 为 [typescript-01-14](https://h0ll0w-akuzr0guy.github.io/AILearningLab/tracks/typescript/lessons/typescript-01-14/)，已确认标题、源码/文档入口、上下题、答案、代码复制、视觉状态、窄屏、reduced motion CSS 和控制台。下一 pending 为 LangChain `langchain-01-11`、`langchain-01-12`；未认领的 TypeScript draft 模块课题不纳入本批。
+
+## LangChain 尾批本地深化：langchain-01-11 至 langchain-01-12（本地完成，待 PR）
+
+- 启动证据：本次会话先读取自动化记忆和全部课程规则；工作树在 fetch 前干净，`origin/main` 与本地 `main` 均为 `fe717f9391d139077dec873fcebbb3e167c99c3d`；开放 PR 为 0；上一批 Pages 运行 [30785876993](https://github.com/h0ll0w-AkuZr0guY/AILearningLab/actions/runs/30785876993) 成功。`git fetch origin --prune` 后无残留自动化远端分支，保留 `.pnpm-store`、`.output`、`dist` 和 `node_modules` 忽略目录。
+- 动态候选池：从全部 `track.md` 和 `catalog.md` 重新计算，仅 `planningStatus: established` 模块计入。合法 pending 只有 LangChain `langchain-01-11`、`langchain-01-12`；TypeScript 其余 6 个 pending 来自 draft 模块，其他 established 路线无 pending。候选路线为 `['langchain']`，CSPRNG 证据为 `bytes=1bd2d73db38f28f23fa66a0a46622699`、`index=0`、`selected=langchain`、`utc=2026-08-03T13:58:48.115Z`。
+- 批次边界：这是无其他合法五课路线可选的尾批，最终范围为 `langchain-01-11`「同步异步双接口」与 `langchain-01-12`「最小核心复现」。没有继续拆分：双接口课的独立不变量是同步/异步分派与资源边界；最小核心课的独立不变量是协议归一化、顺序组合、batch 失败保位和 stream 缓冲。继续拆出“线程池”“batch”“stream”等标题会复用同一主路径，形成模板化凑数。目标路线 curated `10/12 → 12/12`，全站普通审计 `126/134 → 128/134`，本批净增 2。
+- 资料版本：官方模型调用章节为 [LangChain Models · Invocation](https://docs.langchain.com/oss/python/langchain/models#invocation)；官方 `RunnableSequence` API 使用路径级定位并在正文说明无稳定子锚点。源码与测试统一固定到 `langchain-ai/langchain` commit `725489f135458c37c668919b0d08652ebd04f131`，核验 `base.py` 的 `Runnable`、`RunnableLambda`、`RunnableSequence`、`coerce_to_runnable`、`transform` 与 `test_runnable.py` 的 batch/async/stream/失败保位测试。
+- 本地改动：catalog 已将两个课题转为 `curated` 并清除 claimed 专用 owner；已完成两篇课程正文、两个无密钥 Python 示例、两个静态默认 flow 视觉索引。`CI=true corepack pnpm install --frozen-lockfile`、`corepack pnpm run curriculum:audit`、两个示例正常/失败断言、`corepack pnpm generate`（298 routes）、`git diff --check`、敏感信息扫描和忽略构建产物检查通过。生成保留仓库既有 bundle 与 Nitro warnings。
+- 视觉决策：`langchain-01-11` 用 flow 展示同步入口、executor 回退、原生 `afunc`、sequence 等待和入口失败；`langchain-01-12` 用 flow 展示 callable 归一化、顺序组合、batch 保位、stream 缓冲和失败传播。两者都只使用通用静态实验，不新增专属组件或图片；视觉索引暂未写入，因为目录仍为 claimed。
+- 署名确认：当前 thread id 为 `019fc7e2-fcf0-7b10-8556-9a24c36f6cca`，产品为 `Codex Desktop`，模型为用户明确确认的 `gpt-5.6-luna`，runtime model id 仍未暴露；human 为认证 GitHub 用户 `@h0ll0w-AkuZr0guY`。用户于本次会话明确回复“确认以上署名并允许创建 PR”，确认时间记录为 `2026-08-03T22:23:41+08:00`；范围仅本批两课及其 catalog、正文、视觉、示例和恢复记录。
+- 浏览器门禁：生成服务可由本地 PowerShell/curl 返回 HTTP 200，但 Codex in-app Browser 对回环地址返回 `ERR_CONNECTION_REFUSED`/`ERR_EMPTY_RESPONSE`，按浏览器规则未改用 file URL、其他控制面或伪造交互证据。当前仅本地浏览器交互项未验证，线上 Pages 验收仍为发布后硬门禁。
+- 分支与恢复：`agent/curriculum-langchain-langchain-01-11-to-langchain-01-12` 已从最新 `origin/main` 创建；内容提交为 `c07761b`，draft [PR #36](https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/36) 已创建，PR URL 已回写两课日志，待 metadata push 后复核 diff、checks、ready、squash merge、Pages 和线上验收。下一合法 pending：LangChain 完成本批后无 established pending；TypeScript draft 模块的 6 个课题仍不认领。
+
+### 下一能力模块规划：langchain-02 Provider 与模型适配层（仅规划，不认领）
+
+- 位置与边界：模块 01 现在以 Runnable 的统一执行合同收束；下一能力边界应解释“一个 provider-specific chat model 如何被包装成同一个 Runnable”，因此优先规划模块 02，而不是继续扩写消息或提前进入 Agent Loop。模块 02 当前仍保持 `planningStatus: draft`，本批不修改其 catalog、不创建 pending 课题。
+- 建议最终五课：
+  1. `langchain-02-01`「init_chat_model 与 provider 选择」：从模型名/provider 参数进入安装、延迟导入和统一构造；不把 provider 列表当作稳定 API。
+  2. `langchain-02-02`「BaseChatModel 输入归一化」：追踪字符串、字典、消息列表到标准消息输入的转换，以及输入错误应在哪一层失败。
+  3. `langchain-02-03`「_generate、ChatResult 与响应元数据」：沿 provider adapter 的生成合同观察 AIMessage、generation、usage metadata 和异常边界。
+  4. `langchain-02-04`「stream、batch 与自动流式」：比较单次生成、逐块输出、批量请求和 callback 事件，明确 provider 原生能力与 Runnable 回退的差别。
+  5. `langchain-02-05`「model profile 与能力协商」：用能力画像决定多模态、tool calling、structured output 等路径；把 schema/parser 的用户侧用法留给后续 Prompt/Output 模块，把工具执行留给模块 04。
+- 第一方资料入口：LangChain [Models](https://docs.langchain.com/oss/python/langchain/models)、[Providers and models](https://docs.langchain.com/oss/python/concepts/providers-and-models)、[language_models reference](https://reference.langchain.com/python/langchain-core/language_models) 和 [BaseChatModel.bind_tools reference](https://reference.langchain.com/python/langchain-core/language_models/chat_models/BaseChatModel/bind_tools)。下一批必须重新核验官方页面版本，并把源码固定到真实 tag/commit；候选源码范围为 `libs/core/langchain_core/language_models/base.py`、`chat_models.py` 与对应 fake/integration tests。
+- 拆分依据：五课分别对应构造、输入、生成结果、时间/并发能力、能力协商五个不变量；不再拆出“OpenAI 参数”“Anthropic 参数”等 provider 清单课，也不把结构化输出、tool call 执行和 Agent loop 重复放入本模块。若源码核验显示 `profile` 与 structured-output 策略仍跨版本不稳定，则把第 05 课降为规划项，不模板化凑数。
+- 视觉决策：01 用 flow 展示 provider 选择到统一 Runnable；02 用 flow 展示输入归一化；03 用 state 展示生成结果与元数据；04 用 flow 展示同步/stream/batch 分支；05 用 state 展示 capability profile 到策略选择。均优先通用静态视觉，只有需要实时计算 provider capability 差异时才新增专属组件。
+- 建立门槛：下一批启动时重算动态候选池；只有在源码、官方文档、fake/integration tests 和独立学习目标确认五课成立后，才把模块 02 从 `draft` 改为 `established` 并认领课题。本规划不改变当前批次的候选池和 curated 计数。
