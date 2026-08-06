@@ -78,7 +78,7 @@ granularity: "单点精讲"
 ## typescript-12-06
 
 title: "mini-checker 的全体组装：从 parse→check→report 的完整管线"
-status: pending
+status: curated
 owner: ""
 difficulty: "专家"
 difficultyReason: "把前五课的积木（Type AST/类型检查/窄化/泛型/错误）串成一条命令就能启动的管线，并验证其正确性。"
