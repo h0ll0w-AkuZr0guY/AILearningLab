@@ -185,3 +185,4 @@ Python 的旧版目录将大量互相依赖的机制拆成 102 篇 foundation �
 - 线上验收：浏览器成功加载线上课程页并确认标题、官方入口、上一题/最终无下一题、视觉单步/播放暂停/重置控件和贡献署名；线上 390px/reduced-motion、源码 tab、参考答案展开、代码复制和控制台的完整交互复验因 Statsig 遥测网络超时未完成，不将其记为通过。此前本地静态预览已完成这些交互项（Enter/Space 未独立推进，原生 button 语义存在）。
 - 发布记录分支：`docs/curriculum-typescript-pr40-release-record`，用于回写合并 commit、Pages run 和线上验收边界；当前线上部署可用，但保留上述浏览器交互限制，不开启下一批。
 - 发布记录 PR：draft [PR #41](https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/41) 已创建，URL 回写后将标记 ready 并 squash merge；该 PR 仅包含本课程日志与恢复文档的发布证据。
+- 最终 Pages 闭环：PR #41 squash merge 为 `10cb48d730f4c656a14f32528eaa0d96b324a72a`，最终 Pages run [31067690294](https://github.com/h0ll0w-AkuZr0guY/AILearningLab/actions/runs/31067690294) 成功。最终线上 URL HTTPS 200，静态页面确认标题、官方入口、`typescript-12-06`、flow 视觉、`Codex Desktop · gpt-5.6-luna`、PR #40 链接和内容合并 commit `35e9d5f9092014c0515ba780ab1e01103c7c4dd9` 均已部署；线上源码 tab、答案展开、复制、390px/reduced-motion 和控制台交互仍因浏览器 Statsig 超时不作独立通过声明，已保留本地交互证据与限制。
