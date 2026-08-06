@@ -180,3 +180,7 @@ Python 的旧版目录将大量互相依赖的机制拆成 102 篇 foundation �
 - 下一 pending：所有 established 路线均无 pending；TypeScript draft 模块的规划课题不认领、不计入下一批。下一次运行必须重新读取 track/catalog/audit/GitHub 状态，不复用本次候选快照。
 - 续作署名确认（2026-08-06T11:01:28+08:00）：当前接口元数据披露 `Codex Desktop · gpt-5.6-luna`、session/thread `019fd4c2-3465-7ba1-aa09-f81765e08876`；runtime model id 未暴露；human 为认证 GitHub 用户 `@h0ll0w-AkuZr0guY`。用户明确回复“确认以上署名并允许创建 PR”，确认范围仅为 `typescript-12-06` 课程、catalog、visual、example 与本恢复文档；现在允许创建 draft PR，其他课程、历史日志、缓存和生成产物保持未修改。
 - draft PR： [PR #40](https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/40) 已创建，URL 已回写本课日志；当前等待复核 PR diff、可用 checks 与 ready/合并权限。
+- 发布闭环：PR #40 已标记 ready 并以 squash merge 合并为 `35e9d5f9092014c0515ba780ab1e01103c7c4dd9`；远端内容分支已删除，合并后本地 `main` 与 `origin/main` 干净一致。仓库未配置 PR checks，合并前 `mergeStateStatus=CLEAN`。
+- Pages：工作流 [31067369146](https://github.com/h0ll0w-AkuZr0guY/AILearningLab/actions/runs/31067369146) 对合并提交成功；线上课程 URL 为 `https://h0ll0w-akuzr0guy.github.io/AILearningLab/tracks/typescript/lessons/typescript-12-06/`，直接 HTTPS 返回 200，页面标题、官方入口、视觉 block、贡献署名和课程正文标记存在。
+- 线上验收：浏览器成功加载线上课程页并确认标题、官方入口、上一题/最终无下一题、视觉单步/播放暂停/重置控件和贡献署名；线上 390px/reduced-motion、源码 tab、参考答案展开、代码复制和控制台的完整交互复验因 Statsig 遥测网络超时未完成，不将其记为通过。此前本地静态预览已完成这些交互项（Enter/Space 未独立推进，原生 button 语义存在）。
+- 发布记录分支：`docs/curriculum-typescript-pr40-release-record`，用于回写合并 commit、Pages run 和线上验收边界；当前线上部署可用，但保留上述浏览器交互限制，不开启下一批。
