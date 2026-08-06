@@ -184,3 +184,4 @@ Python 的旧版目录将大量互相依赖的机制拆成 102 篇 foundation �
 - Pages：工作流 [31067369146](https://github.com/h0ll0w-AkuZr0guY/AILearningLab/actions/runs/31067369146) 对合并提交成功；线上课程 URL 为 `https://h0ll0w-akuzr0guy.github.io/AILearningLab/tracks/typescript/lessons/typescript-12-06/`，直接 HTTPS 返回 200，页面标题、官方入口、视觉 block、贡献署名和课程正文标记存在。
 - 线上验收：浏览器成功加载线上课程页并确认标题、官方入口、上一题/最终无下一题、视觉单步/播放暂停/重置控件和贡献署名；线上 390px/reduced-motion、源码 tab、参考答案展开、代码复制和控制台的完整交互复验因 Statsig 遥测网络超时未完成，不将其记为通过。此前本地静态预览已完成这些交互项（Enter/Space 未独立推进，原生 button 语义存在）。
 - 发布记录分支：`docs/curriculum-typescript-pr40-release-record`，用于回写合并 commit、Pages run 和线上验收边界；当前线上部署可用，但保留上述浏览器交互限制，不开启下一批。
+- 发布记录 PR：draft [PR #41](https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/41) 已创建，URL 回写后将标记 ready 并 squash merge；该 PR 仅包含本课程日志与恢复文档的发布证据。
