@@ -179,3 +179,4 @@ Python 的旧版目录将大量互相依赖的机制拆成 102 篇 foundation �
 - 分支与发布：本地分支 `agent/curriculum-typescript-typescript-12-06-to-typescript-12-06` 已从最新 origin/main 创建；当前尚未创建 draft PR，尚未推送、合并或回写 PR/commit。署名确认后已重新完成冻结依赖、生成和本地静态证据，下一步执行浏览器验收、创建 draft PR 与 Pages 闭环。
 - 下一 pending：所有 established 路线均无 pending；TypeScript draft 模块的规划课题不认领、不计入下一批。下一次运行必须重新读取 track/catalog/audit/GitHub 状态，不复用本次候选快照。
 - 续作署名确认（2026-08-06T11:01:28+08:00）：当前接口元数据披露 `Codex Desktop · gpt-5.6-luna`、session/thread `019fd4c2-3465-7ba1-aa09-f81765e08876`；runtime model id 未暴露；human 为认证 GitHub 用户 `@h0ll0w-AkuZr0guY`。用户明确回复“确认以上署名并允许创建 PR”，确认范围仅为 `typescript-12-06` 课程、catalog、visual、example 与本恢复文档；现在允许创建 draft PR，其他课程、历史日志、缓存和生成产物保持未修改。
+- draft PR： [PR #40](https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/40) 已创建，URL 已回写本课日志；当前等待复核 PR diff、可用 checks 与 ready/合并权限。

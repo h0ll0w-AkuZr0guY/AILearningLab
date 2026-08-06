@@ -462,6 +462,7 @@ at: "2026-08-06T11:01:28+08:00"
 human: "@h0ll0w-AkuZr0guY"
 ai: "Codex Desktop · gpt-5.6-luna"
 summary: "恢复网络中断后的发布批次，复核本课的本地构建与浏览器证据，并确认固定 v5.9.3 源码入口。"
+pr: "https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/40"
 
 ### 核准署名并收紧 v5.9.3 源码证据
 
