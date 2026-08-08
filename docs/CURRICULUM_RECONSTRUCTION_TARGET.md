@@ -190,7 +190,7 @@ Python 的旧版目录将大量互相依赖的机制拆成 102 篇 foundation �
 - 最终部署确认：PR #42 已 squash merge 为 `736d7c443bd6a6f7d52cf958c38ec57c1bb6ed42`；其最终 Pages run [31070525385](https://github.com/h0ll0w-AkuZr0guY/AILearningLab/actions/runs/31070525385) 成功。至此本批内容、发布记录和最终部署均已闭环；下一 established pending 为空，保持不启动下一批。
 - 最终 Pages 验证记录 PR：draft [PR #43](https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/43) 已创建，URL 回写后将标记 ready 并 squash merge；该 PR 仅记录最终部署证据。
 
-## LangChain Provider 与模型适配批次：langchain-02-01 至 langchain-02-05（已发布，等待发布记录 PR）
+## LangChain Provider 与模型适配批次：langchain-02-01 至 langchain-02-05（已完整发布）
 
 - 启动证据：2026-08-08 从干净 `main`/`origin/main` `1a4ec85965996560ca192ed7908951f59d4d5c9e` 开始；`git fetch origin --prune` 后无开放 PR、无同 lesson-id 未合并批次和残留远端自动化分支；最近 Pages 运行 [31070646685](https://github.com/h0ll0w-AkuZr0guY/AILearningLab/actions/runs/31070646685) 成功。根目录 `AGENTS.md` 不存在；现有 `.pnpm-store`、`.output`、`dist`、`node_modules` 等忽略目录未纳入本批。
 - 动态候选池：重跑 `curriculum:audit` 后，所有既有 `planningStatus: established` 模块没有合法 pending；Python、TypeScript、LangGraph、Transformer、PyTorch、LangChain 01 和 vLLM 均已完成。按“draft 模块需要新课题时先经源码/文档分析改为 established”的规则，核验 LangChain 02 的官方 Models/Providers 文档、LangChain v1/core 源码和 unit tests，确认五个独立不变量成立后，将模块 02 从 `draft` 改为 `established`，重新计算得到唯一合法候选路线 `["langchain"]`。Nuxt、Deep Agents、LoRA、LangGraph 03–13、LangChain 03–10、PyTorch 03–12、Transformer 02–12、vLLM 02–08、TypeScript 02–11 等 draft 模块仍未认领。
@@ -205,4 +205,5 @@ Python 的旧版目录将大量互相依赖的机制拆成 102 篇 foundation �
 - 内容分支：`agent/curriculum-langchain-langchain-02-01-to-langchain-02-05`，由最新 `origin/main` 创建；内容提交 `a678d07270f4106a809a3f2dd2d23be25b539c28` 已推送，draft [PR #44](https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/44) 创建后完成 diff、冲突和权限复核。
 - 内容发布：PR #44 已于 `2026-08-08T12:51:06Z` 标记 ready 并 squash merge，合并 commit 为 `479d1622eb25722e57f76e0fa371f628b12e2ded`；远端内容分支已删除，五课日志已回写 PR URL 和 commit。
 - Pages 与线上验收：对应 Pages 工作流 [31258184644](https://github.com/h0ll0w-AkuZr0guY/AILearningLab/actions/runs/31258184644) 成功。五个线上 URL 的 HTTPS 均返回 200，静态页面确认 H1、RUNNABLE EXAMPLE、VISUAL LAB、PR #44 和 `Codex Desktop`；线上浏览器成功加载 `langchain-02-03` 并确认 H1，但源码 tab、答案、复制、视觉播放/暂停/重置、窄屏、reduced-motion 与控制台的完整交互复验因 Statsig 遥测超时未完成，不将其记为线上独立通过。本地静态预览已完成这些交互项，独立键盘推进仍未记为通过。
+- 发布记录闭环：发布记录 PR [#45](https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/45) 已 squash merge 为 `45c014adfdd38f7b1a5e3eeee1a388b99ae80b7e`；最终 Pages 工作流 [31258541337](https://github.com/h0ll0w-AkuZr0guY/AILearningLab/actions/runs/31258541337) 成功。最终五个线上课程页均返回 200，并包含 PR #44、内容合并 commit `479d1622eb25722e57f76e0fa371f628b12e2ded`、当前署名、示例和视觉标记；线上浏览器交互限制与本地通过边界保持不变。
 - 下一 pending：若本批发布完成，LangChain established 模块 01/02 将无 pending；其他路线与 draft 模块按当前证据继续退出候选池，下一次自动运行必须重新枚举 track/catalog/audit/GitHub 状态，不复用本次候选快照。
