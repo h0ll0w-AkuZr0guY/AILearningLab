@@ -7,11 +7,11 @@
 | 路线 | 最终课题 | curated | pending | 说明 |
 | --- | ---: | ---: | ---: | --- |
 | Python | 41 | 41 | 0 | 已从 102 篇首轮短文压缩为 8 个模块的最终课题，并完成全量深化。 |
-| TypeScript | 20 | 14 | 6 | 已有课程需要修复源码版本与历史日志。 |
+| TypeScript | 20 | 20 | 0 | 模块 12 尾批已上线；draft 模块不计入候选池。 |
 | LangGraph | 20 | 20 | 0 | 已完成当前目录。 |
 | Transformer | 10 | 10 | 0 | 现有 foundation 短文的状态与深度不匹配，等待重构决定。 |
 | PyTorch | 20 | 20 | 0 | 已完成当前目录。 |
-| LangChain | 12 | 10 | 2 | 本地批次已通过普通审计，等待署名确认与发布闭环。 |
+| LangChain | 17 | 12 | 5 | 模块 02 已依据一手文档/源码/测试建立；五课正在本地 claimed 阶段。 |
 | vLLM | 11 | 11 | 0 | 已完成当前目录。 |
 | Nuxt / Deep Agents / LoRA | 0 | 0 | 0 | 全部模块仍为 draft，不能认领。 |
 
@@ -189,3 +189,18 @@ Python 的旧版目录将大量互相依赖的机制拆成 102 篇 foundation �
 - 最终 Pages 记录 PR：draft [PR #42](https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/42) 已创建，URL 回写后将标记 ready 并 squash merge。
 - 最终部署确认：PR #42 已 squash merge 为 `736d7c443bd6a6f7d52cf958c38ec57c1bb6ed42`；其最终 Pages run [31070525385](https://github.com/h0ll0w-AkuZr0guY/AILearningLab/actions/runs/31070525385) 成功。至此本批内容、发布记录和最终部署均已闭环；下一 established pending 为空，保持不启动下一批。
 - 最终 Pages 验证记录 PR：draft [PR #43](https://github.com/h0ll0w-AkuZr0guY/AILearningLab/pull/43) 已创建，URL 回写后将标记 ready 并 squash merge；该 PR 仅记录最终部署证据。
+
+## LangChain Provider 与模型适配批次：langchain-02-01 至 langchain-02-05（已确认，等待 PR）
+
+- 启动证据：2026-08-08 从干净 `main`/`origin/main` `1a4ec85965996560ca192ed7908951f59d4d5c9e` 开始；`git fetch origin --prune` 后无开放 PR、无同 lesson-id 未合并批次和残留远端自动化分支；最近 Pages 运行 [31070646685](https://github.com/h0ll0w-AkuZr0guY/AILearningLab/actions/runs/31070646685) 成功。根目录 `AGENTS.md` 不存在；现有 `.pnpm-store`、`.output`、`dist`、`node_modules` 等忽略目录未纳入本批。
+- 动态候选池：重跑 `curriculum:audit` 后，所有既有 `planningStatus: established` 模块没有合法 pending；Python、TypeScript、LangGraph、Transformer、PyTorch、LangChain 01 和 vLLM 均已完成。按“draft 模块需要新课题时先经源码/文档分析改为 established”的规则，核验 LangChain 02 的官方 Models/Providers 文档、LangChain v1/core 源码和 unit tests，确认五个独立不变量成立后，将模块 02 从 `draft` 改为 `established`，重新计算得到唯一合法候选路线 `["langchain"]`。Nuxt、Deep Agents、LoRA、LangGraph 03–13、LangChain 03–10、PyTorch 03–12、Transformer 02–12、vLLM 02–08、TypeScript 02–11 等 draft 模块仍未认领。
+- 随机证据：候选池 `['langchain']`，CSPRNG bytes `6e40ccba8f50ff5aa12784fd43565165`，`index=0`，`selected=langchain`，生成时间 `2026-08-08T10:26:37.700Z`。单路线池不需要跨路线取舍；批次最终仍严格限定为五个真实 lesson id。
+- 课题与边界：`langchain-02-01`「init_chat_model 与 provider 选择」覆盖前缀解析、provider 推断、延迟导入与 configurable model；`langchain-02-02`「BaseChatModel 输入归一化」覆盖 PromptValue、字符串、消息列表和失败时机；`langchain-02-03`「_generate、ChatResult 与响应元数据」覆盖 provider 生成容器、第一条 generation 投影和 metadata 合并；`langchain-02-04`「stream、batch 与自动流式」覆盖显式/隐式流式、线程池 batch、as-completed 索引和缓冲回退；`langchain-02-05`「model profile 与能力协商」覆盖三态能力判断、resolver、显式覆盖和未知字段警告。五课对应构造、输入、生成、执行模式和能力五个不变量；不拆成 provider 产品清单、HTTP payload、工具循环或性能宣传，也不把同一主路径模板化凑数。
+- 资料版本：官方入口使用 [Models](https://docs.langchain.com/oss/python/langchain/models) 的 `#initialize-a-model`、`#invoke`、`#stream`、`#batch`、`#model-profiles`、`#configurable-models` 以及 [Providers and models](https://docs.langchain.com/oss/python/concepts/providers-and-models) 的 provider/model/capability 章节；源码统一固定到 LangChain master 当次核验 commit `c318abed446e7d1a0e872a6967b9b17bc6f4761c`，覆盖 `libs/langchain_v1/langchain/chat_models/base.py`、`libs/core/langchain_core/language_models/chat_models.py`、`messages/utils.py`、`outputs/chat_result.py`、`outputs/chat_generation.py`、`language_models/model_profile.py`、`runnables/base.py` 及对应 unit tests。资料访问时间为 2026-08-08；后续版本可能改变 provider 列表、profile 字段和内部分派。
+- 视觉决策：五课均先写出文字后仍难以追踪的变化，再使用同模块独立索引。01 `flow` 展示 provider 选择与延迟构造；02 `flow` 展示输入归一化；03 `flow` 展示 ChatResult 到 AIMessage 的投影；04 `flow` 展示 stream/batch/回退；05 `state` 展示 profile 生命周期与 True/False/unknown 三态。每个索引五步、固定 `chapter:3` placement、文字替代、观察重点，使用通用静止默认控件；没有图片、专属 Vue 组件或装饰资源。
+- 本地改动范围：LangChain 02 catalog、五篇课程正文、五份同模块 visual index、五个无依赖 Python examples，以及本恢复记录。课程正文均完成官方入口、固定源码、逐段讲解、五章、两种变体、完整示例、正常/失败断言、六个搭积木步骤和站内标准答案；五个外部示例已逐个执行通过。署名确认后已在五课更新日志顶部追加本批记录，清除 claimed owner 并将五课标记为 `curated`，视觉索引随之进入普通审计范围。
+- 发布前检查：`CI=true corepack pnpm install --frozen-lockfile`、`corepack pnpm run curriculum:audit`（LangChain `12/12 → 17/17`，全站 `134/134 → 139/139`，视觉 `134/134 → 139/139`）和五个 Python 示例的正常/失败断言均通过。第一次 `corepack pnpm generate` 因课程日志暂写 `pr: "待创建"`，站点把相对 href 预渲染成 `/tracks/langchain/lessons/待创建` 并以 404 失败；已删除未创建阶段的 `pr`/`commit` 占位字段，第二次生成成功，产出 308 条路由，仅保留仓库既有 chunk、Nitro 与 h3 warnings。随后 `git diff --check`、赋值型密钥/私钥头/token 前缀扫描和构建产物追踪检查通过。
+- 本地浏览器验收：五课均确认标题、官方入口、固定 commit 源码链接、源码复现 tab、RUNNABLE EXAMPLE、参考答案、上一题/下一题和资料图谱入口；`langchain-02-03` 额外确认源码复制反馈、答案展开、视觉单步 `1/5 → 2/5`、播放后出现暂停、暂停恢复为播放、重置回 `1/5`。390px 视口下 `scrollWidth=380`、`clientWidth=380`，H1 与视觉区可见；`prefers-reduced-motion: reduce` 命中且样式表包含减弱动态规则；error/warning 控制台为空。视觉控件是原生 button，但 Playwright/DOM 键盘事件未独立推进步骤，因此不把独立键盘激活记为通过。
+- 署名确认：当前接口元数据披露产品上下文 `Codex Desktop`、精确模型 `gpt-5.6-luna`、session/thread `019fe0e0-0ab8-7800-9964-d2b256e46b99`；runtime model id 未单独暴露（接口仅暴露 `model` 字段）；认证 GitHub human 为 `@h0ll0w-AkuZrguY`。用户于 `2026-08-08T20:35:41+08:00` 明确回复“确认以上署名并允许创建 PR”，确认范围仅包含 LangChain 02 五课、catalog、visual、examples 和本恢复记录；其他课程、历史日志、缓存、构建产物和未列文件保持不变。
+- 分支：`agent/curriculum-langchain-langchain-02-01-to-langchain-02-05`，由最新 `origin/main` 创建；署名门禁已解除，当前尚无 PR、远端内容分支或 Pages run。下一步执行完整审计、生成、浏览器门禁，再创建 draft PR。
+- 下一 pending：若本批发布完成，LangChain established 模块 01/02 将无 pending；其他路线与 draft 模块按当前证据继续退出候选池，下一次自动运行必须重新枚举 track/catalog/audit/GitHub 状态，不复用本次候选快照。
